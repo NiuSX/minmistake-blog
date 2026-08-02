@@ -1,128 +1,126 @@
-# SQLDelight 学习笔记
+# SQLDelight 完整学习笔记
 
-> Last researched: 2026-07-30
+> 调研时间：2026-08-02  
+> 主要版本：SQLDelight `2.3.2`  
+> 资料来源：原始笔记 `笔记/SQLDelight-学习笔记.md`、SQLDelight 官方文档、GitHub Changelog、Maven Central、JetBrains 插件市场及少量社区实践文章。
 
-## 摘要
+## 1. 一句话理解
 
-SQLDelight 是 Cash App（现由社区 `sqldelight` 组织维护）开源的一套 **"SQL 优先"** 的数据库访问框架。它的核心思路和 Room、GreenDAO 等"注解驱动生成 SQL"的框架相反：开发者直接在 `.sq` 文件中编写标准 SQL（建表语句 + 带标签的查询语句），SQLDelight 的 Gradle 插件在编译期解析这些 SQL，做**语法与 Schema 校验**，并生成对应的、类型安全的 Kotlin 代码（数据类 + Queries 接口）。它原生支持 Kotlin Multiplatform（KMP），可以在 Android、iOS、桌面 JVM、Web(JS/Wasm) 之间共享同一套数据库访问层，同时通过"方言"（dialect）机制支持 SQLite、MySQL、PostgreSQL、HSQL/H2，以及第三方维护的 CockroachDB、DB2、Oracle 方言。
+SQLDelight 是一个 **SQL 优先、编译期生成类型安全 Kotlin API** 的数据库访问框架。你先在 `.sq` 文件里写真实 SQL，SQLDelight 再通过 Gradle 插件解析这些 SQL，校验 schema、查询和迁移，并生成 `Database`、`Schema`、`XxxQueries`、查询结果数据类等 Kotlin 代码。
 
-当前最新正式版本为 **2.3.2**（2.3.0、2.3.1 因发布问题被跳过），坐标前缀为 `app.cash.sqldelight`；1.x 系列坐标前缀为 `com.squareup.sqldelight`，2.0 是一次不兼容的重大升级。本笔记以 2.x（文档版本 2.1.0 附近的稳定 API，功能上适用于 2.1.0–2.3.2）为主线。
+它不是传统意义上通过注解生成 SQL 的 ORM。Room 的核心输入通常是 `@Entity`、`@Dao`、`@Query`；SQLDelight 的核心输入则是 `.sq` 文件里的 SQL。换句话说，SQLDelight 把 SQL 当作一等公民，Kotlin API 是由 SQL 推导出来的。
 
-## 版本历史速览
+## 2. SQLDelight 解决什么问题
 
-| 版本 | 发布时间 | 关键变化 |
-|---|---|---|
-| 1.5.5 | 2023-01-20 | 1.x 系列最后的稳定版，坐标为 `com.squareup.sqldelight` |
-| 2.0.0 | 2023-07-26 | 重大不兼容升级：坐标切换为 `app.cash.sqldelight`；插件 id 变为 `app.cash.sqldelight`；生成代码/驱动 API 有较多调整，官方提供专门的 [Upgrading to 2.0](https://sqldelight.github.io/sqldelight/2.1.0/upgrading-2.0/) 指南 |
-| 2.0.1 / 2.0.2 | 2023-12-01 / 2024-04-05 | Bug 修复与小幅改进 |
-| 2.1.0 | 2025-05-16 | 本笔记主要参照的文档版本 |
-| 2.2.1 | — | 中间版本 |
-| 2.3.2（最新） | 2026-03-16 | 当前最新正式版；2.3.0/2.3.1 因发布流程问题被跳过 |
+手写 SQLite、JDBC 或 `rawQuery` 时，常见问题是：
 
-> 提示：从 1.x 升级到 2.x 不是简单改版本号，需要同时替换 Maven 坐标前缀（`com.squareup.sqldelight` → `app.cash.sqldelight`）、Gradle 插件 id，并核对生成 API 的变化（详见官方 Upgrading 指南）。
+- SQL 字符串在运行时才暴露错误。
+- 表名、列名、参数数量拼错后很晚才发现。
+- 查询结果需要手动从 cursor 或 result set 转 Kotlin 对象。
+- schema 迁移容易和当前建表 SQL 漂移。
+- 多平台项目需要为 Android、iOS、JVM、JS 重复维护数据库访问层。
 
-## 学习目标
+SQLDelight 的目标是把这些问题提前到编译期：
 
-- 理解 SQLDelight 的核心设计哲学（SQL 优先 vs 注解优先）以及它与 Room 的本质区别
-- 掌握 `.sq` 文件语法、Gradle 插件配置、生成代码的产物结构
-- 掌握 Driver、类型系统（自定义类型/adapter/枚举）、事务、迁移（Migrations）的使用方法
-- 掌握 Coroutines Flow、AndroidX Paging3 等扩展的使用
-- 了解多平台（KMP）项目中如何为不同 target 提供 Driver
-- 了解常见踩坑点、调试排查思路，以及与 Room/Realm/ObjectBox 等方案的选型对比
+- `.sq` 文件中的 SQL 会被解析和类型检查。
+- 查询会生成强类型函数。
+- 查询结果会生成 Kotlin 数据类或映射函数。
+- 迁移可以通过 Gradle 任务校验。
+- Kotlin Multiplatform 项目可以在 `commonMain` 共享数据库访问代码，只在各平台提供不同 `SqlDriver`。
 
-## 前置知识
+## 3. 当前版本与坐标
 
-- 基础 SQL（DDL、DML、JOIN、索引、事务）
-- Kotlin 基础语法，了解 Kotlin Multiplatform 的 `expect`/`actual` 机制（如果要做跨平台）
-- 了解 Gradle 插件的基本使用方式（Kotlin DSL / Groovy DSL 均可）
-- 如果使用 Coroutines/Flow 扩展，需要了解 Kotlin 协程基础
+截至本次调研，官方文档稳定页为 `2.3.2`，Maven Central 上 `app.cash.sqldelight:gradle-plugin` 版本也为 `2.3.2`。SQLDelight 2.x 的坐标和插件 ID 已从 1.x 的 `com.squareup.sqldelight` 切换为 `app.cash.sqldelight`。
 
-## 核心概念
+| 版本 | 时间 | 重点 |
+|---|---:|---|
+| `1.5.5` | 2023-01-20 | 1.x 后期稳定版本，旧坐标为 `com.squareup.sqldelight` |
+| `2.0.0` | 2023-07-26 | 重大升级，坐标切到 `app.cash.sqldelight`，官方发布 2.0 升级指南 |
+| `2.0.1` | 2023-12-01 | 要求 Gradle 构建使用 Java 11，运行时 Java 8 |
+| `2.0.2` | 2024-04-05 | PostgreSQL、IDE、Gradle 等修复 |
+| `2.1.0` | 2025-05-16 | 增加 WASM driver、K2 支持相关改进、大量方言能力增强 |
+| `2.2.0` | 2025-11-13 | 发布失败，官方建议使用 `2.2.1` |
+| `2.2.1` | 2025-11-13 | 修复 2.2.0 发布问题，增强 PostgreSQL / MySQL / Gradle 支持 |
+| `2.3.0` / `2.3.1` | 2026-03-12 | 发布失败，官方建议使用 `2.3.2` |
+| `2.3.2` | 2026-03-16 | 当前稳定主线：AGP 9 兼容、Android minSdk 提升到 23、Paging 扩展切到 AndroidX Paging、增加 `expandSelectStar` 配置 |
 
-| 术语 | 含义 |
+2.x 迁移注意点：
+
+- Gradle 插件 ID 使用 `app.cash.sqldelight`。
+- Maven 依赖前缀使用 `app.cash.sqldelight`。
+- 不要混用旧教程中的 `com.squareup.sqldelight:*`。
+- 2.3.2 中 Android driver 的 minSdk 已提高到 23。
+- `2.3.0` 和 `2.3.1` 是失败发布版本，应直接跳到 `2.3.2`。
+
+## 4. 核心概念表
+
+| 概念 | 说明 |
 |---|---|
-| `.sq` 文件 | 存放 SQL 语句的源文件，位于 `src/main/sqldelight/...`（KMP 中为 `src/commonMain/sqldelight/...`），既包含建表 DDL，也包含带"标签"的查询语句 |
-| 标签语句（labeled statement） | `.sq` 文件中形如 `selectAll:\nSELECT * FROM xxx;` 的写法，冒号前的名字会成为生成函数名 |
-| `Database` 类 | 由 Gradle 插件生成的顶层类，持有一个 `SqlDriver` 实例以及各个 `XxxQueries` 对象，还包含一个 `Schema` 对象 |
-| `Schema` 对象 | 描述如何在空库上创建最新 schema，以及如何从旧版本迁移到新版本（`create`/`migrate` 方法） |
-| `XxxQueries` | 每个含有标签语句的 `.sq` 文件都会生成一个对应的 Queries 对象（如 `PlayerQueries`），暴露类型安全的方法 |
-| `SqlDriver` | 平台相关的驱动接口，真正执行 SQL、管理连接/游标。不同平台有不同实现：`AndroidSqliteDriver`、`NativeSqliteDriver`、`JdbcSqliteDriver`（JVM）、Web Worker 驱动（JS）等 |
-| `ColumnAdapter` | 用于在数据库原生类型（TEXT/INTEGER/…）与自定义 Kotlin 类型之间做编解码转换的接口 |
-| 方言（dialect） | 决定 SQLDelight 用哪种 SQL 语法去解析/校验 `.sq` 文件：SQLite、MySQL、PostgreSQL、HSQL 等 |
-| Migrations（`.sqm` 文件） | 描述"从版本 N 升级到 N+1"的 SQL 语句集合，与 `.sq` 文件放在同一 sqldelight 源集下的 `migrations` 目录 |
-| IDE 插件 | IntelliJ/Android Studio 插件，为 `.sq` 文件提供语法高亮、自动补全、跳转、重构等类似写 Kotlin 代码的体验 |
+| `.sq` 文件 | SQLDelight 的源文件，写建表、索引、初始数据、带标签的查询语句 |
+| 带标签语句 | 形如 `selectAll:\nSELECT * FROM table;`，标签名会变成生成函数名 |
+| `Database` | 生成的数据库入口类，持有 driver 和各个 `XxxQueries` |
+| `Schema` | 生成的 schema 对象，负责空库创建和旧库迁移 |
+| `XxxQueries` | 每个含标签语句的 `.sq` 文件会生成对应 Queries 类 |
+| `SqlDriver` | 平台相关驱动接口，真正负责执行 SQL |
+| `ColumnAdapter` | 自定义 Kotlin 类型与数据库底层类型之间的编码/解码器 |
+| Dialect | SQL 方言配置，决定用哪套 SQL 语法解析和校验 |
+| `.sqm` 文件 | 迁移文件，描述从某一 schema 版本升级到下一版本的 SQL |
+| IDE 插件 | IntelliJ / Android Studio 插件，为 `.sq` 提供高亮、补全、跳转、重构 |
 
-## 可视化：编译期代码生成流程
+## 5. 工作流程总览
 
 ```mermaid
 flowchart LR
-  SQ["*.sq 文件<br/>(DDL + 带标签的查询)"] --> Plugin["SQLDelight Gradle 插件<br/>generateSqlDelightInterface 任务"]
-  Plugin --> Verify["编译期校验<br/>(schema/语句/迁移一致性)"]
-  Verify --> Gen["生成 Kotlin 源码<br/>Database / Schema / XxxQueries / 数据类"]
-  Gen --> Compile["与业务代码一起<br/>正常 Kotlin 编译"]
-  Driver["平台 SqlDriver<br/>(Android/Native/JVM/JS)"] --> Runtime["运行时:<br/>Database(driver) 执行真正 SQL"]
-  Gen --> Runtime
+  A["编写 .sq 文件<br/>CREATE TABLE / INDEX / 查询"] --> B["SQLDelight Gradle 插件"]
+  B --> C["编译期解析与校验<br/>schema / SQL / 参数 / 迁移"]
+  C --> D["生成 Kotlin 代码<br/>Database / Schema / Queries / 数据类"]
+  E["平台 SqlDriver<br/>Android / Native / JVM / JS"] --> F["运行时 Database(driver)"]
+  D --> F
+  F --> G["调用生成的类型安全查询函数"]
 ```
 
-Figure: 文本重绘的编译期/运行期流程，依据官方文档 [SQLDelight Overview](https://sqldelight.github.io/sqldelight/2.1.0/) 与 [Getting Started (Android)](https://sqldelight.github.io/sqldelight/2.1.0/android_sqlite/) 整理。
+实际开发时大致分为六步：
 
-## 架构与工作原理
+1. 在 Gradle 中应用 SQLDelight 插件。
+2. 在 `src/main/sqldelight` 或 `src/commonMain/sqldelight` 写 `.sq` 文件。
+3. 声明表、索引、视图、初始化数据和查询语句。
+4. 构建时生成 Kotlin API。
+5. 为目标平台创建 `SqlDriver`。
+6. 通过 `Database(driver).xxxQueries` 执行查询。
 
-1. **编写 Schema**：在 `.sq` 文件里写 `CREATE TABLE`（可含 `CREATE INDEX`、初始 `INSERT` 等）。`.sq` 文件描述的永远是"空库创建到最新版本"的 DDL。
-2. **编写带标签的查询**：在同一个或另一个 `.sq` 文件中写形如：
-   ```sql
-   selectAll:
-   SELECT * FROM hockeyPlayer;
+## 6. 支持的方言与平台
 
-   insert:
-   INSERT INTO hockeyPlayer(player_number, full_name)
-   VALUES (?, ?);
-   ```
-   每条标签语句会生成一个同名的 Kotlin 函数。
-3. **Gradle 插件生成代码**：`generateSqlDelightInterface` 任务（IDE 编辑 `.sq` 文件时会自动跑，正常 `build` 时也会跑）会为每个 `.sq` 文件生成一个 `XxxQueries` 类，为整个数据库生成一个 `Database` 类和 `Schema` 对象。生成过程中会做**编译期语法与类型校验**：列名拼写错误、SQL 语法不合法、参数个数不匹配等都会在编译期报错，而不是运行时才发现。
-4. **注入 Driver 创建 Database 实例**：`val database = Database(driver)`，`driver` 由平台特定的实现构造，如 Android 的 `AndroidSqliteDriver(Database.Schema, context, "test.db")`。`AndroidSqliteDriver` 在构造时会自动调用 `Schema.create`/`Schema.migrate` 完成建表或迁移。
-5. **调用 Queries 执行 SQL**：`database.playerQueries.selectAll().executeAsList()` 等，返回强类型的 Kotlin 对象（如生成的 `HockeyPlayer` 数据类）。
-6. **可选：接入协程/RxJava**：通过 `asFlow().mapToList(dispatcher)` 或 RxJava 扩展，把 Query 转换成响应式流，每当涉及的表发生写入，流会自动重新查询并发射新结果。
+官方文档列出的支持范围如下：
 
-<cite index="2-1">如果 Room 提供的是对 SQLite 的一层抽象，SQLDelight 则更进一步。</cite> 其生成的函数默认不带 `suspend` 修饰符——<cite index="2-1">SQLDelight 在内部自行管理异步操作，目的是在多平台上保持 API 的一致性，简化学习和使用成本</cite>；如果需要挂起/响应式语义，需要显式引入 Coroutines/RxJava 扩展模块。
-
-## 支持的方言与平台
-
-官方文档给出的支持矩阵（截至 2.1.0/2.3.x）：
-
-| 数据库方言 | 支持平台 |
+| 方言 | 平台 |
 |---|---|
-| SQLite | Android、Native (iOS/macOS/Linux/Windows)、JVM、JavaScript (Browser)、JavaScript (Node，第三方驱动)、Multiplatform |
-| MySQL | JVM (JDBC)；JVM (R2DBC) |
-| PostgreSQL | JVM (JDBC)；JVM (R2DBC)；Native (macOS/Linux，第三方驱动) |
-| HSQL / H2（实验性） | JVM (JDBC / R2DBC) |
-| 第三方方言 | CockroachDB (JVM)、DB2 (JVM)、Oracle DB (JVM) |
+| SQLite | Android、Native（iOS、macOS、Linux、Windows）、JVM、JavaScript Browser、JavaScript Node（第三方）、Multiplatform |
+| MySQL | JVM JDBC、JVM R2DBC |
+| PostgreSQL | JVM JDBC、JVM R2DBC、Native macOS/Linux（第三方驱动） |
+| HSQL / H2 | JVM JDBC、JVM R2DBC，实验性 |
+| 第三方方言 | CockroachDB、DB2、Oracle DB 等 |
 
-<cite index="9-1">SQLDelight 支持多种 SQL 方言与平台</cite>，这也是它与 Room（专注 Android/SQLite）最大的差异化能力之一。
+SQLite 方言模块包括：
 
-## 适用场景与不适用场景
+- `sqlite-3-18-dialect`
+- `sqlite-3-24-dialect`
+- `sqlite-3-25-dialect`
+- `sqlite-3-30-dialect`
+- `sqlite-3-33-dialect`
+- `sqlite-3-35-dialect`
+- `sqlite-3-38-dialect`
 
-**适用场景：**
-- Kotlin Multiplatform 项目，需要在 Android、iOS、桌面、Web 之间共享同一套本地数据库访问层
-- 团队对 SQL 比较熟悉，希望"所见即所得"地控制真实执行的 SQL 语句，而不是依赖注解生成的隐式 SQL
-- 需要支持多种后端方言（不仅仅是移动端 SQLite，也可能是 JVM 服务端连接 MySQL/Postgres）
-- 需要严格的编译期 Schema/SQL 校验，尽早发现拼写错误、类型不匹配等问题
+Android 项目通常不用手动指定 SQLite 方言，插件会根据模块 `minSdkVersion` 自动选择。非 Android 项目默认通常是 SQLite 3.18；如果要使用较新的 SQL 特性，例如更高版本 SQLite 的函数、JSON 语法或查询能力，应显式配置合适 dialect。
 
-**不适用/需权衡的场景：**
-- 纯 Android 项目、团队更熟悉注解驱动的 ORM 且看重与 Jetpack 生态（LiveData、Paging、WorkManager）的无缝整合 —— Room 上手更快、迁移工具更成熟
-- 极度关注包体积增长的多平台项目（有社区反馈在 iOS x86 架构下会带来约 200KB 的包体积增长，虽然相比早期已有改善）
-- 团队希望"零 SQL 知识也能定义数据库"的场景（SQLDelight 要求会写 SQL）
-- 需要开箱即用、无需额外配置的迁移辅助工具的场景（Room 有更结构化的内置迁移辅助）
+## 7. Gradle 基础配置
 
-## 模块深入讲解
-
-### 1. Gradle 插件与项目配置
-
-在根 `build.gradle.kts`（或对应模块）应用插件：
+### 7.1 Android 单平台配置
 
 ```kotlin
 plugins {
-  id("app.cash.sqldelight") version "2.1.0" // 或使用最新的 2.3.2
+  id("com.android.application")
+  kotlin("android")
+  id("app.cash.sqldelight") version "2.3.2"
 }
 
 repositories {
@@ -132,199 +130,123 @@ repositories {
 
 sqldelight {
   databases {
-    create("Database") { // 生成的数据库类名
-      packageName.set("com.example")
+    create("AppDatabase") {
+      packageName.set("com.example.db")
     }
   }
 }
-```
 
-- **责任边界**：该插件负责扫描 `sqldelight` 源集目录、编译期解析/校验 SQL、生成 Kotlin 源码，以及提供 `verifySqlDelightMigration`、`generate<SourceSet><Database>Schema` 等辅助任务。
-- **依赖**：不同平台需要额外引入对应的 driver 依赖（见下），KMP 项目还可以引入 `coroutines-extensions`、`androidx-paging3` 等扩展 artifact。
-- **常见配置项**：`packageName`、`schemaOutputDirectory`（迁移校验需要）、`dialect(...)`（切换方言，例如指定具体的 SQLite 版本方言）、`generateAsync`（部分场景下生成异步 API，第三方集成如 PowerSync 会用到）、`deriveSchemaFromMigrations`。
-- **Android 特有行为**：Android 项目中，插件会依据模块的 `minSdkVersion` **自动选择对应的 SQLite 方言版本**，你无需手动指定。
-
-### 2. `.sq` 文件与代码生成
-
-- 文件放置路径（单平台 Android/JVM）：`src/main/sqldelight/<package路径>/xxx.sq`
-- KMP 项目：`src/commonMain/sqldelight/<package路径>/xxx.sq`
-- 一个 `.sq` 文件里可以有多条 DDL、也可以有多条"标签: SQL"语句；每个含标签语句的 `.sq` 文件都会对应生成一个 `XxxQueries` 对象（`Player.sq` → `PlayerQueries`）。
-- IDE 中打开/编辑 `.sq` 文件时，IDE 插件会自动触发 `generateSqlDelightInterface` 增量生成，正常 `gradle build` 也会重新生成——**因此第一次使用时如果 IDE 报"找不到生成类"，先手动跑一次 Gradle 同步/编译**。
-- 建议在 Android Studio 中切换到 "Project" 视图而非 "Android" 视图，便于查看/编辑 `sqldelight` 目录。
-
-### 3. Driver（各平台驱动）
-
-| 平台 | 依赖 artifact | 构造方式（示例） |
-|---|---|---|
-| Android | `app.cash.sqldelight:android-driver` | `AndroidSqliteDriver(Database.Schema, context, "test.db")` |
-| KMP Native (iOS/macOS/Linux/Windows) | `app.cash.sqldelight:native-driver` | `NativeSqliteDriver(Database.Schema, "test.db")` |
-| JVM (纯 Kotlin/服务端) | `app.cash.sqldelight:sqlite-driver`（或 jdbc-driver，用于 MySQL/Postgres/H2） | `JdbcSqliteDriver("jdbc:sqlite:test.db", Properties(), Database.Schema)` |
-| JS (Browser) | `sqljs-driver` | 通过 SQL.js WASM 在浏览器/Web Worker 中运行 |
-
-KMP 中通常用一个 `expect class DriverFactory { fun createDriver(): SqlDriver }`，再在各平台源集（`androidMain`/`nativeMain`/`jvmMain`）中提供 `actual` 实现，这样 `commonMain` 里的业务代码可以完全平台无关。
-
-### 4. 类型系统
-
-- SQLite 原生类型与 Kotlin 类型的默认映射：`INTEGER → Long`、`REAL → Double`、`TEXT → String`、`BLOB → ByteArray`。
-- **原始类型适配（Primitives）**：引入 `primitive-adapters` 依赖后可用 `IntColumnAdapter`（数据库里存 `Long`，但 Kotlin 侧取出 `Int`）、`FloatColumnAdapter`、`ShortColumnAdapter`。
-- **自定义列类型**：用 `TEXT AS List<String>` 之类的语法为列声明"逻辑 Kotlin 类型"，再在构造 `Database` 时提供一个 `ColumnAdapter<KotlinType, DbType>` 实现 `encode`/`decode`：
-  ```kotlin
-  val listOfStringsAdapter = object : ColumnAdapter<List<String>, String> {
-    override fun decode(databaseValue: String) =
-      if (databaseValue.isEmpty()) listOf() else databaseValue.split(",")
-    override fun encode(value: List<String>) = value.joinToString(",")
-  }
-  val database = Database(driver, hockeyPlayerAdapter = HockeyPlayer.Adapter(cup_winsAdapter = listOfStringsAdapter))
-  ```
-- **枚举**：SQLDelight 内置 `EnumColumnAdapter()`，配合 `TEXT AS HockeyPlayer.Position` 语法，把枚举以字符串形式存储。
-- **Value Class**：`id INT AS VALUE` 之类的写法可以让 SQLDelight 生成包装类型（value class），提升类型安全（例如避免把 `PlayerId` 和普通 `Int` 混用）。
-
-### 4.1 外键约束（Foreign Keys）—— 一个容易被忽视的默认行为
-
-SQLite **默认不启用外键约束检查**（这是 SQLite 本身的行为，不是 SQLDelight 的限制），即便 `.sq` 文件里写了 `FOREIGN KEY ... REFERENCES ...`，如果不显式开启，插入/删除违反外键关系的数据也不会报错。不同 Driver 开启方式不同：
-
-```kotlin
-// Android
-AndroidSqliteDriver(
-  schema = Database.Schema,
-  context = context,
-  name = "Database",
-  callback = object : AndroidSqliteDriver.Callback(Database.Schema) {
-    override fun onOpen(db: SupportSQLiteDatabase) {
-      db.setForeignKeyConstraintsEnabled(true)
-    }
-  }
-)
-
-// Native (iOS/macOS/等)
-NativeSqliteDriver(
-  schema = Database.Schema,
-  onConfiguration = { config: DatabaseConfiguration ->
-    config.copy(extendedConfig = DatabaseConfiguration.Extended(foreignKeyConstraints = true))
-  }
-)
-```
-
-这是社区 Issue/Discussion 中反复被提问的一个点，建议在项目初始化阶段就统一在各平台 Driver 上打开，而不要等到线上出现"脏数据"才发现外键其实从未生效。
-
-### 4.2 自定义投影（Type Projections）与 Mapper
-
-默认情况下，`SELECT` 语句会生成一个与查询列一一对应的数据类。如果想返回自定义形状的结果，官方推荐**优先用 SQL 本身**去做投影/转换，而不是在 Kotlin 侧做转换：
-
-```sql
-selectNames:
-SELECT upper(full_name)
-FROM hockeyPlayer;
-```
-
-```kotlin
-val selectAllNames = playerQueries.selectNames()
-println(selectAllNames.executeAsList()) // ["RYAN GETZLAF", "COREY PERRY"]
-```
-
-如果确实需要在 Kotlin 侧自定义类型转换，可以在调用处传入一个类型安全的 `mapper` lambda：
-
-```kotlin
-val selectAllNames = playerQueries.selectAll(
-  mapper = { player_number, full_name -> full_name.uppercase() }
-)
-```
-
-**已知限制**：如果查询涉及 `JOIN` 且结果列超过 22 列，早期版本在生成自定义 mapper 时会有限制（这是 Kotlin 语言层面函数参数个数相关的历史限制，社区在 GitHub Issue 中有讨论），遇到这种"宽表"场景建议拆分查询或使用命名的数据类而非多参数 lambda。
-
-### 4.3 查询参数（Bind Args）与类型推断
-
-`.sq` 文件使用与 SQLite 完全一致的绑定参数（bind args）语法（`?`、`?1`、`:name` 等）。SQLDelight 会根据列定义**自动推断参数的 Kotlin 类型与是否可空**，生成的函数签名会要求调用方传入对应类型的参数，编译期即可发现参数类型不匹配或参数个数错误的问题——这是它相较于手写 `rawQuery`/`ContentValues` 的核心优势之一。
-
-### 5. 事务（Transactions）与语句分组
-
-- SQLDelight 生成的 `Database`/`Queries` 提供 `transaction { ... }` 这样的 DSL，块内的多条写操作会在同一个数据库事务中执行，保证原子性。
-- 支持事务嵌套（内层事务实际上作为外层事务的一部分执行，通常通过 savepoint 语义处理）。
-- "Grouping Statements"（分组语句）允许把多条 SQL 作为一个逻辑单元生成到同一个函数里，便于封装一次性需要执行多条语句的业务操作。
-
-### 6. Migrations（Schema 迁移）
-
-- `.sq` 文件永远描述"最新版 schema 如何在空库上创建"；如果线上已有旧版本数据库，需要通过**迁移文件**把旧库升级到新版本。
-- 迁移文件与 `.sq` 文件放在同一 sqldelight 源集下的 `migrations` 目录，命名规则为 `<起始版本号>.sqm`：
-  ```
-  src/main/sqldelight
-  ├── com/example/hockey/Player.sq
-  └── migrations
-      ├── 1.sqm   -- 从版本1升级到版本2
-      └── 2.sqm   -- 从版本2升级到版本3
-  ```
-  例如 `1.sqm` 中写：
-  ```sql
-  ALTER TABLE hockeyPlayer ADD COLUMN draft_year INTEGER;
-  ALTER TABLE hockeyPlayer ADD COLUMN draft_order INTEGER;
-  ```
-- **重要提示**：如果驱动本身支持事务，迁移语句会自动包裹在一个事务里执行；**不要**自己在 `.sqm` 文件里再手写 `BEGIN`/`END TRANSACTION`，否则某些驱动上会崩溃。
-- **迁移校验**：插件会注册 `verifySqlDelightMigration` 任务（默认接入 `check` 任务），它会取 sqldelight 源集下形如 `<version>.db` 的历史快照数据库文件，依次应用后续迁移，并断言结果与最新 schema 一致。需要先配置 `schemaOutputDirectory`，再运行 `generate<SourceSet><Database>Schema` 任务生成初始 `.db` 快照（通常只保留一个 `1.db` 即可，过多快照会导致重复迁移校验、拖慢构建）。
-- **代码迁移（Code Migrations）**：如果需要在迁移过程中做数据迁移（不仅仅是 DDL），可以用 `Database.Schema.migrate(driver, oldVersion, newVersion, AfterVersion(n) { driver -> ... })` 在某个版本迁移完成后插入自定义逻辑；`AndroidSqliteDriver` 的构造函数也支持通过 `callback` 参数传入这些回调。
-
-```mermaid
-flowchart LR
-  V1["版本 1<br/>(初始 schema)"] -- "1.sqm" --> V2["版本 2"]
-  V2 -- "2.sqm" --> V3["版本 3"]
-  V3 -- "3.sqm 完成后<br/>触发 AfterVersion(3) 回调" --> V4["版本 4<br/>(执行数据迁移逻辑)"]
-  V4 -- "4.sqm" --> V5["版本 5"]
-  V5 -- "5.sqm" --> V6["版本 6<br/>(最终 Schema.version)"]
-```
-
-Figure: 迁移版本链与 `AfterVersion` 回调触发时机示意，依据官方 [Migrations](https://sqldelight.github.io/sqldelight/2.1.0/android_sqlite/migrations/) 文档中的示例重绘。
-
-### 7. 扩展：Coroutines / Flow
-
-```kotlin
 dependencies {
-  implementation("app.cash.sqldelight:coroutines-extensions:2.1.0")
+  implementation("app.cash.sqldelight:android-driver:2.3.2")
 }
-
-val players: Flow<List<HockeyPlayer>> =
-  playerQueries.selectAll()
-    .asFlow()
-    .mapToList(Dispatchers.IO)
 ```
 
-每当涉及的表发生写入，Flow 会自动重新执行查询并发射新的结果集合，非常适合搭配 Jetpack Compose/ViewModel 做响应式 UI。RxJava2/RxJava3 也有对应的扩展模块（`rxjava2-extensions`/`rxjava3-extensions`）。
+说明：
 
-### 8. 扩展：AndroidX Paging3
+- `create("AppDatabase")` 中的名字就是生成的数据库类名。
+- `packageName` 是生成类所在包名。
+- Android driver 是 `app.cash.sqldelight:android-driver`。
+- 2.3.2 起 Android driver 的 minSdk 是 23。
 
-SQLDelight 提供 `androidx-paging3` 扩展模块，可以把一个 Query 转换成 Paging3 所需的 `PagingSource`，用于分页加载大数据集，避免一次性把整表加载进内存。
+### 7.2 Kotlin Multiplatform 配置
 
-### 9. 测试与 IntelliJ 插件
+```kotlin
+plugins {
+  kotlin("multiplatform")
+  id("app.cash.sqldelight") version "2.3.2"
+}
 
-- **Testing**：官方文档提供了针对 `.sq` 查询的测试建议，通常是用内存数据库（如 JVM 上的 `JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY)`）快速创建/销毁 schema 做单元测试，配合 `Database.Schema.create(driver)` 初始化。典型的纯 JVM 单元测试写法：
+kotlin {
+  androidTarget()
+  iosArm64()
+  iosSimulatorArm64()
+  jvm()
 
-  ```kotlin
-  class CurrencyQueriesTests {
-    lateinit var queries: CurrencyQueries
-
-    @Before
-    fun setUp() {
-      val driver = JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY)
-      Database.Schema.create(driver)
-      val database = Database(driver)
-      queries = database.currencyQueries
+  sourceSets {
+    commonMain.dependencies {
+      implementation("app.cash.sqldelight:runtime:2.3.2")
+      implementation("app.cash.sqldelight:coroutines-extensions:2.3.2")
     }
 
-    @Test
-    fun insertOrReplace_insertsItem() {
-      val c = currency()
-      queries.insertOrReplace(c)
-      assertEquals(c, queries.select(c.id).executeAsOneOrNull())
+    androidMain.dependencies {
+      implementation("app.cash.sqldelight:android-driver:2.3.2")
+    }
+
+    iosMain.dependencies {
+      implementation("app.cash.sqldelight:native-driver:2.3.2")
+    }
+
+    jvmMain.dependencies {
+      implementation("app.cash.sqldelight:sqlite-driver:2.3.2")
     }
   }
-  ```
+}
 
-  这种做法的好处是**测试跑在纯 JVM 上、完全脱离 Android 设备/模拟器**，速度快很多；在 KMP 项目中，也可以用 `expect fun createInMemorySqlDriver(): SqlDriver` + 各平台 `actual` 实现（Android 端底层同样是 `JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY)`）来给 `commonTest` 提供一致的内存数据库。
-  - **注意**：内存数据库每次新建连接都是一个全新的、独立的数据库，多条连接之间不共享数据；同时需要显式调用 `Schema.create(driver)`，AndroidSqliteDriver 那种"构造时自动建表/迁移"的便利在纯内存 JDBC 驱动上并不是默认行为。
-- **IntelliJ/Android Studio 插件**：为 `.sq` 文件提供语法高亮、自动补全、"跳转到定义"、重构（重命名表/列时同步更新引用）等类 IDE 体验；同时提供 alpha/EAP 渠道，可以提前体验尚未发布的插件特性。
+sqldelight {
+  databases {
+    create("AppDatabase") {
+      packageName.set("com.example.db")
+    }
+  }
+}
+```
 
-## 简单示例：完整最小可运行流程（Android）
+KMP 的关键点不是把同一个 driver 到处用，而是让 `commonMain` 只依赖抽象的 `SqlDriver`，各平台自己提供 driver 实现。
+
+### 7.3 常用 Gradle 配置项
+
+```kotlin
+sqldelight {
+  linkSqlite.set(true)
+
+  databases {
+    create("AppDatabase") {
+      packageName.set("com.example.db")
+      srcDirs.setFrom("src/main/sqldelight")
+      schemaOutputDirectory.set(file("src/main/sqldelight/databases"))
+      dialect("app.cash.sqldelight:sqlite-3-38-dialect:2.3.2")
+      verifyMigrations.set(true)
+      generateAsync.set(false)
+      deriveSchemaFromMigrations.set(false)
+      expandSelectStar.set(true)
+    }
+  }
+}
+```
+
+| 配置 | 作用 |
+|---|---|
+| `linkSqlite` | Native target 是否自动链接 SQLite，默认 `true` |
+| `packageName` | 生成数据库类的包名 |
+| `srcDirs` | `.sq` 和 `.sqm` 文件查找目录 |
+| `schemaOutputDirectory` | 生成 `.db` schema 快照，用于迁移校验 |
+| `dialect` | 显式选择 SQL 方言 |
+| `verifyMigrations` | 构建时校验迁移文件是否正确 |
+| `generateAsync` | 生成面向异步 driver 的 `suspend` 查询方法，默认 `false` |
+| `deriveSchemaFromMigrations` | 从 `.sqm` 推导 schema，而不是以 `.sq` 为 schema 源 |
+| `expandSelectStar` | 是否把 `SELECT *` 展开成显式列，默认 `true`；2.3.2 增加了开关能力 |
+
+## 8. `.sq` 文件
+
+### 8.1 文件路径
+
+Android / JVM 单平台：
+
+```text
+src/main/sqldelight/com/example/db/Player.sq
+```
+
+Kotlin Multiplatform：
+
+```text
+src/commonMain/sqldelight/com/example/db/Player.sq
+```
+
+路径中的 `com/example/db` 通常与 `packageName` 对应，便于生成代码和源码组织一致。
+
+### 8.2 最小示例
 
 ```sql
--- src/main/sqldelight/com/example/sqldelight/hockey/data/Player.sq
 CREATE TABLE hockeyPlayer (
   player_number INTEGER PRIMARY KEY NOT NULL,
   full_name TEXT NOT NULL
@@ -342,112 +264,1068 @@ FROM hockeyPlayer;
 insert:
 INSERT INTO hockeyPlayer(player_number, full_name)
 VALUES (?, ?);
+
+deleteByNumber:
+DELETE FROM hockeyPlayer
+WHERE player_number = ?;
+```
+
+生成代码大致会提供：
+
+- `AppDatabase`
+- `AppDatabase.Schema`
+- `PlayerQueries`
+- `HockeyPlayer`
+- `selectAll()`
+- `insert(player_number: Long, full_name: String)`
+- `deleteByNumber(player_number: Long)`
+
+### 8.3 标签语句规则
+
+SQLDelight 会为 `.sq` 文件里每条带标签的语句生成函数：
+
+```sql
+findByName:
+SELECT *
+FROM hockeyPlayer
+WHERE full_name = ?;
+```
+
+对应 Kotlin 调用：
+
+```kotlin
+val player = database.playerQueries
+  .findByName("Ryan Getzlaf")
+  .executeAsOneOrNull()
+```
+
+常用执行函数：
+
+```kotlin
+query.executeAsList()
+query.executeAsOne()
+query.executeAsOneOrNull()
+```
+
+写操作通常直接调用生成函数：
+
+```kotlin
+database.playerQueries.insert(10, "Corey Perry")
+```
+
+## 9. 查询参数
+
+SQLDelight 支持 SQLite 常见的绑定参数语法：
+
+```sql
+selectById:
+SELECT *
+FROM article
+WHERE id = ?;
+
+selectByStatus:
+SELECT *
+FROM article
+WHERE status = :status;
+
+selectBetween:
+SELECT *
+FROM article
+WHERE created_at BETWEEN :from AND :to;
+```
+
+SQLDelight 会根据列定义推断参数类型。例如：
+
+```sql
+CREATE TABLE article (
+  id INTEGER NOT NULL PRIMARY KEY,
+  title TEXT NOT NULL,
+  subtitle TEXT,
+  created_at INTEGER NOT NULL
+);
+```
+
+则：
+
+- `id` 通常映射成 `Long`。
+- `title` 映射成 `String`。
+- `subtitle` 映射成 `String?`。
+- `created_at` 映射成 `Long`。
+
+建议：
+
+- 面向业务调用优先使用命名参数 `:name`，可读性更好。
+- 避免大型查询里混用大量匿名 `?`，后续维护容易传错顺序。
+- 对复杂搜索条件可以拆成多条查询，或者把参数命名清楚。
+
+## 10. 结果映射与自定义投影
+
+### 10.1 默认生成数据类
+
+```sql
+selectAll:
+SELECT id, title, created_at
+FROM article;
+```
+
+SQLDelight 会根据查询列生成结果类型。如果查询结果刚好是表的所有列，通常复用表对应的数据类；如果是部分列或表达式，则生成查询专用类型。
+
+### 10.2 用 SQL 做投影
+
+官方更推荐优先让 SQL 返回你真正需要的形状：
+
+```sql
+selectArticleCards:
+SELECT
+  id,
+  title,
+  substr(content, 1, 120) AS preview,
+  created_at
+FROM article
+ORDER BY created_at DESC;
+```
+
+这样 Kotlin 层拿到的就是已经裁剪好的结果，不需要再把整篇正文查出来后手动截断。
+
+### 10.3 Mapper lambda
+
+调用查询时也可以传 mapper：
+
+```kotlin
+val titles: List<String> = database.articleQueries
+  .selectAll(mapper = { id, title, content, createdAt -> title })
+  .executeAsList()
+```
+
+注意：
+
+- mapper 适合轻量转换，不适合承载复杂业务规则。
+- 宽表 JOIN 的 mapper 参数会变得很难维护。
+- 如果查询列很多，优先建立明确的 SQL 投影或拆分查询。
+
+## 11. 类型系统
+
+### 11.1 SQLite 默认类型映射
+
+| SQLite 类型 | Kotlin 类型 |
+|---|---|
+| `INTEGER` | `Long` |
+| `REAL` | `Double` |
+| `TEXT` | `String` |
+| `BLOB` | `ByteArray` |
+
+可空性来自 SQL 列定义：
+
+```sql
+CREATE TABLE user (
+  id INTEGER NOT NULL,
+  name TEXT NOT NULL,
+  nickname TEXT
+);
+```
+
+生成后通常是：
+
+```kotlin
+data class User(
+  val id: Long,
+  val name: String,
+  val nickname: String?
+)
+```
+
+### 11.2 Primitive adapters
+
+如果希望数据库仍用 SQLite 类型存储，但 Kotlin 侧使用更贴近业务的类型，可以引入：
+
+```kotlin
+implementation("app.cash.sqldelight:primitive-adapters:2.3.2")
+```
+
+可用 adapter：
+
+- `IntColumnAdapter`：数据库底层是 `Long`，Kotlin 侧是 `Int`。
+- `ShortColumnAdapter`：数据库底层是 `Long`，Kotlin 侧是 `Short`。
+- `FloatColumnAdapter`：数据库底层是 `Double`，Kotlin 侧是 `Float`。
+
+### 11.3 自定义列类型
+
+```sql
+import kotlin.collections.List;
+import kotlin.String;
+
+CREATE TABLE article (
+  id INTEGER NOT NULL PRIMARY KEY,
+  title TEXT NOT NULL,
+  tags TEXT AS List<String> NOT NULL
+);
+```
+
+需要提供 `ColumnAdapter`：
+
+```kotlin
+val tagsAdapter = object : ColumnAdapter<List<String>, String> {
+  override fun decode(databaseValue: String): List<String> {
+    return if (databaseValue.isBlank()) emptyList() else databaseValue.split(",")
+  }
+
+  override fun encode(value: List<String>): String {
+    return value.joinToString(",")
+  }
+}
+
+val database = AppDatabase(
+  driver = driver,
+  articleAdapter = Article.Adapter(
+    tagsAdapter = tagsAdapter
+  )
+)
+```
+
+更稳妥的生产做法通常是用 JSON 编码标签列表，而不是简单逗号拼接，因为标签内容本身可能包含逗号：
+
+```kotlin
+val tagsAdapter = object : ColumnAdapter<List<String>, String> {
+  override fun decode(databaseValue: String): List<String> =
+    json.decodeFromString(databaseValue)
+
+  override fun encode(value: List<String>): String =
+    json.encodeToString(value)
+}
+```
+
+### 11.4 枚举
+
+```sql
+import com.example.ArticleStatus;
+
+CREATE TABLE article (
+  id INTEGER NOT NULL PRIMARY KEY,
+  title TEXT NOT NULL,
+  status TEXT AS ArticleStatus NOT NULL
+);
 ```
 
 ```kotlin
-fun doDatabaseThings(driver: SqlDriver) {
-  val database = Database(driver)
-  val playerQueries: PlayerQueries = database.playerQueries
+val database = AppDatabase(
+  driver = driver,
+  articleAdapter = Article.Adapter(
+    statusAdapter = EnumColumnAdapter()
+  )
+)
+```
 
-  println(playerQueries.selectAll().executeAsList())
-  // [HockeyPlayer(15, "Ryan Getzlaf")]
+枚举默认以字符串形式存储。优点是数据库可读性好；缺点是重命名 enum 常量会影响旧数据解析。因此生产中不要随意改枚举常量名，必要时写兼容 adapter。
 
-  playerQueries.insert(player_number = 10, full_name = "Corey Perry")
-  println(playerQueries.selectAll().executeAsList())
-  // [HockeyPlayer(15, "Ryan Getzlaf"), HockeyPlayer(10, "Corey Perry")]
+### 11.5 Value types
+
+```sql
+CREATE TABLE article (
+  id INT AS VALUE PRIMARY KEY NOT NULL,
+  title TEXT NOT NULL
+);
+```
+
+SQLDelight 可以生成包装类型，避免把多个 `Long` / `Int` 类型的 ID 互相传错。适合 `UserId`、`ArticleId`、`OrderId` 这类业务 ID。
+
+## 12. Driver
+
+`SqlDriver` 是 SQLDelight 运行时真正连接数据库的部分。生成的 `Database` 不自己决定底层数据库在哪里，它只依赖一个 driver。
+
+### 12.1 Android
+
+```kotlin
+val driver: SqlDriver = AndroidSqliteDriver(
+  schema = AppDatabase.Schema,
+  context = context,
+  name = "app.db"
+)
+
+val database = AppDatabase(driver)
+```
+
+Android driver 在构造时会自动创建或迁移 schema。
+
+### 12.2 JVM SQLite
+
+```kotlin
+val driver = JdbcSqliteDriver(
+  url = "jdbc:sqlite:app.db",
+  properties = Properties(),
+  schema = AppDatabase.Schema
+)
+
+val database = AppDatabase(driver)
+```
+
+测试时常用内存库：
+
+```kotlin
+val driver = JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY)
+AppDatabase.Schema.create(driver)
+val database = AppDatabase(driver)
+```
+
+注意：内存库需要显式 `Schema.create(driver)`。
+
+### 12.3 Native / iOS
+
+```kotlin
+val driver = NativeSqliteDriver(
+  schema = AppDatabase.Schema,
+  name = "app.db"
+)
+
+val database = AppDatabase(driver)
+```
+
+KMP iOS 项目里通常把 driver 创建放在 `iosMain` 的 `actual DriverFactory` 中。
+
+### 12.4 KMP DriverFactory 模式
+
+`commonMain`：
+
+```kotlin
+expect class DriverFactory {
+  fun createDriver(): SqlDriver
 }
 
-val driver: SqlDriver = AndroidSqliteDriver(Database.Schema, context, "test.db")
-doDatabaseThings(driver)
+fun createDatabase(driverFactory: DriverFactory): AppDatabase {
+  return AppDatabase(driverFactory.createDriver())
+}
 ```
 
-## KMP 项目的典型目录结构（社区总结）
+`androidMain`：
+
+```kotlin
+actual class DriverFactory(
+  private val context: Context
+) {
+  actual fun createDriver(): SqlDriver {
+    return AndroidSqliteDriver(AppDatabase.Schema, context, "app.db")
+  }
+}
+```
+
+`iosMain`：
+
+```kotlin
+actual class DriverFactory {
+  actual fun createDriver(): SqlDriver {
+    return NativeSqliteDriver(AppDatabase.Schema, "app.db")
+  }
+}
+```
+
+这种结构能让 `commonMain` 的 repository、DAO 包装层、use case 完全不关心平台。
+
+## 13. 外键约束
+
+SQLite 默认不启用外键约束检查。即使你在 `.sq` 文件中写了：
+
+```sql
+CREATE TABLE comment (
+  id INTEGER PRIMARY KEY NOT NULL,
+  article_id INTEGER NOT NULL,
+  content TEXT NOT NULL,
+  FOREIGN KEY(article_id) REFERENCES article(id)
+);
+```
+
+如果没有在 driver 层开启外键检查，违反外键的数据仍可能插入成功。
+
+Android 开启方式：
+
+```kotlin
+val driver = AndroidSqliteDriver(
+  schema = AppDatabase.Schema,
+  context = context,
+  name = "app.db",
+  callback = object : AndroidSqliteDriver.Callback(AppDatabase.Schema) {
+    override fun onOpen(db: SupportSQLiteDatabase) {
+      db.setForeignKeyConstraintsEnabled(true)
+    }
+  }
+)
+```
+
+建议：
+
+- 项目初始化时统一开启外键。
+- 为外键行为写测试，覆盖删除父记录、插入不存在父记录等场景。
+- 不要把「建表语句里写了 FOREIGN KEY」误解为「运行时一定检查外键」。
+
+## 14. 事务
+
+SQLDelight 提供 `transaction` DSL：
+
+```kotlin
+database.transaction {
+  database.articleQueries.insertArticle(...)
+  database.tagQueries.insertTags(...)
+  database.articleTagQueries.insertRelations(...)
+}
+```
+
+特点：
+
+- 多条语句作为一个原子操作提交。
+- 中间抛异常时回滚。
+- 嵌套事务由 driver / runtime 处理。
+- 适合批量写入、级联写入、一次业务操作涉及多表的场景。
+
+不要把大量耗时非数据库逻辑放进事务里，例如网络请求、复杂 CPU 计算、UI 状态更新。事务持有数据库资源，时间越长越容易造成锁等待或并发问题。
+
+## 15. 分组语句
+
+分组语句适合把多条 SQL 放在一个标签函数中：
+
+```sql
+clearAndSeed {
+  DELETE FROM article;
+
+  INSERT INTO article(id, title, content)
+  VALUES (1, 'Hello', 'First article');
+
+  INSERT INTO article(id, title, content)
+  VALUES (2, 'SQLDelight', 'Typed SQL');
+}
+```
+
+适用场景：
+
+- 初始化数据。
+- 测试准备数据。
+- 批量清理。
+- 一组总是一起执行的 SQL。
+
+注意：如果这组语句具有业务原子性要求，仍应在调用处明确考虑事务边界。
+
+## 16. Migrations 迁移
+
+### 16.1 迁移模型
+
+`.sq` 文件描述的是「空数据库如何创建最新 schema」。线上旧用户数据库从旧版本升级到新版本时，需要 `.sqm` 迁移文件。
+
+目录示例：
 
 ```text
-PROJECT_ROOT/
-├── commonMain/kotlin/com/example/app/database   # 共享的数据库访问代码
-├── commonMain/sqldelight/com/example/app/data    # .sq 文件（DDL + 查询）
-├── androidMain/kotlin                            # actual DriverFactory (Android)
-├── iosMain/kotlin (nativeMain)                    # actual DriverFactory (Native)
-├── jvmMain/kotlin                                 # actual DriverFactory (JVM)
-├── jsMain/kotlin                                  # JS 平台代码
-└── build.gradle.kts
+src/main/sqldelight/
+├── com/example/db/Article.sq
+└── migrations/
+    ├── 1.sqm
+    ├── 2.sqm
+    └── 3.sqm
 ```
 
-（依据社区教程整理，参见 CSDN《SQLDelight 使用教程》。）
+版本规则：
 
-## 常见错误与陷阱
+- 初始 schema 版本是 `1`。
+- `1.sqm` 表示从版本 1 升级到版本 2。
+- `2.sqm` 表示从版本 2 升级到版本 3。
+- 文件名必须连续，否则旧库升级链路会断。
 
-1. **忘记在迁移文件里避免手写事务包裹**：某些驱动上如果在 `.sqm` 中自己写 `BEGIN TRANSACTION`/`END TRANSACTION`，会与框架自动开启的事务冲突导致崩溃。
-2. **多个 schema 快照 `.db` 文件导致构建变慢**：`verifySqlDelightMigration` 会对每一个快照文件重放全部后续迁移，多份快照意味着重复劳动，通常只保留 `1.db` 即可。
-3. **IDE 未生成代码就报"unresolved reference"**：`.sq` 文件保存后需要等 IDE 插件（或手动跑 Gradle 任务）完成 `generateSqlDelightInterface` 才能看到生成类；网络不稳定或插件版本不匹配时容易卡住，建议先做一次 `./gradlew generateCommonMainDatabaseInterface`（具体任务名随 source set/数据库名变化）或者 clean build。
-4. **忽视生成函数不是 `suspend` 的**：SQLDelight 的查询方法默认是同步阻塞调用（跨平台统一行为），如果直接在主线程/UI 线程调用容易卡 UI；需要显式切到 IO 线程，或使用协程扩展的 `asFlow().mapToList(dispatcher)`。
-5. **多平台包体积敏感度**：有实际业务反馈（携程机票团队）在早期调研中，SQLDelight 在 iOS x86 架构下会带来明显的包体积增长（该团队记录的实测数据约为 200KB，且相比更早期的版本已有改善）；如果对包体积极度敏感，需要提前做基准测试评估。
-6. **方言不匹配导致的 SQL 语法报错**：例如把仅 PostgreSQL 支持的语法写进面向 SQLite 方言配置的 `.sq` 文件里，会在编译期报语法错误——本质上这是"防呆"设计，但初学者容易误以为是插件 bug。
-7. **自定义类型忘记提供 Adapter**：声明了 `TEXT AS SomeType` 却在构造 `Database(...)` 时没有传入对应 `Adapter`，会导致编译不通过；需要为每个自定义列类型显式提供 `ColumnAdapter`。
-8. **Gradle 插件坐标混淆**：1.x 系列使用 `com.squareup.sqldelight` 坐标与插件 id，2.0+ 统一切换为 `app.cash.sqldelight`；直接照抄网上旧教程的坐标会导致依赖解析失败，需要按照当前使用的大版本核对坐标前缀。
-9. **误以为外键约束默认生效**：写了 `FOREIGN KEY` 却没有在各平台 Driver 上显式开启约束检查（见"外键约束"小节），导致脏数据能够被插入而不报错，这是 SQLite 本身的默认行为，容易被误认为是 SQLDelight 的 bug。
-10. **JDBC 文件型 driver 的内存增长**：社区曾报告 `sqlite-driver` 某些版本在长时间轮询查询磁盘文件数据库（非内存库）时出现持续内存增长（GitHub Issue #2444），如果在桌面/服务端场景下做高频轮询查询，建议关注所用版本的相关 issue，评估是否需要控制查询频率、复用 statement，或跟进后续版本修复。
-11. **自定义 Mapper 遇到宽表 JOIN**：查询列数较多（历史上 22 列附近）的多表 JOIN，在使用自定义类型安全 `mapper` 参数时可能受限；优先考虑用 SQL 层面的投影（如聚合函数、`CASE WHEN`）替代 Kotlin 侧的自定义 mapper，或拆分成多条查询。
+示例：
 
-## 调试与故障排查建议
+```sql
+-- migrations/1.sqm
+ALTER TABLE article ADD COLUMN summary TEXT;
+CREATE INDEX article_created_at ON article(created_at);
+```
 
-- 生成代码看起来"没更新"：先手动运行 `./gradlew :module:generate<SourceSet><DatabaseName>Interface`（或直接跑一次完整编译），必要时清理 `build` 目录。
-- 迁移校验失败：检查 `.sqm` 文件版本号是否连续、是否遗漏了某个版本号对应的迁移文件，以及快照 `.db` 文件是否与当前最新 schema 已经严重偏离。
-- 运行时崩溃提示表/列不存在：多半是迁移逻辑遗漏了某张表的变更，或线上存量数据库版本号与代码里 `Schema.version` 不一致，可以打印/断言 `oldVersion`、`newVersion` 辅助定位。
-- 查询返回类型与预期不符：检查是否用了隐式的类型推断（如 `SELECT *` 出来的字段类型），必要时显式使用自定义列类型 + `ColumnAdapter`，避免依赖默认的 INTEGER/REAL/TEXT/BLOB 映射。
+### 16.2 不要手写事务包裹
 
-## 与相关方案的对比
+官方文档明确说明，如果 driver 支持，迁移会在事务中执行。因此 `.sqm` 文件中不要写：
 
-| 维度 | SQLDelight | Room (Jetpack) |
+```sql
+BEGIN TRANSACTION;
+-- migration SQL
+END TRANSACTION;
+```
+
+这可能和框架自动事务冲突，在某些 driver 上导致崩溃。
+
+### 16.3 迁移校验
+
+推荐配置：
+
+```kotlin
+sqldelight {
+  databases {
+    create("AppDatabase") {
+      packageName.set("com.example.db")
+      schemaOutputDirectory.set(file("src/main/sqldelight/databases"))
+      verifyMigrations.set(true)
+    }
+  }
+}
+```
+
+生成 schema 快照：
+
+```bash
+./gradlew generateMainAppDatabaseSchema
+```
+
+校验迁移：
+
+```bash
+./gradlew verifySqlDelightMigration
+```
+
+或直接：
+
+```bash
+./gradlew check
+```
+
+实践建议：
+
+- 第一次发布数据库前生成 `1.db`。
+- 后续变更 schema 时写对应 `.sqm`。
+- 大多数项目只保留 `1.db` 即可；多个 `.db` 快照会让迁移校验重复执行、拖慢构建。
+- CI 中运行 `check`，避免迁移漂移进入主分支。
+
+### 16.4 Code Migrations
+
+有些迁移不是单纯 DDL，例如要把旧字段内容拆分、修复脏数据、按业务规则填新表。这时可以用代码迁移：
+
+```kotlin
+AppDatabase.Schema.migrate(
+  driver = driver,
+  oldVersion = oldVersion,
+  newVersion = AppDatabase.Schema.version,
+  AfterVersion(3) { driver ->
+    driver.execute(
+      identifier = null,
+      sql = "UPDATE article SET summary = substr(content, 1, 120) WHERE summary IS NULL",
+      parameters = 0
+    )
+  }
+)
+```
+
+`AfterVersion(3)` 的含义是：`3.sqm` 执行完成、数据库已经来到版本 4 后触发回调，然后继续执行后续迁移。
+
+## 17. Coroutines / Flow
+
+依赖：
+
+```kotlin
+implementation("app.cash.sqldelight:coroutines-extensions:2.3.2")
+```
+
+查询转 Flow：
+
+```kotlin
+val articles: Flow<List<Article>> =
+  database.articleQueries
+    .selectAll()
+    .asFlow()
+    .mapToList(Dispatchers.IO)
+```
+
+特点：
+
+- 初次收集时发射查询结果。
+- 对应查询依赖的表发生变更时重新查询并发射新结果。
+- 适合 Compose、ViewModel、状态流、列表页面。
+
+常见写法：
+
+```kotlin
+class ArticleRepository(
+  private val database: AppDatabase,
+  private val dispatcher: CoroutineDispatcher = Dispatchers.IO
+) {
+  fun observeArticles(): Flow<List<Article>> {
+    return database.articleQueries
+      .selectAll()
+      .asFlow()
+      .mapToList(dispatcher)
+  }
+
+  suspend fun addArticle(title: String, content: String) {
+    withContext(dispatcher) {
+      database.articleQueries.insertArticle(title, content)
+    }
+  }
+}
+```
+
+注意：
+
+- 普通生成查询函数默认不是 `suspend`，不要在 UI 线程直接执行大查询。
+- `asFlow()` 是响应式观察，不代表 SQL 本身自动变成非阻塞；仍要传合适 dispatcher。
+- 高频写入会触发查询刷新，必要时在上层 Flow 做 `debounce`、`distinctUntilChanged` 或分页。
+
+## 18. AndroidX Paging
+
+SQLDelight 提供 `androidx-paging3` 扩展。2.3.2 中 Paging 扩展切换到 AndroidX Paging，并升级到 Paging `3.4.1`。
+
+典型场景：
+
+- 大型文章列表。
+- 聊天记录。
+- 日志列表。
+- 本地缓存分页展示。
+
+基本思路：
+
+```sql
+countArticles:
+SELECT count(*)
+FROM article;
+
+selectArticlesPage:
+SELECT *
+FROM article
+ORDER BY created_at DESC
+LIMIT :limit OFFSET :offset;
+```
+
+实际项目中再把 Query 包装成 PagingSource。分页查询要注意稳定排序，不能只 `LIMIT/OFFSET` 而没有确定的 `ORDER BY`。
+
+## 19. 测试策略
+
+### 19.1 JVM 内存库测试
+
+```kotlin
+class ArticleQueriesTest {
+  private lateinit var driver: SqlDriver
+  private lateinit var database: AppDatabase
+
+  @Before
+  fun setUp() {
+    driver = JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY)
+    AppDatabase.Schema.create(driver)
+    database = AppDatabase(driver)
+  }
+
+  @After
+  fun tearDown() {
+    driver.close()
+  }
+
+  @Test
+  fun insertAndSelectArticle() {
+    database.articleQueries.insertArticle(
+      id = 1,
+      title = "SQLDelight",
+      content = "Typed SQL",
+      created_at = 1_700_000_000
+    )
+
+    val article = database.articleQueries.selectById(1).executeAsOne()
+
+    assertEquals("SQLDelight", article.title)
+  }
+}
+```
+
+测试重点：
+
+- 表约束是否生效。
+- 查询排序是否稳定。
+- nullable 字段是否符合预期。
+- adapter 编码/解码是否双向正确。
+- 迁移前后数据是否保留。
+- 外键和级联删除是否符合业务规则。
+
+### 19.2 迁移测试
+
+至少覆盖：
+
+- 从 `1.db` 迁移到最新版本。
+- 每个新增 `.sqm` 是否可执行。
+- 旧字段重命名、拆表、合表后数据是否正确。
+- 非空列新增时是否提供默认值或回填逻辑。
+
+CI 推荐：
+
+```bash
+./gradlew check
+```
+
+如果项目较大，可以单独跑：
+
+```bash
+./gradlew verifySqlDelightMigration
+```
+
+## 20. 推荐的项目分层
+
+SQLDelight 生成代码不等于业务数据层全部完成。推荐在它之上再包一层 repository，避免 UI 或 use case 直接依赖大量查询细节。
+
+```text
+data/
+├── db/
+│   ├── AppDatabase.sq 生成产物
+│   ├── DriverFactory
+│   └── adapters
+├── repository/
+│   └── ArticleRepository
+domain/
+├── model/
+└── usecase/
+ui/
+```
+
+Repository 示例：
+
+```kotlin
+class ArticleRepository(
+  private val database: AppDatabase,
+  private val io: CoroutineDispatcher
+) {
+  fun observeLatest(): Flow<List<ArticleCard>> {
+    return database.articleQueries
+      .selectLatestArticleCards()
+      .asFlow()
+      .mapToList(io)
+  }
+
+  suspend fun publish(draft: ArticleDraft) {
+    withContext(io) {
+      database.transaction {
+        database.articleQueries.insertArticle(
+          title = draft.title,
+          content = draft.content,
+          created_at = clock.nowEpochSeconds()
+        )
+      }
+    }
+  }
+}
+```
+
+原则：
+
+- `.sq` 写真实 SQL。
+- Repository 负责业务语义。
+- Use case 组合多个 repository。
+- UI 不关心 SQLDelight 的 driver、adapter、迁移细节。
+
+## 21. 选型对比
+
+### 21.1 SQLDelight vs Room
+
+| 维度 | SQLDelight | Room |
 |---|---|---|
-| 核心理念 | SQL 优先：手写 SQL，编译期生成类型安全 Kotlin API | 注解优先：用 `@Entity`/`@Dao`/`@Query` 注解驱动代码生成 |
-| 多平台支持 | 原生支持 KMP（Android/iOS/JVM/JS/桌面），是其核心定位之一 | 传统上仅限 Android；Room 2.7+/3.0 起逐步加入 KMP 支持，但整体在多平台上的成熟度晚于 SQLDelight |
-| 编译期校验 | 对 SQL 语句、schema、迁移一致性做编译期校验 | 对 `@Query` 中的 SQL 也做编译期校验，但以注解处理器/KSP 驱动 |
-| 迁移工具 | 需要手写 `.sqm` 迁移 SQL 文件，配合 `verifySqlDelightMigration` 校验 | 提供更结构化的内置迁移 API 和辅助方法，一般认为对迁移新手更友好 |
-| 学习曲线 | 需要熟悉 SQL；Gradle 配置相对繁琐，便利性不如"开箱即用" | 如果已经熟悉 Android/注解式开发，上手成本低 |
-| 响应式支持 | Coroutines Flow / RxJava2/3 扩展模块 | 原生支持 Flow、LiveData，与 Jetpack 生态无缝衔接 |
-| 生态背书 | Cash App 发起，现由社区维护 | Google 官方维护，作为 Android 官方推荐方案 |
+| 核心输入 | `.sq` 文件中的 SQL | `@Entity`、`@Dao`、`@Query` |
+| 思路 | SQL 优先 | 注解 / DAO 优先 |
+| 多平台 | 原生定位 KMP | 新版本逐步支持 KMP，但传统优势仍在 Android |
+| 编译期校验 | 校验 schema、语句、迁移 | 校验 DAO 查询与实体关系 |
+| 迁移 | 手写 `.sqm`，可校验 | 结构化 Migration API 与 AutoMigration |
+| SQL 控制力 | 很强 | 强，但常与实体模型绑定 |
+| 上手成本 | 需要熟悉 SQL 和 Gradle 配置 | Android 开发者通常更熟 |
+| Jetpack 整合 | 需扩展模块 | 更自然 |
 
-社区文章普遍认为：**如果团队 SQL 能力强、需要真正的多平台共享数据层**，SQLDelight 更有优势；**如果是 Android 优先、团队更熟悉注解式开发、且看重与 Jetpack 生态的整合**，Room（尤其是已经加入 KMP 能力的新版本）是更省心的选择。也有团队（如携程机票）在调研 SQLDelight、Room、Realm 等方案后，出于包体积、易用性等综合考虑，选择自研数据库框架，说明"没有放之四海而皆准的最优解"，需要结合团队现状和约束权衡。
+选择 SQLDelight：
 
-## 社区经验与踩坑记录（Community Notes）
+- 你正在做 KMP。
+- 团队 SQL 能力较强。
+- 希望 SQL 是数据库层事实来源。
+- 需要在编译期发现 SQL 和迁移问题。
+- 需要 JVM 服务端或多方言支持。
 
-- 中文社区（掘金/CSDN）教程普遍以 Gradle 插件配置、`.sq` 文件建表与查询、跨平台 Driver 构造这几个环节作为入门重点，说明这几步是新手最容易卡住的地方。
-- 有 KMM 实践文章提醒：使用较低版本的 SQLDelight（如 1.5.0）时要求匹配较高版本的 Gradle（如 6.8+），版本不匹配会直接导致构建报错；升级到 2.x 时坐标从 `com.squareup.sqldelight` 变为 `app.cash.sqldelight`，需要整体替换而不是简单改版本号。
-- 携程机票团队的技术分享提到，在自研 KMP SQL 框架之前评估过 SQLDelight，认为其 KCP（Kotlin Compiler Plugin）代码生成能力"非常惊艳"，但同时指出其**配置较为繁琐、学习成本较高、不够开箱即用**，这与官方文档需要显式声明 driver、adapter、迁移文件等设计是一致的——SQLDelight 把更多控制权交给开发者，代价是初始配置成本更高。
-- 多篇社区教程建议：迁移到 2.x 之后，尽量使用 Kotlin DSL（`build.gradle.kts`）而非旧的 Groovy DSL 写法，以获得更好的类型提示和与最新文档示例的一致性。
+选择 Room：
 
-## References and further reading
+- 项目主要是 Android。
+- 团队已经大量使用 Jetpack。
+- 希望使用注解、实体、DAO、AutoMigration。
+- 更重视 Android 官方生态一致性。
 
-- Official: [SQLDelight Overview (2.1.0 docs)](https://sqldelight.github.io/sqldelight/2.1.0/)
-- Official: [Getting Started with SQLite on Android](https://sqldelight.github.io/sqldelight/2.1.0/android_sqlite/)
-- Official: [Getting Started with SQLite on Multiplatform](https://sqldelight.github.io/sqldelight/2.1.0/multiplatform_sqlite/)
-- Official: [Migrations](https://sqldelight.github.io/sqldelight/2.1.0/android_sqlite/migrations/)
-- Official: [Coroutines (Flow) extension](https://sqldelight.github.io/sqldelight/2.1.0/android_sqlite/coroutines/)
-- Official: [Types (Custom Column Types / Enums / Value Types)](https://sqldelight.github.io/sqldelight/2.1.0/android_sqlite/types/)
-- Official: [GitHub Releases — sqldelight/sqldelight](https://github.com/sqldelight/sqldelight/releases)
-- Official: [GitHub Repository — sqldelight/sqldelight](https://github.com/sqldelight/sqldelight)
-- Vendor blog (JetBrains): [Create a multiplatform app using Ktor and SQLDelight](https://kotlinlang.org/docs/multiplatform/multiplatform-ktor-sqldelight.html)
-- Community/Explainer: [Intro to SQLDelight — LogRocket Blog](https://blog.logrocket.com/intro-sqldelight/)
-- Community/Explainer: [A Guide to SQLDelight — Baeldung on Kotlin](https://www.baeldung.com/kotlin/sqldelight)
-- Community/Explainer: [Android — SQLDelight, why and how? (Medium)](https://medium.com/@meytataliti/android-sqldelight-why-and-how-5a1e472cfacd)
-- Comparison: [From SQLDelight to Room in Kotlin Multiplatform Projects (Medium)](https://medium.com/@santimattius/from-sqldelight-to-room-in-kotlin-multiplatform-projects-4eaced1620a7)
-- Comparison: [Database Solutions for KMP/CMP: SQLDelight vs Room (Medium)](https://medium.com/@muralivitt/database-solutions-for-kmp-cmp-sqldelight-vs-room-ea9a52c7bce7)
-- Comparison: [Room vs SQLDelight for Kotlin Multiplatform: Which Database ORM to Choose in 2026 (BSWEN)](https://docs.bswen.com/blog/2026-03-14-room-vs-sqldelight-kmp/)
-- Comparison: [Local Database: Comparing Realm, SQLDelight, and Room (ProAndroidDev)](https://proandroiddev.com/which-local-database-should-you-choose-in-2025-comparing-realm-sqldelight-and-room-4221b354c899)
-- Chinese community (掘金): [SQLDelight for Android - 从SQL语句中生成Kotlin代码](https://juejin.cn/post/7145643584258539550)
-- Chinese community (掘金): [Android 开发中的 SQLDelight 入门](https://juejin.cn/post/7111246458895990792)
-- Chinese community (掘金): [将 SQL Delight 与 Android 中的 Room 数据库进行比较](https://juejin.cn/post/7166214131438059533)
-- Chinese community (CSDN): [SQLDelight 使用教程](https://blog.csdn.net/gitblog_00426/article/details/141050241)
-- Chinese community (CSDN): [KMM 入门（六）使用 SQLDelight 操作数据库](https://blog.csdn.net/yuanguozhengjust/article/details/118679979)
-- Chinese community (CSDN): [SqlDelight 跨平台数据库使用记录](https://blog.csdn.net/weixin_45215447/article/details/144076732)
-- Vendor blog (携程技术, Ctrip Tech): [开源 | 携程机票跨端 Kotlin DSL 数据库框架 SQLlin](https://blog.csdn.net/ctrip_tech/article/details/128489585)
-- Official: [Type Projections (custom mapper)](https://sqldelight.github.io/sqldelight/2.2.1/jvm_mysql/custom_projections/)
-- GitHub Discussion: [Document enabling foreign keys for the SQLDelight Multiplatform drivers #3681](https://github.com/sqldelight/sqldelight/discussions/3681)
-- GitHub Issue: [Support custom mappers for projections with more than 22 columns #1199](https://github.com/square/sqldelight/issues/1199)
-- GitHub Issue: [Memory leak in native code when using sqlite-driver 1.5.0 #2444](https://github.com/sqldelight/sqldelight/issues/2444)
-- Community (Kodeco): [SQLDelight in Android: Validate & Test Database Code](https://www.kodeco.com/21631179-sqldelight-in-android-getting-started/lessons/11)
-- Community (个人博客): [Android Cache Management With SQLDelight — Igor Bubelov](https://bubelov.com/blog/2020/05/sqldelight/)
-- Community (个人博客): [Kotlin Multiplatform In-Memory SQLDelight Database for Testing](https://akjaw.com/kotlin-multiplatform-testing-sqldelight-integration-ios-android/)
-- Community (Kotlin Slack 存档): [Recommended way to unit test SQLDelight in KMP](https://slack-chats.kotlinlang.org/t/524972/does-anyone-know-if-there-is-a-recommended-way-to-unit-test-)
+### 21.2 SQLDelight vs Realm / ObjectBox
+
+| 维度 | SQLDelight | Realm / ObjectBox |
+|---|---|---|
+| 数据模型 | 关系型 SQL | 对象数据库或移动数据库 |
+| 查询语言 | SQL | 各自查询 API |
+| 可移植性 | SQL 可迁移性更强 | 更依赖特定引擎 |
+| 学习重点 | SQL、迁移、索引 | SDK、对象模型、同步能力 |
+| 适用场景 | 结构化关系数据、多平台共享 SQL | 移动端对象图、本地同步、快速 CRUD |
+
+如果数据天然是关系型、需要 JOIN、聚合、索引调优，SQLDelight 更贴近问题本身。如果更看重对象图、同步、离线优先 SDK 能力，则应评估 Realm / ObjectBox 等方案。
+
+## 22. 常见踩坑
+
+### 22.1 旧坐标照抄
+
+错误：
+
+```kotlin
+id("com.squareup.sqldelight")
+implementation("com.squareup.sqldelight:android-driver:...")
+```
+
+2.x 应使用：
+
+```kotlin
+id("app.cash.sqldelight")
+implementation("app.cash.sqldelight:android-driver:2.3.2")
+```
+
+### 22.2 忘记 driver 依赖
+
+插件只负责生成代码，运行时还需要 driver。Android、JVM、Native 依赖不同，不能只加插件不加 driver。
+
+### 22.3 IDE 找不到生成类
+
+处理顺序：
+
+1. 检查 `.sq` 文件路径是否在 `sqldelight` 源集下。
+2. 手动运行一次 `./gradlew build` 或生成接口任务。
+3. 检查插件 ID 和 SQLDelight 版本。
+4. 检查 `.sq` 中 SQL 是否已编译失败。
+5. Android Studio 使用 Project 视图查看目录。
+
+### 22.4 迁移遗漏
+
+改了 `CREATE TABLE` 但忘了写 `.sqm`，新安装用户没问题，老用户升级崩溃。每次 schema 变化都要问：
+
+- 空库建表 SQL 改了吗？
+- 老库从旧版本迁移到新版本的 `.sqm` 写了吗？
+- 迁移校验跑了吗？
+
+### 22.5 新增非空列
+
+错误示例：
+
+```sql
+ALTER TABLE article ADD COLUMN slug TEXT NOT NULL;
+```
+
+旧表已有数据时，这通常会失败，因为旧行没有 `slug`。更稳妥：
+
+```sql
+ALTER TABLE article ADD COLUMN slug TEXT;
+UPDATE article SET slug = lower(replace(title, ' ', '-')) WHERE slug IS NULL;
+```
+
+然后视具体数据库能力和业务要求再收紧约束，或在应用层保证新写入数据不为空。
+
+### 22.6 外键未开启
+
+建表里有 `FOREIGN KEY` 不等于运行时启用了外键检查。SQLite 需要在 driver 打开时启用。
+
+### 22.7 主线程执行大查询
+
+生成函数默认同步。大查询、大写入、复杂事务应放在 `Dispatchers.IO` 或后台线程。
+
+### 22.8 过度使用 `SELECT *`
+
+`SELECT *` 在早期开发很方便，但长期维护风险较高：
+
+- 表结构变化会改变查询结果形状。
+- 多表 JOIN 时列名冲突或结果过宽。
+- 查询返回不必要字段，浪费 I/O。
+
+2.3.2 提供 `expandSelectStar` 配置，默认会把 `SELECT *` 展开成实际列。即便如此，业务查询仍建议显式列出需要的字段。
+
+### 22.9 Adapter 编码不可逆
+
+例如用逗号拼接 `List<String>`，当元素本身包含逗号时会损坏数据。自定义 adapter 要满足：
+
+- `decode(encode(value)) == value`
+- 对空值、空集合、旧数据格式有兼容处理
+- 枚举重命名有迁移或兼容策略
+
+### 22.10 方言版本过低
+
+非 Android 默认 SQLite 方言可能较老。如果使用较新的 SQLite 语法，在 SQLite 浏览器里能跑，不代表 SQLDelight 当前 dialect 能解析。需要显式配置如：
+
+```kotlin
+dialect("app.cash.sqldelight:sqlite-3-38-dialect:2.3.2")
+```
+
+## 23. 调试排查清单
+
+构建失败：
+
+- 检查 SQLDelight 插件版本和依赖版本是否一致。
+- 检查是否混用 1.x / 2.x 坐标。
+- 检查 `.sq` 文件路径是否正确。
+- 检查 SQL 是否符合当前 dialect。
+- 检查 Gradle、Kotlin、AGP 版本兼容性。
+
+运行时表不存在：
+
+- 确认 driver 使用了正确的 `AppDatabase.Schema`。
+- 确认数据库文件名没有写错。
+- 确认旧库迁移链完整。
+- 确认测试内存库调用了 `Schema.create(driver)`。
+
+迁移失败：
+
+- `.sqm` 文件名是否连续。
+- 是否新增非空列但没有默认值。
+- 是否手写了 `BEGIN/END TRANSACTION`。
+- `schemaOutputDirectory` 是否配置。
+- `.db` 快照是否过旧或与当前迁移链不匹配。
+
+查询结果不更新：
+
+- 是否使用了 `asFlow()`。
+- 写入是否通过 SQLDelight driver 执行。
+- 观察的 query 是否依赖被修改的表。
+- 是否在 Flow 上层错误使用了缓存、`stateIn` 或 `distinctUntilChanged`。
+
+性能问题：
+
+- 使用 `EXPLAIN QUERY PLAN` 分析查询。
+- 为 `WHERE`、`ORDER BY`、JOIN key 建索引。
+- 避免大表 `SELECT *`。
+- 对列表使用分页。
+- 批量写入放进事务。
+- 避免过于频繁地触发响应式查询刷新。
+
+## 24. 学习路线
+
+第一阶段：入门
+
+- 理解 `.sq` 文件。
+- 配好 Gradle 插件和 driver。
+- 写一张表、一个插入、一个查询。
+- 跑通 `executeAsList()` 和 `executeAsOneOrNull()`。
+
+第二阶段：工程化
+
+- 引入 repository 封装。
+- 使用 `ColumnAdapter`。
+- 使用 `transaction`。
+- 使用 Flow 观察数据。
+- 为查询写 JVM 内存库测试。
+
+第三阶段：迁移与多平台
+
+- 配置 `schemaOutputDirectory`。
+- 生成 `1.db`。
+- 写 `.sqm` 迁移。
+- 在 CI 中跑 `check`。
+- 抽象 KMP `DriverFactory`。
+
+第四阶段：优化
+
+- 分析慢查询。
+- 建索引。
+- 使用 Paging。
+- 减少宽表查询和不必要字段。
+- 规范 schema 命名、迁移评审和 adapter 测试。
+
+## 25. 最小可运行 Android 示例
+
+`build.gradle.kts`：
+
+```kotlin
+plugins {
+  id("com.android.application")
+  kotlin("android")
+  id("app.cash.sqldelight") version "2.3.2"
+}
+
+sqldelight {
+  databases {
+    create("AppDatabase") {
+      packageName.set("com.example.db")
+    }
+  }
+}
+
+dependencies {
+  implementation("app.cash.sqldelight:android-driver:2.3.2")
+  implementation("app.cash.sqldelight:coroutines-extensions:2.3.2")
+}
+```
+
+`src/main/sqldelight/com/example/db/Article.sq`：
+
+```sql
+CREATE TABLE article (
+  id INTEGER PRIMARY KEY NOT NULL,
+  title TEXT NOT NULL,
+  content TEXT NOT NULL,
+  created_at INTEGER NOT NULL
+);
+
+CREATE INDEX article_created_at ON article(created_at);
+
+insertArticle:
+INSERT INTO article(id, title, content, created_at)
+VALUES (:id, :title, :content, :created_at);
+
+selectLatest:
+SELECT id, title, created_at
+FROM article
+ORDER BY created_at DESC;
+
+selectById:
+SELECT *
+FROM article
+WHERE id = :id;
+
+deleteById:
+DELETE FROM article
+WHERE id = :id;
+```
+
+Kotlin：
+
+```kotlin
+class ArticleStore(context: Context) {
+  private val driver = AndroidSqliteDriver(
+    schema = AppDatabase.Schema,
+    context = context,
+    name = "app.db"
+  )
+
+  private val database = AppDatabase(driver)
+
+  fun observeLatest(): Flow<List<SelectLatest>> {
+    return database.articleQueries
+      .selectLatest()
+      .asFlow()
+      .mapToList(Dispatchers.IO)
+  }
+
+  suspend fun insert(id: Long, title: String, content: String) {
+    withContext(Dispatchers.IO) {
+      database.articleQueries.insertArticle(
+        id = id,
+        title = title,
+        content = content,
+        created_at = System.currentTimeMillis() / 1000
+      )
+    }
+  }
+}
+```
+
+## 26. 实战规范建议
+
+- 表名和列名统一 snake_case。
+- 查询标签使用动词开头：`selectById`、`insertArticle`、`deleteExpired`。
+- 列表页查询不要 `SELECT *`，只查卡片需要字段。
+- 每次 schema 变更必须同时提交 `.sq` 和 `.sqm`。
+- 每个自定义 adapter 都要写往返测试。
+- 事务只包数据库操作，不包网络和 UI。
+- 所有大查询都在 IO dispatcher 执行。
+- KMP 中不要让 `commonMain` 直接依赖 Android context。
+- 外键要在 driver 初始化时显式开启并测试。
+- CI 中至少跑 `check` 或 `verifySqlDelightMigration`。
+
+## 27. 参考资料
+
+- SQLDelight 官方 Overview 2.3.2：https://sqldelight.github.io/sqldelight/2.3.2/
+- SQLite Android Getting Started：https://sqldelight.github.io/sqldelight/2.3.2/android_sqlite/
+- SQLite Multiplatform Getting Started：https://sqldelight.github.io/sqldelight/2.3.2/multiplatform_sqlite/
+- Gradle 配置：https://sqldelight.github.io/sqldelight/2.3.2/android_sqlite/gradle/
+- Types / ColumnAdapter / Enum / Value types：https://sqldelight.github.io/sqldelight/2.3.2/android_sqlite/types/
+- Migrations：https://sqldelight.github.io/sqldelight/2.3.2/android_sqlite/migrations/
+- Coroutines Flow：https://sqldelight.github.io/sqldelight/2.3.2/android_sqlite/coroutines/
+- Foreign Keys：https://sqldelight.github.io/sqldelight/2.3.2/android_sqlite/foreign_keys/
+- SQLDelight GitHub：https://github.com/sqldelight/sqldelight
+- SQLDelight Changelog：https://github.com/sqldelight/sqldelight/blob/main/CHANGELOG.md
+- Maven Central Gradle Plugin：https://central.sonatype.com/artifact/app.cash.sqldelight/gradle-plugin
+- JetBrains SQLDelight Plugin：https://plugins.jetbrains.com/plugin/8191-sqldelight
+- Cash App：Announcing SQLDelight 2.0：https://code.cash.app/sqldelight-2-0
