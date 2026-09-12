@@ -63,5 +63,5 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages # 部署到pages分支
-          folder: docs/_site
+          folder: _site
           clean: true # 清理目标分支中的旧文件
