@@ -1,0 +1,60 @@
+name: build  # 工作流名称：构建
+
+on:
+  push:
+    branches:
+      - main  # 当代码推送到 master 分支时触发
+  workflow_dispatch: {}  # 允许在 GitHub Actions 页面手动触发
+  repository_dispatch: {}  # 允许通过 API 从外部仓库触发
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # 使用最新版 Ubuntu 运行器
+    steps:
+      # 检出仓库代码，fetch-depth: 0 表示拉取完整历史（Jekyll 构建需要）
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # 安装并配置 Ruby 3.2 环境
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+
+      # 缓存 Bundler 依赖，加快后续构建速度
+      - name: Setup cache for Bundler
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            docs/Gemfile.lock
+            docs/vendor/bundle
+          # 缓存 key 基于 Gemfile 的哈希值，Gemfile 变化时自动失效
+          key: ${{ runner.os }}-bundler-${{ hashFiles('docs/Gemfile') }}
+          restore-keys: |
+            ${{ runner.os }}-bundler-
+
+      # 在 docs 目录下安装 Ruby 依赖
+      - name: Install - Bundler
+        env:
+          MAKE: make -j2  # 使用 2 个并行任务编译原生扩展
+        working-directory: docs/  # 在 docs 子目录中执行
+        run: |
+          bundle config set path vendor/bundle  # 将依赖安装到 vendor/bundle
+          bundle install --jobs=4 --retry=3  # 4 个并行任务安装，失败重试 3 次
+          bundle clean  # 清理未使用的 gem
+
+      # 更新 Algolia 搜索索引（用于站内搜索）
+      - name: Update Algolia index
+        working-directory: docs/
+        run: bundle exec jekyll algolia push  # 通过 jekyll-algolia 插件推送索引
+        env:
+          ALGOLIA_API_KEY: ${{ secrets.ALGOLIA_API_KEY }}  # 从仓库 Secrets 读取 API Key
+        continue-on-error: true  # 即使索引更新失败也不阻断整个工作流
+
+      - name: Deploy to pages branch
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages # 部署到pages分支
+          folder: _site
+          clean: true # 清理目标分支中的旧文件

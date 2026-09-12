@@ -1,0 +1,59 @@
+name: Cleanup bad PR  # 清理无效的 Pull Request
+
+on:
+  pull_request_target:
+    types: [opened, reopened]  # 在 PR 被打开或重新打开时触发
+
+permissions:
+  contents: read  # 仅需读取仓库内容的权限
+
+jobs:
+  close-pr:
+    permissions:
+      pull-requests: write  # 需要写入 PR 的权限（用于评论、加标签、关闭、锁定）
+    runs-on: ubuntu-latest
+    steps:
+      # 检出 PR 发起者分支中的 _config.yml，用于判断是否被自定义
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}  # 检出 PR 的 head commit
+          fetch-depth: 1  # 只拉取最近一次提交，节省时间
+          persist-credentials: false  # 不持久化凭证，避免泄露
+          allow-unsafe-pr-checkout: true  # 允许检出不受信任的 PR 代码
+          sparse-checkout: |  # 仅检出 _config.yml 这一个文件
+            _config.yml
+      # 读取 _config.yml，判断 url 字段是否为空（即是否为默认主题配置）
+      - id: config
+        shell: ruby {0}  # 使用 Ruby 执行脚本
+        run: |
+          require "yaml"
+
+          config = YAML.safe_load(File.read("_config.yml"), aliases: true) || {}
+          customized = !config.fetch("url", nil).nil?  # url 有值说明已被自定义
+          File.open(ENV.fetch("GITHUB_OUTPUT"), "a") do |file|
+            file.puts("customized=#{customized}")  # 输出结果供后续步骤使用
+          end
+      # 若配置未被自定义（说明是误提交到本仓库的 PR），打上无效与垃圾标签
+      - uses: actions-ecosystem/action-add-labels@v1
+        if: steps.config.outputs.customized == 'false'
+        with:
+          labels: |
+            Type: Invalid
+            Type: Spam
+      # 关闭该 PR，并留下说明性评论，引导用户到正确的仓库
+      - uses: superbrothers/close-pull-request@v3
+        if: steps.config.outputs.customized == 'false'
+        with:
+          # 可选：在关闭 PR 前发布一条评论
+          comment: |
+            **You have created a Pull Request to the wrong repository.** This is the repository for [Minimal Mistakes][1], the free Jekyll theme. See [GitHub Docs: About pull requests][2] if you need help.
+
+              [1]: https://mmistakes.github.io/minimal-mistakes/
+              [2]: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests
+      # 锁定该 PR 的对话，锁定原因为 spam，防止继续被骚扰
+      - uses: sudo-bot/action-pull-request-lock@v2
+        if: steps.config.outputs.customized == 'false'
+        with:
+          github-token: ${{ github.token }}
+          number: ${{ github.event.pull_request.number }}
+          lock-reason: spam
