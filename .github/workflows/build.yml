@@ -52,6 +52,10 @@ jobs:
           ALGOLIA_API_KEY: ${{ secrets.ALGOLIA_API_KEY }}  # 从仓库 Secrets 读取 API Key
         continue-on-error: true  # 即使索引更新失败也不阻断整个工作流
 
+      - name: Build site
+        working-directory: docs/
+        run: bundle exec jekyll build
+
       - name: Deploy to pages branch
         uses: JamesIves/github-pages-deploy-action@v4
         with:
