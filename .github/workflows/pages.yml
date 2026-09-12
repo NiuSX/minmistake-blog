@@ -31,7 +31,7 @@ jobs:
         env:
           # production 会启用站点生产环境行为，例如评论、统计等生产环境开关。
           JEKYLL_ENV: production
-        run: bundle exec jekyll build --trace --baseurl "/blog"
+        run: bundle exec jekyll build --trace --baseurl "/minmistake_blog"
       - name: Validate generated site
         shell: bash
         run: |
@@ -53,10 +53,10 @@ jobs:
       - name: Copy site into /minmistake_blog
         shell: bash
         run: |
-          rm -rf github-pages/blog
-          mkdir -p github-pages/blog
-          cp -a _site/. github-pages/blog/
-          touch github-pages/blog/.nojekyll
+          rm -rf github-pages/minmistake_blog
+          mkdir -p github-pages/minmistake_blog
+          cp -a _site/. github-pages/minmistake_blog/
+          touch github-pages/minmistake_blog/.nojekyll
 
       - name: Commit and push published site
         shell: bash
@@ -64,7 +64,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add blog
+          git add minmistake_blog
           if git diff --cached --quiet; then
             echo "No blog changes to publish."
             exit 0
