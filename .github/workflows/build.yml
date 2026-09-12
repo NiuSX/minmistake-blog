@@ -44,13 +44,13 @@ jobs:
           bundle install --jobs=4 --retry=3  # 4 个并行任务安装，失败重试 3 次
           bundle clean  # 清理未使用的 gem
 
-      # 更新 Algolia 搜索索引（用于站内搜索）
-      - name: Update Algolia index
-        working-directory: docs/
-        run: bundle exec jekyll algolia push  # 通过 jekyll-algolia 插件推送索引
-        env:
-          ALGOLIA_API_KEY: ${{ secrets.ALGOLIA_API_KEY }}  # 从仓库 Secrets 读取 API Key
-        continue-on-error: true  # 即使索引更新失败也不阻断整个工作流
+#      # 更新 Algolia 搜索索引（用于站内搜索）
+#      - name: Update Algolia index
+#        working-directory: docs/
+#        run: bundle exec jekyll algolia push  # 通过 jekyll-algolia 插件推送索引
+#        env:
+#          ALGOLIA_API_KEY: ${{ secrets.ALGOLIA_API_KEY }}  # 从仓库 Secrets 读取 API Key
+#        continue-on-error: true  # 即使索引更新失败也不阻断整个工作流
 
       - name: Build site
         working-directory: docs/
