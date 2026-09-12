@@ -50,7 +50,7 @@ jobs:
           # 需要在当前源码仓库 Settings -> Secrets and variables -> Actions 中配置。
           token: ${{ secrets.BLOG_DEPLOY_TOKEN }}
 
-      - name: Copy site into /blog
+      - name: Copy site into /minmistake_blog
         shell: bash
         run: |
           rm -rf github-pages/blog
