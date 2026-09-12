@@ -1,1 +1,1 @@
-Sitemap: https://niusx.github.io/blog/sitemap.xml
+Sitemap: https://niusx.github.io/minmistake-blog%20/sitemap.xml
