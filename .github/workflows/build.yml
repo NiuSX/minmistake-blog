@@ -30,10 +30,10 @@ jobs:
         uses: actions/cache@v4
         with:
           path: |
-            docs/Gemfile.lock
-            docs/vendor/bundle
+            Gemfile.lock
+            vendor/bundle
           # 缓存 key 基于 Gemfile 的哈希值，Gemfile 变化时自动失效
-          key: ${{ runner.os }}-bundler-${{ hashFiles('docs/Gemfile') }}
+          key: ${{ runner.os }}-bundler-${{ hashFiles('Gemfile') }}
           restore-keys: |
             ${{ runner.os }}-bundler-
 
@@ -41,7 +41,7 @@ jobs:
       - name: Install - Bundler
         env:
           MAKE: make -j2  # 使用 2 个并行任务编译原生扩展
-        working-directory: docs/  # 在 docs 子目录中执行
+#        working-directory:   # 在 docs 子目录中执行
         run: |
           bundle config set path vendor/bundle  # 将依赖安装到 vendor/bundle
           bundle install --jobs=4 --retry=3  # 4 个并行任务安装，失败重试 3 次
@@ -56,7 +56,7 @@ jobs:
 #        continue-on-error: true  # 即使索引更新失败也不阻断整个工作流
 
       - name: Build site
-        working-directory: docs/
+#        working-directory: docs/
         run: bundle exec jekyll build
 
       - name: Deploy to pages branch
