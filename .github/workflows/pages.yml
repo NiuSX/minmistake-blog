@@ -53,6 +53,7 @@ jobs:
       - name: Copy site into /minmistake_blog
         shell: bash
         run: |
+          rm -rf github-pages/blog
           rm -rf github-pages/minmistake_blog
           mkdir -p github-pages/minmistake_blog
           cp -a _site/. github-pages/minmistake_blog/
