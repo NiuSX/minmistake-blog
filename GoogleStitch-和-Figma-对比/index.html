@@ -1,0 +1,831 @@
+
+
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.28.0 by Michael Rose
+  Copyright 2013-2026 Michael Rose - mademistakes.com | @mmistakes
+  Copyright 2024-2026 iBug - ibugone.com | @iBug
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+
+<html lang="zh-CN" class="no-js" dir="ltr">
+  <head>
+    
+<meta charset="utf-8">
+
+
+<!-- begin _includes/seo.html --><title>Google Stitch 和 Figma 对比 - 一只捡星星的熊</title>
+<meta name="description" content="Google Stitch 与 Figma 对比笔记，整理 AI 生成、协作、设计系统、原型和代码导出的差异。">
+
+
+  <meta name="author" content="一只捡星星的熊">
+  
+  <meta property="article:author" content="一只捡星星的熊">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:site_name" content="一只捡星星的熊">
+<meta property="og:title" content="Google Stitch 和 Figma 对比">
+<meta property="og:url" content="https://niusx.github.io/blog/GoogleStitch-%E5%92%8C-Figma-%E5%AF%B9%E6%AF%94/">
+
+
+  <meta property="og:description" content="Google Stitch 与 Figma 对比笔记，整理 AI 生成、协作、设计系统、原型和代码导出的差异。">
+
+
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2026-06-05T00:00:00+00:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://niusx.github.io/blog/GoogleStitch-%E5%92%8C-Figma-%E5%AF%B9%E6%AF%94/">
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/blog/feed.xml" type="application/atom+xml" rel="alternate" title="一只捡星星的熊 Feed">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+  
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/blog/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    
+<nav class="skip-links" aria-label="Skip links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">转到主导航栏</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">转到内容</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">转到底部</a></li>
+  </ul>
+</nav>
+
+    
+
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav" aria-label="Primary navigation">
+        
+        <a class="site-title" href="/blog/">
+          一只捡星星的熊
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item"><a
+                  href="/blog/"
+                  
+                  
+                >首页</a></li><li class="masthead__menu-item"><a
+                  href="/blog/year-archive/"
+                  
+                  
+                >归档</a></li><li class="masthead__menu-item masthead__menu-item--has-children"><button class="masthead__menu-toggle" type="button" aria-haspopup="true">
+                  分类
+                </button>
+                <ul class="masthead__submenu">
+                  <li>
+                    <a href="/blog/categories/">全部笔记</a>
+                  </li><li>
+                        <a href="/blog/categories/#ai">AI</a>
+                      </li><li>
+                        <a href="/blog/categories/#ai-%E5%B7%A5%E5%85%B7">AI 工具</a>
+                      </li><li>
+                        <a href="/blog/categories/#agent">Agent</a>
+                      </li><li>
+                        <a href="/blog/categories/#android">Android</a>
+                      </li><li>
+                        <a href="/blog/categories/#git">Git</a>
+                      </li><li>
+                        <a href="/blog/categories/#kotlin">Kotlin</a>
+                      </li><li>
+                        <a href="/blog/categories/#nav2">Nav2</a>
+                      </li><li>
+                        <a href="/blog/categories/#ros2">ROS2</a>
+                      </li><li>
+                        <a href="/blog/categories/#sdd">SDD</a>
+                      </li><li>
+                        <a href="/blog/categories/#ui">UI</a>
+                      </li><li>
+                        <a href="/blog/categories/#ui%E8%AE%BE%E8%AE%A1">UI设计</a>
+                      </li><li>
+                        <a href="/blog/categories/#ollama">ollama</a>
+                      </li><li>
+                        <a href="/blog/categories/#python">python</a>
+                      </li><li>
+                        <a href="/blog/categories/#yaml">yaml</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%85%B6%E4%BB%96">其他</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%89%8D%E7%AB%AF">前端</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%91%BD%E4%BB%A4%E8%AF%AD%E8%A8%80">命令语言</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%AF%BC%E8%88%AA">导航</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%B7%A5%E5%85%B7">工具</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%9C%BA%E5%99%A8%E4%BA%BA">机器人</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7">构建工具</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%9E%B6%E6%9E%84">架构</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%A0%87%E8%AE%B0%E8%AF%AD%E8%A8%80">标记语言</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80">编程语言</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E8%AE%A1%E7%AE%97%E6%9C%BA">计算机</a>
+                      </li></ul></li><li class="masthead__menu-item"><a
+                  href="/blog/about/"
+                  
+                  
+                >关于</a></li></ul>
+
+        
+        <form class="masthead-search" action="/blog/search/" method="get" role="search">
+          <label class="visually-hidden" for="masthead-search-input">
+            切换搜索
+          </label>
+          <input
+            id="masthead-search-input"
+            class="masthead-search__input"
+            type="search"
+            name="q"
+            placeholder="输入您要搜索的关键词..."
+          >
+          <button class="masthead-search__button" type="submit">
+            <span class="visually-hidden">切换搜索</span>
+            <i class="fas fa-search" aria-hidden="true"></i>
+          </button>
+        </form>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">切换菜单</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+
+
+<div id="main" role="main">
+  
+
+  <div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="https://niusx.github.io/blog/">
+        <img src="/blog/assets/images/wukong-photo.jpg" alt="一只捡星星的熊" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="https://niusx.github.io/blog/" itemprop="url">一只捡星星的熊</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>什么也没写</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">关注</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-location-dot" aria-hidden="true"></i> <span itemprop="name" class="p-locality">中国</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://github.com/NiuSX/" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://space.bilibili.com/347549684/" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-bilibili" aria-hidden="true"></i><span class="label">Bilibili</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Google Stitch 和 Figma 对比">
+    <meta itemprop="description" content="Google Stitch 与 Figma 对比笔记，整理 AI 生成、协作、设计系统、原型和代码导出的差异。">
+    <meta itemprop="datePublished" content="2026-06-05T00:00:00+00:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="https://niusx.github.io/blog/GoogleStitch-%E5%92%8C-Figma-%E5%AF%B9%E6%AF%94/" itemprop="url">Google Stitch 和 Figma 对比
+</a>
+          </h1>
+          
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-05T00:00:00+00:00">June 5, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc" aria-label="文章目录">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> 文章目录</h4></header>
+              <ul class="toc__menu"><li><a href="#google-stitch-和-figma-对比">Google Stitch 和 Figma 对比</a></li><li><a href="#混合工作流">混合工作流</a></li></ul>
+            </nav>
+          </aside>
+        
+        <h1 id="google-stitch-和-figma-对比">Google Stitch 和 Figma 对比</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">功能</th>
+      <th style="text-align: left">Google Stitch</th>
+      <th style="text-align: left">Figma</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>主要输入方式</strong></td>
+      <td style="text-align: left">自然语言 / 语音 / 图片上传</td>
+      <td style="text-align: left">在画布上手动设计</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>AI 生成</strong></td>
+      <td style="text-align: left">从文字提示生成完整 UI（Gemini 2.5 Pro）</td>
+      <td style="text-align: left">Figma AI 辅助布局和内容</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>学习曲线</strong></td>
+      <td style="text-align: left">几分钟——描述你想要的即可</td>
+      <td style="text-align: left">需要数周到数月才能熟练</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>实时协作</strong></td>
+      <td style="text-align: left">有限（以单用户为中心）侧重于人与AI的协作</td>
+      <td style="text-align: left">拥有成熟的实时多人协作、评论、版本历史和权限管理</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>设计系统</strong></td>
+      <td style="text-align: left">通过 URL 或 DESIGN.md 导入</td>
+      <td style="text-align: left">完整的组件库、令牌、变量</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>原型制作</strong></td>
+      <td style="text-align: left">AI 生成的交互式原型</td>
+      <td style="text-align: left">手动原型连线，支持高级过渡效果</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>代码输出</strong></td>
+      <td style="text-align: left">可用于生产的 HTML + Tailwind CSS</td>
+      <td style="text-align: left">Dev Mode，带代码检查和片段</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>语音输入</strong></td>
+      <td style="text-align: left">支持——对画布说话，实时评价</td>
+      <td style="text-align: left">不支持</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>插件生态</strong></td>
+      <td style="text-align: left">无,处于早期阶段，生态尚不成熟</td>
+      <td style="text-align: left">2,000+ 社区插件</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>版本控制</strong></td>
+      <td style="text-align: left">代理管理的项目历史</td>
+      <td style="text-align: left">原生版本历史 + 分支</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>开发交付</strong></td>
+      <td style="text-align: left">直接导出代码</td>
+      <td style="text-align: left">Dev Mode、设计令牌、CSS/iOS/Android</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>响应式设计</strong></td>
+      <td style="text-align: left">AI 生成的响应式变体</td>
+      <td style="text-align: left">手动自动布局和约束</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>无障碍工具</strong></td>
+      <td style="text-align: left">基本的 AI 建议</td>
+      <td style="text-align: left">插件 + 原生对比度检查</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>文件格式</strong></td>
+      <td style="text-align: left">基于 Web，可导出到 Figma/代码</td>
+      <td style="text-align: left">.fig 文件，支持导入/导出 SVG、PNG、PDF</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>团队管理</strong></td>
+      <td style="text-align: left">Google 账号</td>
+      <td style="text-align: left">组织、团队、权限、SSO、SCIM</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>离线访问</strong></td>
+      <td style="text-align: left">不支持</td>
+      <td style="text-align: left">有限支持（桌面应用带同步）</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>价格</strong></td>
+      <td style="text-align: left">免费</td>
+      <td style="text-align: left">$0 - $90/席位/月</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>stitch优势：</p>
+
+<ul>
+  <li>构思速度</li>
+  <li>成本</li>
+  <li>对非设计师的可及性</li>
+  <li>语音交互</li>
+  <li>代码生成</li>
+</ul>
+
+<p>Figma 优势：</p>
+
+<ul>
+  <li>大规模协作</li>
+  <li>设计系统和一致性</li>
+  <li>像素级精确度</li>
+  <li>插件生态系统</li>
+  <li>开发交付</li>
+  <li>企业功能</li>
+</ul>
+
+<blockquote>
+  <p><strong>Stitch 主导从 0 到 1 的阶段，Figma 主导从 1 到 100 的阶段</strong></p>
+</blockquote>
+
+<h1 id="混合工作流">混合工作流</h1>
+
+<ol>
+  <li><strong>从 Stitch 开始。</strong> 花 10 分钟用文字描述生成十几个设计概念。大胆探索截然不同的方向。使用语音模式进行交互式头脑风暴。</li>
+  <li><strong>在 Stitch 中收窄。</strong> 选出 2-3 个最佳方向。通过后续提示进一步完善。通过 DESIGN.md 导入你的设计系统，使其更贴近品牌一致性。</li>
+  <li><strong>导出到 Figma。</strong> 使用 Stitch-to-Figma 插件将你选定的方向导入 Figma，保留图层和组件。</li>
+  <li><strong>在 Figma 中精炼。</strong> 应用你的实际设计系统。将间距、排版和颜色调整到像素级精确。构建组件变体。使用高级交互连接原型。</li>
+  <li><strong>从 Figma 交付。</strong> 使用 Dev Mode 为开发者提供所需的规格、令牌和资源。这个工作流将设计最早期阶段从数天压缩到数分钟，同时保持生产阶段的质量和严谨性。</li>
+</ol>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+  
+
+  
+    
+
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 分类: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/blog/categories/#ui%E8%AE%BE%E8%AE%A1" class="page__taxonomy-item p-category" rel="tag">UI设计</a>
+    
+    </span>
+  </p>
+
+
+  
+
+
+        
+
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 更新时间:</strong> <time class="dt-published" datetime="2026-06-05T00:00:00+00:00">June 5, 2026</time></p>
+
+
+      </footer>
+
+      
+
+      
+
+  <nav class="pagination" aria-label="文章翻页">
+    
+      <a href="/blog/Figma%E5%AD%A6%E4%B9%A0/" class="pagination--pager" title="Figma简单学习(AI生成)">上一页</a>
+    
+    
+      <a href="/blog/%E5%88%A9%E7%94%A8AI%E5%AE%8C%E6%88%90UI%E8%AE%BE%E8%AE%A1/" class="pagination--pager" title="利用 AI 完成 UI 设计">下一页</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    
+
+<div class="page__related">
+  
+  <h2 class="page__related-title">猜您还喜欢</h2>
+  <div class="grid__wrapper">
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/DESIGN-md%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="permalink">DESIGN.md 文档学习（AI总结整理）
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-22T00:00:00+00:00">June 22, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">DESIGN.md 学习笔记，整理设计规范文档的作用、结构、写法、约束内容和 AI 协作方式。
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/Material3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="permalink">Material3学习(AI总结整理)
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-18T00:00:00+00:00">June 18, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">Material 3 学习笔记，整理设计原则、动态颜色、组件规范、状态层和 Android Compose 实践。
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/Mermaid%E7%AC%94%E8%AE%B0/" rel="permalink">Mermaid笔记(AI生成）
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-08T00:00:00+00:00">June 8, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">Mermaid 学习笔记，整理文本绘图语法、流程图、时序图、架构图、适用场景和常见示例。
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/%E5%88%A9%E7%94%A8AI%E5%AE%8C%E6%88%90UI%E8%AE%BE%E8%AE%A1/" rel="permalink">利用 AI 完成 UI 设计
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-05T00:00:00+00:00">June 5, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">AI UI 设计工具笔记，整理 Claude Design、Open Design、Google Stitch 的能力、费用和使用场景。
+</p>
+  </article>
+</div>
+
+    
+  </div>
+</div>
+
+  
+  
+</div>
+
+      
+    </div>
+
+    
+      <div class="search-content">
+        
+<div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';" role="search">
+    <label class="sr-only" for="search">
+      输入您要搜索的关键词...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="输入您要搜索的关键词..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        
+
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>关注:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://github.com/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://www.bilibili.com/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-bilibili" aria-hidden="true"></i> Bilibili</a></li>
+        
+      
+    
+
+    
+      <li><a href="/blog/feed.xml"><i class="fas fa-fw fa-square-rss" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+
+<div class="page__footer-copyright">&copy; 2025-2026 - 2026 <a href="https://NiuSX.github.io">一只捡星星的熊</a>. 技术来自于 <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/jekyll-themes/minimal-mistakes/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+
+  <script src="/blog/assets/js/main.min.js"></script>
+
+
+
+
+
+<script src="/blog/assets/js/lunr/lunr.min.js"></script>
+<script src="/blog/assets/js/lunr/lunr-store.js"></script>
+<script src="/blog/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  
+    <script src="/blog/assets/js/mermaid-init.js"></script>
+  
+
+
+  </body>
+</html>

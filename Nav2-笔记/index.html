@@ -1,0 +1,1452 @@
+
+
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.28.0 by Michael Rose
+  Copyright 2013-2026 Michael Rose - mademistakes.com | @mmistakes
+  Copyright 2024-2026 iBug - ibugone.com | @iBug
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+
+<html lang="zh-CN" class="no-js" dir="ltr">
+  <head>
+    
+<meta charset="utf-8">
+
+
+<!-- begin _includes/seo.html --><title>Nav2 笔记 - 一只捡星星的熊</title>
+<meta name="description" content="Nav2 学习笔记，整理 ROS2 导航框架、配置指南、核心组件和导航实践资料。">
+
+
+  <meta name="author" content="一只捡星星的熊">
+  
+  <meta property="article:author" content="一只捡星星的熊">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:site_name" content="一只捡星星的熊">
+<meta property="og:title" content="Nav2 笔记">
+<meta property="og:url" content="https://niusx.github.io/blog/Nav2-%E7%AC%94%E8%AE%B0/">
+
+
+  <meta property="og:description" content="Nav2 学习笔记，整理 ROS2 导航框架、配置指南、核心组件和导航实践资料。">
+
+
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2026-01-05T00:00:00+00:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://niusx.github.io/blog/Nav2-%E7%AC%94%E8%AE%B0/">
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/blog/feed.xml" type="application/atom+xml" rel="alternate" title="一只捡星星的熊 Feed">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+  
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/blog/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    
+<nav class="skip-links" aria-label="Skip links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">转到主导航栏</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">转到内容</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">转到底部</a></li>
+  </ul>
+</nav>
+
+    
+
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav" aria-label="Primary navigation">
+        
+        <a class="site-title" href="/blog/">
+          一只捡星星的熊
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item"><a
+                  href="/blog/"
+                  
+                  
+                >首页</a></li><li class="masthead__menu-item"><a
+                  href="/blog/year-archive/"
+                  
+                  
+                >归档</a></li><li class="masthead__menu-item masthead__menu-item--has-children"><button class="masthead__menu-toggle" type="button" aria-haspopup="true">
+                  分类
+                </button>
+                <ul class="masthead__submenu">
+                  <li>
+                    <a href="/blog/categories/">全部笔记</a>
+                  </li><li>
+                        <a href="/blog/categories/#ai">AI</a>
+                      </li><li>
+                        <a href="/blog/categories/#ai-%E5%B7%A5%E5%85%B7">AI 工具</a>
+                      </li><li>
+                        <a href="/blog/categories/#agent">Agent</a>
+                      </li><li>
+                        <a href="/blog/categories/#android">Android</a>
+                      </li><li>
+                        <a href="/blog/categories/#git">Git</a>
+                      </li><li>
+                        <a href="/blog/categories/#kotlin">Kotlin</a>
+                      </li><li>
+                        <a href="/blog/categories/#nav2">Nav2</a>
+                      </li><li>
+                        <a href="/blog/categories/#ros2">ROS2</a>
+                      </li><li>
+                        <a href="/blog/categories/#sdd">SDD</a>
+                      </li><li>
+                        <a href="/blog/categories/#ui">UI</a>
+                      </li><li>
+                        <a href="/blog/categories/#ui%E8%AE%BE%E8%AE%A1">UI设计</a>
+                      </li><li>
+                        <a href="/blog/categories/#ollama">ollama</a>
+                      </li><li>
+                        <a href="/blog/categories/#python">python</a>
+                      </li><li>
+                        <a href="/blog/categories/#yaml">yaml</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%85%B6%E4%BB%96">其他</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%89%8D%E7%AB%AF">前端</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%91%BD%E4%BB%A4%E8%AF%AD%E8%A8%80">命令语言</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%AF%BC%E8%88%AA">导航</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%B7%A5%E5%85%B7">工具</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%9C%BA%E5%99%A8%E4%BA%BA">机器人</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7">构建工具</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%9E%B6%E6%9E%84">架构</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%A0%87%E8%AE%B0%E8%AF%AD%E8%A8%80">标记语言</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80">编程语言</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E8%AE%A1%E7%AE%97%E6%9C%BA">计算机</a>
+                      </li></ul></li><li class="masthead__menu-item"><a
+                  href="/blog/about/"
+                  
+                  
+                >关于</a></li></ul>
+
+        
+        <form class="masthead-search" action="/blog/search/" method="get" role="search">
+          <label class="visually-hidden" for="masthead-search-input">
+            切换搜索
+          </label>
+          <input
+            id="masthead-search-input"
+            class="masthead-search__input"
+            type="search"
+            name="q"
+            placeholder="输入您要搜索的关键词..."
+          >
+          <button class="masthead-search__button" type="submit">
+            <span class="visually-hidden">切换搜索</span>
+            <i class="fas fa-search" aria-hidden="true"></i>
+          </button>
+        </form>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">切换菜单</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+
+
+<div id="main" role="main">
+  
+
+  <div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="https://niusx.github.io/blog/">
+        <img src="/blog/assets/images/wukong-photo.jpg" alt="一只捡星星的熊" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="https://niusx.github.io/blog/" itemprop="url">一只捡星星的熊</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>什么也没写</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">关注</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-location-dot" aria-hidden="true"></i> <span itemprop="name" class="p-locality">中国</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://github.com/NiuSX/" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://space.bilibili.com/347549684/" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-bilibili" aria-hidden="true"></i><span class="label">Bilibili</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Nav2 笔记">
+    <meta itemprop="description" content="Nav2 学习笔记，整理 ROS2 导航框架、配置指南、核心组件和导航实践资料。">
+    <meta itemprop="datePublished" content="2026-01-05T00:00:00+00:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="https://niusx.github.io/blog/Nav2-%E7%AC%94%E8%AE%B0/" itemprop="url">Nav2 笔记
+</a>
+          </h1>
+          
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-01-05T00:00:00+00:00">January 5, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc" aria-label="文章目录">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> 文章目录</h4></header>
+              <ul class="toc__menu"><li><a href="#导航框架nav2">导航框架（Nav2）</a><ul><li><a href="#nav2-核心服务器">Nav2 核心服务器</a></li><li><a href="#建图slam_toolbox">建图（slam_toolbox）</a><ul><li><a href="#手动建图">手动建图</a></li><li><a href="#自动探索建图explore_lite">自动探索建图（explore_lite）</a></li><li><a href="#建图算法">建图算法</a></li></ul></li><li><a href="#定位-amcl">定位 (AMCL)</a></li><li><a href="#导航-nav2">导航 (Nav2)</a><ul><li><a href="#nav2的导航行为树">Nav2的导航行为树</a><ul><li><a href="#nav2-库默认包含的核心行为树策略">Nav2 库默认包含的核心行为树策略</a></li><li><a href="#基于不同触发条件的重规划策略">基于不同触发条件的重规划策略</a></li></ul></li><li><a href="#nav2-行为树预注册的行为节点">Nav2 行为树预注册的行为节点</a><ul><li><a href="#动作插件-action-plugins">动作插件 (Action Plugins)</a></li><li><a href="#条件插件-condition-plugins">条件插件 (Condition Plugins)</a></li><li><a href="#控制插件-control-plugins">控制插件 (Control Plugins)</a></li><li><a href="#装饰器插件-decorator-plugins">装饰器插件 (Decorator Plugins)</a></li></ul></li></ul></li><li><a href="#路径规划-插件对比">路径规划 插件对比</a></li><li><a href="#控制器-插件对比">控制器 插件对比</a><ul><li><a href="#控制器算法插件">控制器算法插件</a></li><li><a href="#控制器的目标检查器-插件">控制器的目标检查器 插件</a></li><li><a href="#控制器的进程检查器-插件">控制器的进程检查器 插件</a></li></ul></li><li><a href="#路径平滑器插件">路径平滑器插件</a></li><li><a href="#航点任务执行器-插件">航点任务执行器 插件</a></li></ul></li></ul>
+            </nav>
+          </aside>
+        
+        <h1 id="导航框架nav2">导航框架（Nav2）</h1>
+
+<p>Nav2官网：https://docs.nav2.org/  <br />
+Nav2中文网(鱼香Ros社区)：http://dev.nav2.fishros.com/</p>
+
+<p>Nav2 基础配置指南：https://docs.nav2.org/configuration/index.html <br />
+Nav2 细节配置指南：https://docs.nav2.org/tuning/index.html</p>
+
+<p>Nav2 默认插件列表及自定义插件教程： https://docs.nav2.org/plugins/index.html#plugins</p>
+
+<p>Nav2 API 文档(<strong>底层算法API</strong>)： https://api.nav2.org/  <br />
+Nav2 Simple Commander API文档(<strong>上层应用API</strong>)：https://docs.nav2.org/commander_api/index.html</p>
+
+<h2 id="nav2-核心服务器">Nav2 核心服务器</h2>
+<p><a href="https://docs.nav2.org/configuration/packages/configuring-behavior-server.html">行为服务器</a>：行为树执行 nav2框架的behavior_server 默认采用spin(旋转)和backup(后退)和drive_on_heading(定向行驶)和assisted_teleop(辅助遥控)和wait(等待)插件  <br />
+<a href="https://docs.nav2.org/configuration/packages/configuring-bt-navigator.html">行为树导航器</a>: 导航状态机  <br />
+<a href="https://docs.nav2.org/configuration/packages/configuring-planner-server.html">规划器服务器</a>：全局路径规划 nav2框架的controller_server 默认采用MPPIController控制器插件   <br />
+<a href="https://docs.nav2.org/configuration/packages/configuring-controller-server.html">控制器服务器</a>：路径跟踪 nav2框架的planner_server  默认采用NavfnPlanner规划器插件 <br />
+<a href="https://docs.nav2.org/configuration/packages/configuring-smoother-server.html">路径平滑服务器</a>：na2框架的smoother_server 默认采用SimpleSmoother插件 <br />
+<a href="https://docs.nav2.org/configuration/packages/configuring-velocity-smoother.html">速度平滑服务器</a>：nav2框架的velocity_smoother  <br />
+<a href="https://docs.nav2.org/configuration/packages/configuring-route-server.html">路由服务器</a>：路径管理 nv2框架的route_server 默认采用AdjustSpeedLimit和ReroutingService和CollisionMonitor插件 <br />
+<a href="https://docs.nav2.org/configuration/packages/configuring-waypoint-follower.html">航点跟随</a>：多点导航 nav2框架的waypoint_follower 默认采用wait_at_waypoint插件 <br />
+<a href="https://docs.nav2.org/configuration/packagesconfiguring-collision-monitor.html">碰撞监视服务器</a>：碰撞检测 nav2框架的collision_monitor <br />
+<a href="https://docs.nav2.org/configuration/packages/configuring-docking-server.html">对接服务器</a>：自动对接 nav2框架的docking_server 默认采用simple_charging_dock对接插件 用于充电桩，插座等的对接（<strong>未使用</strong>） <br />
+<a href="https://docs.nav2.org/tutorials/docs/navigation2_with_keepout_filter.html">禁区导航服务器</a>:在原本静态地图上添加掩膜地图，掩膜区域划分为禁止规划通行区域 <br />
+<a href="https://docs.nav2.org/tutorials/docs/navigation2_with_speed_filter.html">速度限制导航服务器</a>:在原本静态地图上添加掩膜地图，掩膜区域划分为速度限制区域，通过时会将速度限制在设定范围内低速前进。</p>
+
+<h2 id="建图slam_toolbox">建图（slam_toolbox）</h2>
+<p>nav2 包内部集成 <strong>slam_toolbox</strong>    <br />
+slamtoolbox 底层使用 <strong>karto_slam</strong> 算法,基于图优化slam算法完成</p>
+
+<h3 id="手动建图">手动建图</h3>
+<p>手动遥控移动机器人进行建图</p>
+
+<h3 id="自动探索建图explore_lite">自动探索建图（explore_lite）</h3>
+<p>添加 <a href="https://github.com/robo-friends/m-explore-ros2">explore_lite</a> 算法 自动探索地图边界进行自主建图</p>
+
+<h3 id="建图算法">建图算法</h3>
+
+<p>目前使用 <strong>slam_toolbox</strong> 内的 <strong>karto</strong> 图优化算法</p>
+
+<p><a href="https://github.com/SteveMacenski/slam_toolbox">slam_toolbox</a> 和 <a href="https://github.com/cartographer-project/cartographer">cartographer</a> 算法对比</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">对比维度</th>
+      <th style="text-align: left">slam_toolbox</th>
+      <th style="text-align: left">Cartographer</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>核心特点</strong></td>
+      <td style="text-align: left">专注于 <strong>2D</strong> SLAM，集成了强大的<strong>定位模式和地图维护工具</strong>，以应对动态环境。</td>
+      <td style="text-align: left">支持<strong>2D与3D</strong> SLAM，以其<strong>跨平台性、实时性及低资源消耗</strong>的工程化实现著称。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>核心技术路线</strong></td>
+      <td style="text-align: left">基于改进的 <strong>Karto</strong> 算法(优化图方法)，使用 <strong>Ceres</strong> 进行后端优化。</td>
+      <td style="text-align: left">采用基于<strong>子地图与全局位姿图优化</strong>的框架，并使用<strong>分支定界法</strong>加速闭环检测。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>定位能力</strong></td>
+      <td style="text-align: left"><strong>集成专门的优化定位模式</strong>，可作为高性能的纯定位器使用，并能持续优化地图。</td>
+      <td style="text-align: left">主要用于<strong>建图过程中的实时定位</strong>，其定位能力内嵌于SLAM流程中，独立的纯定位模式并非主要设计目标。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>地图维护</strong></td>
+      <td style="text-align: left"><strong>非常强大</strong>。支持<strong>终生地图</strong>(长期增量建图)、地图序列化、多地图合并、交互式编辑。</td>
+      <td style="text-align: left">支持子地图的构建与拼接。侧重于<strong>一次性构建大范围高精度地图</strong>，动态增量更新的能力不如前者突出。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>环境适应性</strong></td>
+      <td style="text-align: left">为<strong>动态、变化的室内环境</strong>(如仓库、商店)设计，通过定位模式和地图更新处理环境变化。</td>
+      <td style="text-align: left">对<strong>静态或准静态环境</strong>(如建筑、街道)有非常好的建图效果，动态适应性非其强项。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>资源消耗</strong></td>
+      <td style="text-align: left">相对较高，尤其是在开启高级特性(如终生地图)时，但它提供异步模式以降低负载。</td>
+      <td style="text-align: left">设计目标之一是<strong>低计算资源消耗和实时性</strong>，适合嵌入式或资源受限的平台。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>适用场景</strong></td>
+      <td style="text-align: left"><strong>机器人长期运营、环境频繁变化、需高精度定位</strong>的2D场景，如仓库物流、服务机器人、零售店。</td>
+      <td style="text-align: left"><strong>快速构建大规模、高精度地图</strong>，包括室内外2D/3D场景，如扫地机器人建图、自动驾驶初步测绘。</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="定位-amcl">定位 (AMCL)</h2>
+
+<p>nav2 包内部集成 nv2_amcl      locatlization_launch.py <br />
+AMCL： Adaptive Monte Carlo Localization 自适应蒙特卡洛定位 基于 <strong>粒子滤波</strong> 算法实现</p>
+
+<h2 id="导航-nav2">导航 (Nav2)</h2>
+
+<p>nav2 包 导航系统 navigation_launch.py</p>
+
+<h3 id="nav2的导航行为树">Nav2的导航行为树</h3>
+
+<p>具体可查看 nav2 官方文档：https://docs.nav2.org/behavior_trees/index.html</p>
+
+<p>默认使用 navigate_to_pose_w_replanning_and_recovery.xml 和 navigate_through_poses_w_replanning_and_recovery.xml 这两种导航策略</p>
+
+<h4 id="nav2-库默认包含的核心行为树策略">Nav2 库默认包含的核心行为树策略</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">文件名</th>
+      <th style="text-align: left">核心策略与作用</th>
+      <th style="text-align: left">适用场景</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong><a href="https://docs.nav2.org/behavior_trees/overview/detailed_behavior_tree_walkthrough.html#navigate-to-pose-with-replanning-and-recovery"><code class="language-plaintext highlighter-rouge">navigate_to_pose_w_replanning_and_recovery.xml</code></a></strong></td>
+      <td style="text-align: left"><strong>经典全能策略</strong>：<strong>周期性重规划</strong>（默认1Hz） + <strong>完善的恢复机制</strong>（清除地图、旋转、等待、后退）。</td>
+      <td style="text-align: left"><strong>通用、默认选择</strong>。环境动态变化、需要高鲁棒性的场景。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong><code class="language-plaintext highlighter-rouge">navigate_through_poses_w_replanning_and_recovery.xml</code></strong></td>
+      <td style="text-align: left"><strong>多目标点导航策略</strong>：专为顺序访问多个目标点（巡航）设计，在每个点之间复用经典的单点导航逻辑。</td>
+      <td style="text-align: left">送餐、巡检等需要按顺序访问多个位置的场景。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong><code class="language-plaintext highlighter-rouge">navigate_to_pose_w_replanning_goal_patience_and_recovery.xml</code></strong></td>
+      <td style="text-align: left"><strong>目标点容错策略</strong>：在经典策略基础上，增加 <strong>GPAL (Goal Pose Acceptable Limits)</strong> 节点，对最终到达精度要求更宽松。</td>
+      <td style="text-align: left">目标点定位有噪声、或不需要精确对准的场景（如到达一个区域即可）。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong><a href="https://docs.nav2.org/behavior_trees/trees/follow_point.html"><code class="language-plaintext highlighter-rouge">follow_point.xml</code></a></strong></td>
+      <td style="text-align: left"><strong>跟随点策略</strong>：持续跟踪一个动态更新的目标点（通常来自 <code class="language-plaintext highlighter-rouge">RVIZ</code> 的点击），<strong>不执行恢复动作</strong>，反应极快。</td>
+      <td style="text-align: left">人工遥操作、实时目标跟踪。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong><a href="https://docs.nav2.org/behavior_trees/trees/odometry_calibration.html"><code class="language-plaintext highlighter-rouge">odometry_calibration.xml</code></a></strong></td>
+      <td style="text-align: left"><strong>里程计校准策略</strong>：控制机器人执行特定的固定运动模式（如旋转、前进），用于校准里程计参数。</td>
+      <td style="text-align: left"><strong>系统调试和标定</strong>，非日常导航。</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="基于不同触发条件的重规划策略">基于不同触发条件的重规划策略</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">文件名</th>
+      <th style="text-align: left">重规划触发条件</th>
+      <th style="text-align: left">设计目的与特点</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong><code class="language-plaintext highlighter-rouge">navigate_w_replanning_time.xml</code></strong></td>
+      <td style="text-align: left"><strong>定时触发</strong>：每 N 秒规划一次。</td>
+      <td style="text-align: left">环境持续缓慢变化，平衡计算开销。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong><code class="language-plaintext highlighter-rouge">navigate_w_replanning_distance.xml</code></strong></td>
+      <td style="text-align: left"><strong>定距触发</strong>：机器人移动 N 米后规划。</td>
+      <td style="text-align: left">长距离直线行进，避免静止时无意义规划。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong><code class="language-plaintext highlighter-rouge">navigate_w_replanning_speed.xml</code></strong></td>
+      <td style="text-align: left"><strong>低速触发</strong>：当机器人速度低于阈值时规划。</td>
+      <td style="text-align: left">机器人被卡住或进展缓慢时立刻反应。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong><code class="language-plaintext highlighter-rouge">navigate_w_replanning_only_if_goal_is_updated.xml</code></strong></td>
+      <td style="text-align: left"><strong>目标更新触发</strong>：<strong>仅当</strong>目标位置改变时重规划。</td>
+      <td style="text-align: left">目标一旦设定就不变，或由外部高级规划器频繁更新的场景。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong><code class="language-plaintext highlighter-rouge">navigate_w_replanning_only_if_path_becomes_invalid.xml</code></strong></td>
+      <td style="text-align: left"><strong>路径失效触发</strong>：<strong>仅当</strong>当前路径被障碍物阻挡时重规划。</td>
+      <td style="text-align: left"><strong>静态环境</strong>，计算开销最小。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong><a href="https://docs.nav2.org/behavior_trees/trees/nav_to_pose_with_consistent_replanning_and_if_path_becomes_invalid.html"><code class="language-plaintext highlighter-rouge">nav_to_pose_with_consistent_replanning_and_if_path_becomes_invalid.xml</code></a></strong></td>
+      <td style="text-align: left"><strong>组合触发</strong>：<strong>目标更新</strong>或<strong>路径失效</strong>时都触发重规划。</td>
+      <td style="text-align: left">响应更灵敏，是上面两种策略的“或”组合。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong><code class="language-plaintext highlighter-rouge">navigate_w_recovery_and_replanning_only_if_path_becomes_invalid.xml</code></strong></td>
+      <td style="text-align: left"><strong>极致保守策略</strong>：<strong>仅当路径失效时，才先尝试恢复动作，再重规划</strong>。</td>
+      <td style="text-align: left">对稳定性要求极高，希望尽可能减少任何不必要动作的环境。</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="nav2-行为树预注册的行为节点"><a href="https://docs.nav2.org/configuration/packages/configuring-bt-xml.html#action-plugins">Nav2 行为树预注册的行为节点</a></h3>
+
+<h4 id="动作插件-action-plugins">动作插件 (Action Plugins)</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">中文名称</th>
+      <th style="text-align: left">英文名称/ID (常见)</th>
+      <th style="text-align: left">功能简介</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>等待</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Wait</code></td>
+      <td style="text-align: left">实现机器人原地等待。(恢复行为)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>旋转</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Spin</code></td>
+      <td style="text-align: left">让机器人原地旋转指定的角度。(恢复行为)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>后退</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">BackUp</code></td>
+      <td style="text-align: left">让机器人向后移动指定的距离。(恢复行为)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>驱车航行</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">DriveOnHeading</code></td>
+      <td style="text-align: left">让机器人朝特定方向直线移动一段距离或时间。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>辅助远程操作</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">AssistedTeleop</code></td>
+      <td style="text-align: left">在人工遥控模式下提供辅助避障和局部规划。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>计算到姿态的路径</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">ComputePathToPose</code></td>
+      <td style="text-align: left"><strong>核心路径规划</strong>。根据目标位姿计算一条全局路径。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>计算路由</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">ComputeRouteToPose</code></td>
+      <td style="text-align: left">用于具有道路网络（如地图拓扑）的场景，计算路径点序列。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>计算途径路由路由</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">ComputePathThroughPoses</code></td>
+      <td style="text-align: left">计算一条经过一系列中间点的路径。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>跟随路径</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">FollowPath</code></td>
+      <td style="text-align: left"><strong>核心路径跟踪</strong>。控制机器人沿给定的路径移动。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>导航定位</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">NavigateToPose</code></td>
+      <td style="text-align: left">高层导航动作，内部封装了完整的规划、跟踪和恢复逻辑。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>清除整个代价地图</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">ClearEntireCostmap</code></td>
+      <td style="text-align: left">清除指定代价地图（全局或局部）的所有障碍物信息。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>清除区域外的代价地图</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">ClearCostmapExceptRegion</code></td>
+      <td style="text-align: left">清除代价地图中除指定矩形区域外的部分。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>清除机器人周围的代价地图</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">ClearCostmapAroundRobot</code></td>
+      <td style="text-align: left">清除机器人周围指定半径内的代价地图。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>清除位姿周围的代价地图</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">ClearCostmapAroundPose</code></td>
+      <td style="text-align: left">清除特定位姿周围指定半径内的代价地图。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>重新初始化全局定位</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">ReinitializeGlobalLocalization</code></td>
+      <td style="text-align: left">重置机器人的全局定位（如AMCL），通常在定位丢失时使用。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>截断路径</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">TruncatePath</code></td>
+      <td style="text-align: left">将路径从起点截断一定长度。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>截断路径本地</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">TruncatePathLocal</code></td>
+      <td style="text-align: left">在局部坐标系下截断路径。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>规划选择器</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">PlannerSelector</code></td>
+      <td style="text-align: left">动态切换使用哪个全局路径规划器。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>控制器选择器</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">ControllerSelector</code></td>
+      <td style="text-align: left">动态切换使用哪个局部路径跟踪控制器。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>平滑器选择器</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">SmootherSelector</code></td>
+      <td style="text-align: left">动态切换使用哪个路径平滑器。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>目标检查器选择器</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">GoalCheckerSelector</code></td>
+      <td style="text-align: left">动态切换使用哪个目标到达检查器。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>进度检查器选择器</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">ProgressCheckerSelector</code></td>
+      <td style="text-align: left">动态切换使用哪个进度检查器（用于检测是否被困）。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>路径处理选择器</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">PathProcessingSelector</code></td>
+      <td style="text-align: left">动态切换使用哪个路径后处理器。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>导航姿势</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">NavigateThroughPoses</code></td>
+      <td style="text-align: left">高层导航动作，顺序导航通过一系列目标点。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>计算覆盖路径</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">ComputePathToCoverage</code></td>
+      <td style="text-align: left">计算一条覆盖指定区域的路径（如清洁、巡检）。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>取消导航</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">CancelNav</code></td>
+      <td style="text-align: left">取消当前的导航任务。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>移除已通过目标</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">RemovePassedGoals</code></td>
+      <td style="text-align: left">（多目标导航中）移除已通过的目标点。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>移除碰撞目标</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">RemoveCollisionGoals</code></td>
+      <td style="text-align: left">移除与障碍物冲突的目标点。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>取消控制</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">CancelControl</code></td>
+      <td style="text-align: left">取消当前的控制器跟踪动作。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>取消后退</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">CancelBackUp</code></td>
+      <td style="text-align: left">取消正在执行的后退动作。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>取消旋转</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">CancelSpin</code></td>
+      <td style="text-align: left">取消正在执行的旋转动作。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>取消等待</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">CancelWait</code></td>
+      <td style="text-align: left">取消正在执行的等待动作。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>取消驾驶方向</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">CancelDriveOnHeading</code></td>
+      <td style="text-align: left">取消正在执行的朝向驾驶动作。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>取消辅助远程操作</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">CancelAssistedTeleop</code></td>
+      <td style="text-align: left">取消正在执行的辅助遥控动作。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>取消计算与追踪路线</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">CancelComputePathThroughPoses</code></td>
+      <td style="text-align: left">取消正在执行的多点路径规划。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>平滑路径</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">SmoothPath</code></td>
+      <td style="text-align: left">对给定的路径进行平滑处理。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>从路径获取位姿</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">GetPoseFromPath</code></td>
+      <td style="text-align: left">从路径中提取特定索引或比例的位姿。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>对接机器人</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">DockRobot</code></td>
+      <td style="text-align: left">执行自动回充对接流程。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>非对接机器人</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">UndockRobot</code></td>
+      <td style="text-align: left">执行离开充电桩的流程。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>连接路径</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">ConcatenatePaths</code></td>
+      <td style="text-align: left">将多条路径连接成一条。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>获取当前位置</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">GetCurrentPose</code></td>
+      <td style="text-align: left">获取机器人当前的位姿估计。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>附加目标姿势到目标</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">AppendGoalPoseToPath</code></td>
+      <td style="text-align: left">将目标位姿附加到路径末尾。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>提取路径节点作为目标</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">ExtractRouteNodesAsGoals</code></td>
+      <td style="text-align: left">从路由网络中提取节点作为导航目标点序列。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>获取下一个目标</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">GetNextFewGoals</code></td>
+      <td style="text-align: left">（多目标导航中）获取接下来的几个目标。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>切换碰撞监视器</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">ToggleCollisionMonitor</code></td>
+      <td style="text-align: left">启用或禁用碰撞监视系统。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>跟随对象</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">FollowObject</code></td>
+      <td style="text-align: left">动态跟踪一个移动的物体。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>取消跟随对象</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">CancelFollowObject</code></td>
+      <td style="text-align: left">取消物体跟踪任务。</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="条件插件-condition-plugins">条件插件 (Condition Plugins)</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">中文名称</th>
+      <th style="text-align: left">英文名称/ID (常见)</th>
+      <th style="text-align: left">功能简介</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>目标到达</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">GoalReached</code></td>
+      <td style="text-align: left">检查机器人是否已到达最终目标容差范围内。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>变换可用</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">TransformAvailable</code></td>
+      <td style="text-align: left">检查所需的坐标变换（TF）是否可用。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>行走距离</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">DistanceTraveled</code></td>
+      <td style="text-align: left">检查机器人自某参考点以来是否移动了指定距离。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>目标已更新</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">GoalUpdated</code></td>
+      <td style="text-align: left"><strong>核心条件</strong>。检查导航目标是否在任务执行中被更新。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>全局更新目标</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">GloballyUpdatedGoal</code></td>
+      <td style="text-align: left">检查全局（可能来自更高层任务）的目标是否更新。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>初始姿势已接收</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">InitialPoseReceived</code></td>
+      <td style="text-align: left">检查是否已收到有效的初始定位位姿。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>目标附近</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">IsGoalNearPose</code></td>
+      <td style="text-align: left">检查某个位姿是否在目标附近。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>卡住了</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">IsStuck</code></td>
+      <td style="text-align: left">检查机器人是否在指定时间内移动不足（被困）。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>停止了</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">IsRobotStopped</code></td>
+      <td style="text-align: left">检查机器人当前是否处于静止状态。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>时间已过</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">TimeExpired</code></td>
+      <td style="text-align: left">检查自某参考时间以来是否已过指定时长。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>电池低了</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">IsBatteryLow</code></td>
+      <td style="text-align: left">检查机器人电池电量是否低于阈值。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>路径有效</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">IsPathValid</code></td>
+      <td style="text-align: left">检查当前规划出的路径是否有效（如未被障碍物完全阻挡）。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>位姿被占据</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">IsPoseOccupied</code></td>
+      <td style="text-align: left">检查地图上特定位姿是否被障碍物占据。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>路径过期计时器</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">PathExpiringTimer</code></td>
+      <td style="text-align: left">检查当前用于跟踪的路径是否即将过期（需要重新规划）。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>存在错误码</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">AreErrorCodesPresent</code></td>
+      <td style="text-align: left">检查是否有特定的错误码被设置。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>控制器恢复是否有帮助</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">WouldAControllerRecoveryHelp</code></td>
+      <td style="text-align: left">评估执行控制器级别的恢复动作（如清除局部地图）是否可能解决问题。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>规划器恢复是否有帮助</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">WouldAPlannerRecoveryHelp</code></td>
+      <td style="text-align: left">评估执行规划器级别的恢复动作（如清除全局地图）是否可能解决问题。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>平滑器恢复是否有帮助</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">WouldASmootherRecoveryHelp</code></td>
+      <td style="text-align: left">评估执行路径平滑是否可能解决问题。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>路由恢复是否有帮助</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">WouldARouteRecoveryHelp</code></td>
+      <td style="text-align: left">评估执行路由恢复是否可能解决问题。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>电池正在充电</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">IsBatteryCharging</code></td>
+      <td style="text-align: left">检查电池当前是否处于充电状态。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>位姿接近</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">ArePosesNear</code></td>
+      <td style="text-align: left">检查两个位姿在距离和角度上是否都足够接近。</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="控制插件-control-plugins">控制插件 (Control Plugins)</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">中文名称</th>
+      <th style="text-align: left">英文名称/ID (常见)</th>
+      <th style="text-align: left">功能简介</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>管道序列</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">PipelineSequence</code></td>
+      <td style="text-align: left">一种特殊的顺序节点，所有子节点在单次Tick中被依次执行，用于需要“流水线”式处理的场景。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>循环赛</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">RoundRobin</code></td>
+      <td style="text-align: left">按顺序轮流执行其子节点。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>恢复节点</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">RecoveryNode</code></td>
+      <td style="text-align: left"><strong>核心恢复逻辑</strong>。封装一个“尝试动作-检查结果-重试/回退”的恢复模式。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>非阻塞序列</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">ReactiveSequence</code></td>
+      <td style="text-align: left"><strong>反应式序列</strong>。按顺序执行子节点，但当一个子节点返回<code class="language-plaintext highlighter-rouge">RUNNING</code>时，仍会持续检查前面已成功的条件子节点。如果条件失败，则中断正在运行的动作。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>持久序列</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">ReactiveFallback</code></td>
+      <td style="text-align: left"><strong>反应式回退</strong>。尝试子节点，但当一个子节点返回<code class="language-plaintext highlighter-rouge">RUNNING</code>时，仍会持续检查其前面的条件/动作。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>暂停恢复控制器</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">PauseRecoveryController</code></td>
+      <td style="text-align: left">用于暂停控制器的恢复行为。</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="装饰器插件-decorator-plugins">装饰器插件 (Decorator Plugins)</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">中文名称 (推断)</th>
+      <th style="text-align: left">英文名称/ID (常见)</th>
+      <th style="text-align: left">功能简介</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>速率控制器</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">RateController</code></td>
+      <td style="text-align: left">控制其子节点的执行频率（如每秒最多Tick一次）。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>距离控制器</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">DistanceController</code></td>
+      <td style="text-align: left">控制其子节点在机器人移动特定距离后才执行一次。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>速度控制器</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">SpeedController</code></td>
+      <td style="text-align: left">根据机器人速度调整子节点的行为（如不同速度下使用不同的参数）。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>目标更新器</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">GoalUpdater</code></td>
+      <td style="text-align: left">用于在子节点执行前动态更新传递给它的目标参数。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>接近时路径加长</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">PathLongerOnApproach</code></td>
+      <td style="text-align: left">当接近目标时，对路径进行特殊处理（如延长以进行精确对准）。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>单触发器</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">SingleTrigger</code></td>
+      <td style="text-align: left">确保其子节点只成功执行一次，后续Tick直接返回成功。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>目标更新控制器</strong></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">GoalUpdateController</code></td>
+      <td style="text-align: left">控制目标更新的逻辑，可能与<code class="language-plaintext highlighter-rouge">GoalUpdater</code>类似或为其组合。</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="路径规划-插件对比">路径规划 插件对比</h2>
+
+<p>目前使用的为 <a href="https://docs.nav2.org/configuration/packages/configuring-navfn.html">NavFn</a> 插件</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">规划器类别/插件</th>
+      <th style="text-align: left">核心算法</th>
+      <th style="text-align: left">路径质量与特性</th>
+      <th style="text-align: left">适用机器人类型</th>
+      <th style="text-align: left">典型场景</th>
+      <th style="text-align: left">主要优势/劣势</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><a href="https://docs.nav2.org/configuration/packages/configuring-navfn.html">NavFn</a></td>
+      <td style="text-align: left"><strong>Dijkstra / A</strong>*</td>
+      <td style="text-align: left"><strong>离散格点路径</strong>，可能有“锯齿”，路径不保证运动学可行</td>
+      <td style="text-align: left"><strong>圆形</strong>差速、全向 (可原地旋转)</td>
+      <td style="text-align: left">室内结构化环境、已知地图</td>
+      <td style="text-align: left"><strong>优势</strong>：算法经典、成熟稳定、计算快<br /><strong>劣势</strong>：路径不连续、非圆形/阿克曼机器人支持差</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><a href="https://docs.nav2.org/configuration/packages/smac/configuring-smac-2d.html">Smac 2D Planner</a></td>
+      <td style="text-align: left"><strong>A</strong>* (高度优化，4/8连接)</td>
+      <td style="text-align: left"><strong>优化格点路径</strong>，更平滑，支持<strong>任意角度</strong>到达</td>
+      <td style="text-align: left"><strong>圆形</strong>差速、全向</td>
+      <td style="text-align: left">需要平滑路径的室内/结构化环境</td>
+      <td style="text-align: left"><strong>优势</strong>：比传统Grid-Based路径更优、计算高效，是Nav2新默认规划器</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><a href="https://docs.nav2.org/configuration/packages/configuring-thetastar.html">Theta* Planner</a></td>
+      <td style="text-align: left"><strong>Theta</strong>* (基于A*)</td>
+      <td style="text-align: left"><strong>任意角度直线路径</strong>，绕过格点约束，更接近理论最短</td>
+      <td style="text-align: left"><strong>圆形</strong>差速、全向</td>
+      <td style="text-align: left">追求路径最短、平滑的场景</td>
+      <td style="text-align: left"><strong>优势</strong>：路径长度理论最优、更自然<br /><strong>劣势</strong>：计算量稍大、需调参保证可行性</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><a href="https://docs.nav2.org/configuration/packages/smac/configuring-smac-hybrid.html">Smac Hybrid-A</a></td>
+      <td style="text-align: left"><strong>Hybrid-A</strong>*</td>
+      <td style="text-align: left"><strong>运动学可行路径</strong>，连续曲率，支持<strong>倒车</strong></td>
+      <td style="text-align: left"><strong>阿克曼</strong>、足式、任意形状</td>
+      <td style="text-align: left">汽车模型、户外、非完整约束机器人</td>
+      <td style="text-align: left"><strong>优势</strong>：保证运动学可行、可处理任意形状轮廓<br /><strong>劣势</strong>：计算量大于2D规划器</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><a href="https://docs.nav2.org/configuration/packages/smac/configuring-smac-lattice.html">Smac State Lattice</a></td>
+      <td style="text-align: left"><strong>State Lattice</strong></td>
+      <td style="text-align: left"><strong>运动学可行路径</strong>，基于运动基元库，非常平滑</td>
+      <td style="text-align: left">差速、全向、阿克曼及<strong>自定义模型</strong></td>
+      <td style="text-align: left">对平滑性和精确运动控制要求高的场景</td>
+      <td style="text-align: left"><strong>优势</strong>：路径平滑度高、可定制运动基元<br /><strong>劣势</strong>：需要预生成/加载运动基元库</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="控制器-插件对比">控制器 插件对比</h2>
+
+<h3 id="控制器算法插件">控制器算法插件</h3>
+<p>目前使用的为 <a href="https://docs.nav2.org/configuration/packages/configuring-mppic.html">MPPI</a> 控制器 <br />
+| 控制器名称 | 核心原理 | 主要优势 | 主要劣势/挑战 | 典型使用场景 | 适用机器人类型 |
+| :— | :— | :— | :— | :— | :— |
+| <a href="https://docs.nav2.org/configuration/packages/configuring-dwb-controller.html">DWB Controller</a> | <strong>采样优化</strong>：生成多个可行的速度命令（轨迹），通过包含路径跟随、避障、速度等的代价函数进行评分，选择综合得分最高的轨迹执行。 | 1. <strong>灵活可调</strong>：可通过代价函数灵活定义机器人行为。<br />2. <strong>约束全面</strong>：易于融入动力学、平滑性等约束。<br />3. <strong>动态避障</strong>：能较好处理动态障碍物。 | 1. <strong>计算负担较重</strong>：实时生成和评估多条轨迹消耗资源。<br />2. <strong>参数调优复杂</strong>：代价函数权重需仔细调整以平衡不同目标。 | 复杂动态环境下的高精度轨迹跟踪、需要灵活行为调整的场景。 | 差速、全向轮式移动机器人。 |
+| <a href="https://docs.nav2.org/configuration/packages/configuring-graceful-motion-controller.html">Graceful Controller</a> | <strong>基于李雅普诺夫稳定性设计</strong>：在极坐标空间将运动分解为朝向（快子系统）和位置（慢子系统）控制，保证全局渐近稳定收敛。 | 1. <strong>轨迹平滑</strong>：理论保证产生平滑、无超调的轨迹。<br />2. <strong>乘坐舒适</strong>：非常适用于载人机器人。<br />3. <strong>理论保证强</strong>：有严格的数学稳定性证明。 | 1. <strong>动态环境适应性有限</strong>：原生设计主要针对静态路径跟踪，处理复杂动态障碍物能力较弱。<br />2. <strong>调参抽象</strong>：参数与实际运动表现的对应关系不如其他控制器直观。 | 服务机器人、接待机器人、展示机器人等对运动平稳性和舒适性要求极高的场景。 | 差速、全向移动机器人。 |
+| <a href="https://docs.nav2.org/configuration/packages/configuring-mppic.html">MPPI</a> | <strong>并行随机采样</strong>：在控制序列上施加随机扰动，通过GPU并行前向模拟生成大量“假设”轨迹，按指数加权代价选择最优控制序列。 | 1. <strong>无需梯度</strong>：可处理非平滑、不连续的代价函数，适用性广。<br />2. <strong>擅长复杂模型</strong>：能很好处理机器人及环境的强非线性。<br />3. <strong>并行高效</strong>：算法天然适合GPU加速，实时性潜力大。 | 1. <strong>依赖精确模型</strong>：前向模拟的质量完全取决于系统动力学模型的准确性。<br />2. <strong>计算资源要求高</strong>：尽管可并行，但要达到实时仍需可观算力（通常需GPU）。<br />3. <strong>理论门槛高</strong>：理解和调优相对复杂。 | 高动态、交互密集的复杂环境（如密集人群穿行、多机器人协作）、对控制性能有极致追求的前沿应用。 | 各类移动机器人、机械臂等，尤其适合计算平台强大的机器人。 |
+| <a href="https://docs.nav2.org/configuration/packages/configuring-regulated-pp.html">Regulated Pure Pursuit</a> | <strong>几何追踪 + 启发式规则</strong>：跟随路径前方一定距离的“前视点”，并加入对曲率、接近障碍物等因素的启发式速度调节规则。 | 1. <strong>简单高效</strong>：计算量极小，非常稳定可靠。<br />2. <strong>易于理解和调试</strong>：参数物理意义明确（前视距离、速度等）。<br />3. <strong>安全增强</strong>：速度调节规则能在靠近障碍物或急弯时自动减速。 | 1. <strong>灵活性一般</strong>：行为主要由几何和简单规则决定，难以实现非常复杂的跟踪或避障行为。<br />2. <strong>复杂场景适应性有限</strong>：在极度混乱或动态极强的环境中可能表现不佳。 | 仓库物流机器人、酒店送货机器人、大多数服务机器人等需要稳定、可靠导航的日常场景。 | 差速机器人为主，部分适配全向和阿克曼转向机器人。 |
+| <a href="https://docs.nav2.org/configuration/packages/configuring-rotation-shim-controller.html">Rotation Shim Controller</a> | <strong>前处理垫片</strong>：在路径跟踪主控制器执行前，判断路径初始方向与机器人当前朝向的偏差。若超过阈值，则先指令机器人原地旋转至对准路径，再移交控制权。 | 1. <strong>解决特定问题</strong>：有效处理大初始航向偏差，避免“倒车”等异常。<br />2. <strong>模块化设计</strong>：作为预处理插件，可与任何主控制器（如Pure Pursuit, DWB）无缝配合，提升其起始性能。 | 1. <strong>功能单一</strong>：仅处理起始旋转问题，不负责后续路径跟踪。<br />2. <strong>依赖主控制器</strong>：必须与其他控制器配合使用。 | 规划器生成的路径起始方向与机器人当前朝向存在较大偏差时；与非考虑运动学的规划器（如NavFn）配合使用时。 | 可原地旋转的差速、全向移动机器人。 |</p>
+
+<h3 id="控制器的目标检查器-插件">控制器的目标检查器 插件</h3>
+<p><strong><a href="https://github.com/ros-navigation/navigation2/blob/main/nav2_controller/plugins/simple_goal_checker.cpp">SimpleGoalChecker</a></strong>：检查机器人是否在目标点的平移距离（位置）和旋转距离（角度）容差范围内,检查 <strong>位置+角度</strong> 容差      <br />
+<strong><a href="https://github.com/ros-navigation/navigation2/blob/main/nav2_controller/plugins/stopped_goal_checker.cpp">StoppedGoalChecker</a></strong>：检查机器人是否在目标点的平移距离（位置）和旋转距离（角度） 以及速度阈值，检查 <strong>位置+角度+速度</strong>     <br />
+<strong><a href="https://github.com/ros-navigation/navigation2/blob/main/nav2_controller/plugins/position_goal_checker.cpp">PositionGoalChecker</a></strong>：检查机器人是否在目标点平移距离（直线距离）范围内，而不要求旋转方向（角度）对准，只检查 <strong>位置</strong> ，不检查 角度</p>
+
+<h3 id="控制器的进程检查器-插件">控制器的进程检查器 插件</h3>
+<p><strong><a href="https://github.com/ros-navigation/navigation2/blob/main/nav2_controller/plugins/simple_progress_checker.cpp">SimpleProgressChecker</a></strong>：检查机器人在给定时间内是否能够移动一段最小距离以向目标点推进 距离目标的减少量    <br />
+<strong><a href="https://github.com/ros-navigation/navigation2/blob/main/nav2_controller/plugins/pose_progress_checker.cpp">PoseProgressChecker</a></strong>：检查机器人在给定时间内是否能够移动一段最小直线距离或旋转一个最小角度以向目标点推进  与目标姿态的相对进展</p>
+
+<h2 id="路径平滑器插件">路径平滑器插件</h2>
+
+<p><strong><a href="https://github.com/ros-navigation/navigation2/tree/main/nav2_smoother">Simple Smoother</a></strong>：一个简单的路径平滑化 不可行（例如二维） 规划器(<strong>默认</strong>) <br />
+<strong><a href="https://github.com/ros-navigation/navigation2/tree/main/nav2_constrained_smoother">Constrained Smoother</a></strong>：使用一个更光滑的路径 约束问题解决器 以优化各种标准 例如光滑性或 距离障碍物， 保持最小转向 半径    <br />
+<strong><a href="https://github.com/ros-navigation/navigation2/tree/main/nav2_smoother">Savitzky-Golay Smoother</a></strong>：使用一个更光滑的路径 萨维茨基-戈莱滤波器 将路径平滑化为 数字信号处理 以消除噪声 路径</p>
+
+<h2 id="航点任务执行器-插件">航点任务执行器 插件</h2>
+
+<p><strong><a href="https://github.com/ros-navigation/navigation2/blob/main/nav2_waypoint_follower/plugins/wait_at_waypoint.cpp">WaitAtWaypoint</a></strong>： 用于执行等待的插件 行为开启 航点到达<br />
+<strong><a href="https://github.com/ros-navigation/navigation2/tree/main/nav2_waypoint_follower/plugins/photo_at_waypoint.cpp">PhotoAtWaypoint</a></strong>: 用于保存照片的插件 到指定的目录 航点到达(<strong><em>无法执行触发拍照功能，在此插件基础上修改增加功能</em></strong>) <br />
+<strong><a href="https://github.com/ros-navigation/navigation2/tree/main/nav2_waypoint_follower/plugins/input_at_waypoint.cpp">InputAtWaypoint</a></strong>: 等待用户输入的插件 然后再进入下一个 航点</p>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+  
+
+  
+    
+
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 分类: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/blog/categories/#nav2" class="page__taxonomy-item p-category" rel="tag">Nav2</a><span class="sep">, </span>
+    
+      <a href="/blog/categories/#ros2" class="page__taxonomy-item p-category" rel="tag">ROS2</a><span class="sep">, </span>
+    
+      <a href="/blog/categories/#%E5%AF%BC%E8%88%AA" class="page__taxonomy-item p-category" rel="tag">导航</a><span class="sep">, </span>
+    
+      <a href="/blog/categories/#%E6%9C%BA%E5%99%A8%E4%BA%BA" class="page__taxonomy-item p-category" rel="tag">机器人</a>
+    
+    </span>
+  </p>
+
+
+  
+
+
+        
+
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 更新时间:</strong> <time class="dt-published" datetime="2026-01-05T00:00:00+00:00">January 5, 2026</time></p>
+
+
+      </footer>
+
+      
+
+      
+
+  <nav class="pagination" aria-label="文章翻页">
+    
+      <a href="/blog/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="pagination--pager" title="软件设计模式">上一页</a>
+    
+    
+      <a href="/blog/ROS2%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4%E8%A1%A8%E9%80%9F%E6%9F%A5/" class="pagination--pager" title="ROS常用指令表速查">下一页</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    
+
+<div class="page__related">
+  
+  <h2 class="page__related-title">猜您还喜欢</h2>
+  <div class="grid__wrapper">
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/DESIGN-md%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="permalink">DESIGN.md 文档学习（AI总结整理）
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-22T00:00:00+00:00">June 22, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">DESIGN.md 学习笔记，整理设计规范文档的作用、结构、写法、约束内容和 AI 协作方式。
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/Material3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="permalink">Material3学习(AI总结整理)
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-18T00:00:00+00:00">June 18, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">Material 3 学习笔记，整理设计原则、动态颜色、组件规范、状态层和 Android Compose 实践。
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/Mermaid%E7%AC%94%E8%AE%B0/" rel="permalink">Mermaid笔记(AI生成）
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-08T00:00:00+00:00">June 8, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">Mermaid 学习笔记，整理文本绘图语法、流程图、时序图、架构图、适用场景和常见示例。
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/%E5%88%A9%E7%94%A8AI%E5%AE%8C%E6%88%90UI%E8%AE%BE%E8%AE%A1/" rel="permalink">利用 AI 完成 UI 设计
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-05T00:00:00+00:00">June 5, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">AI UI 设计工具笔记，整理 Claude Design、Open Design、Google Stitch 的能力、费用和使用场景。
+</p>
+  </article>
+</div>
+
+    
+  </div>
+</div>
+
+  
+  
+</div>
+
+      
+    </div>
+
+    
+      <div class="search-content">
+        
+<div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';" role="search">
+    <label class="sr-only" for="search">
+      输入您要搜索的关键词...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="输入您要搜索的关键词..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        
+
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>关注:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://github.com/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://www.bilibili.com/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-bilibili" aria-hidden="true"></i> Bilibili</a></li>
+        
+      
+    
+
+    
+      <li><a href="/blog/feed.xml"><i class="fas fa-fw fa-square-rss" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+
+<div class="page__footer-copyright">&copy; 2025-2026 - 2026 <a href="https://NiuSX.github.io">一只捡星星的熊</a>. 技术来自于 <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/jekyll-themes/minimal-mistakes/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+
+  <script src="/blog/assets/js/main.min.js"></script>
+
+
+
+
+
+<script src="/blog/assets/js/lunr/lunr.min.js"></script>
+<script src="/blog/assets/js/lunr/lunr-store.js"></script>
+<script src="/blog/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  
+    <script src="/blog/assets/js/mermaid-init.js"></script>
+  
+
+
+  </body>
+</html>

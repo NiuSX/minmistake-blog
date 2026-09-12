@@ -1,0 +1,1057 @@
+
+
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.28.0 by Michael Rose
+  Copyright 2013-2026 Michael Rose - mademistakes.com | @mmistakes
+  Copyright 2024-2026 iBug - ibugone.com | @iBug
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+
+<html lang="zh-CN" class="no-js" dir="ltr">
+  <head>
+    
+<meta charset="utf-8">
+
+
+<!-- begin _includes/seo.html --><title>AI学习(四）- Skills - 一只捡星星的熊</title>
+<meta name="description" content="AI Skills 学习笔记，整理技能机制、文件结构、调用流程、适用场景和实践要点。">
+
+
+  <meta name="author" content="一只捡星星的熊">
+  
+  <meta property="article:author" content="一只捡星星的熊">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:site_name" content="一只捡星星的熊">
+<meta property="og:title" content="AI学习(四）- Skills">
+<meta property="og:url" content="https://niusx.github.io/blog/AI%E5%AD%A6%E4%B9%A04-Skills/">
+
+
+  <meta property="og:description" content="AI Skills 学习笔记，整理技能机制、文件结构、调用流程、适用场景和实践要点。">
+
+
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2026-03-10T00:00:00+00:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://niusx.github.io/blog/AI%E5%AD%A6%E4%B9%A04-Skills/">
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/blog/feed.xml" type="application/atom+xml" rel="alternate" title="一只捡星星的熊 Feed">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+  
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/blog/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    
+<nav class="skip-links" aria-label="Skip links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">转到主导航栏</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">转到内容</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">转到底部</a></li>
+  </ul>
+</nav>
+
+    
+
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav" aria-label="Primary navigation">
+        
+        <a class="site-title" href="/blog/">
+          一只捡星星的熊
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item"><a
+                  href="/blog/"
+                  
+                  
+                >首页</a></li><li class="masthead__menu-item"><a
+                  href="/blog/year-archive/"
+                  
+                  
+                >归档</a></li><li class="masthead__menu-item masthead__menu-item--has-children"><button class="masthead__menu-toggle" type="button" aria-haspopup="true">
+                  分类
+                </button>
+                <ul class="masthead__submenu">
+                  <li>
+                    <a href="/blog/categories/">全部笔记</a>
+                  </li><li>
+                        <a href="/blog/categories/#ai">AI</a>
+                      </li><li>
+                        <a href="/blog/categories/#ai-%E5%B7%A5%E5%85%B7">AI 工具</a>
+                      </li><li>
+                        <a href="/blog/categories/#agent">Agent</a>
+                      </li><li>
+                        <a href="/blog/categories/#android">Android</a>
+                      </li><li>
+                        <a href="/blog/categories/#git">Git</a>
+                      </li><li>
+                        <a href="/blog/categories/#kotlin">Kotlin</a>
+                      </li><li>
+                        <a href="/blog/categories/#nav2">Nav2</a>
+                      </li><li>
+                        <a href="/blog/categories/#ros2">ROS2</a>
+                      </li><li>
+                        <a href="/blog/categories/#sdd">SDD</a>
+                      </li><li>
+                        <a href="/blog/categories/#ui">UI</a>
+                      </li><li>
+                        <a href="/blog/categories/#ui%E8%AE%BE%E8%AE%A1">UI设计</a>
+                      </li><li>
+                        <a href="/blog/categories/#ollama">ollama</a>
+                      </li><li>
+                        <a href="/blog/categories/#python">python</a>
+                      </li><li>
+                        <a href="/blog/categories/#yaml">yaml</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%85%B6%E4%BB%96">其他</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%89%8D%E7%AB%AF">前端</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%91%BD%E4%BB%A4%E8%AF%AD%E8%A8%80">命令语言</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%AF%BC%E8%88%AA">导航</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%B7%A5%E5%85%B7">工具</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%9C%BA%E5%99%A8%E4%BA%BA">机器人</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7">构建工具</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%9E%B6%E6%9E%84">架构</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%A0%87%E8%AE%B0%E8%AF%AD%E8%A8%80">标记语言</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80">编程语言</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E8%AE%A1%E7%AE%97%E6%9C%BA">计算机</a>
+                      </li></ul></li><li class="masthead__menu-item"><a
+                  href="/blog/about/"
+                  
+                  
+                >关于</a></li></ul>
+
+        
+        <form class="masthead-search" action="/blog/search/" method="get" role="search">
+          <label class="visually-hidden" for="masthead-search-input">
+            切换搜索
+          </label>
+          <input
+            id="masthead-search-input"
+            class="masthead-search__input"
+            type="search"
+            name="q"
+            placeholder="输入您要搜索的关键词..."
+          >
+          <button class="masthead-search__button" type="submit">
+            <span class="visually-hidden">切换搜索</span>
+            <i class="fas fa-search" aria-hidden="true"></i>
+          </button>
+        </form>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">切换菜单</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+
+
+<div id="main" role="main">
+  
+
+  <div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="https://niusx.github.io/blog/">
+        <img src="/blog/assets/images/wukong-photo.jpg" alt="一只捡星星的熊" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="https://niusx.github.io/blog/" itemprop="url">一只捡星星的熊</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>什么也没写</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">关注</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-location-dot" aria-hidden="true"></i> <span itemprop="name" class="p-locality">中国</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://github.com/NiuSX/" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://space.bilibili.com/347549684/" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-bilibili" aria-hidden="true"></i><span class="label">Bilibili</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="AI学习(四）- Skills">
+    <meta itemprop="description" content="AI Skills 学习笔记，整理技能机制、文件结构、调用流程、适用场景和实践要点。">
+    <meta itemprop="datePublished" content="2026-03-10T00:00:00+00:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="https://niusx.github.io/blog/AI%E5%AD%A6%E4%B9%A04-Skills/" itemprop="url">AI学习(四）- Skills
+</a>
+          </h1>
+          
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-03-10T00:00:00+00:00">March 10, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc" aria-label="文章目录">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> 文章目录</h4></header>
+              <ul class="toc__menu"><li><a href="#简介">简介</a><ul><li><a href="#介绍">介绍</a></li><li><a href="#渐进式披露机制">渐进式披露机制</a></li><li><a href="#skills-vs-mcp-vs-subagent">Skills vs MCP vs Subagent</a></li><li><a href="#skills--vs-workflow">Skills  vs Workflow</a></li></ul></li><li><a href="#skills-基本结构">skills 基本结构</a></li><li><a href="#skills使用">Skills使用</a></li><li><a href="#skills-库和资源">Skills 库和资源</a><ul><li><a href="#karpathy-inspired-claude-code-guidelines">Karpathy-Inspired Claude Code Guidelines</a></li><li><a href="#superpowers">superpowers</a></li><li><a href="#skills-仓库资源">skills 仓库/资源</a></li></ul></li><li><a href="#参考">参考</a></li></ul>
+            </nav>
+          </aside>
+        
+        <h1 id="简介">简介</h1>
+
+<h2 id="介绍">介绍</h2>
+
+<p>Skills是Anthropic推出的模块化能力包系统，通过渐进式披露机制实现按需加载，大幅提升Token效率。
+skills是模块化的能力包，包含指令、脚本和资源，可以让Claude在需要时自动加载和使用。</p>
+
+<p>Skills是封装了特定技术任务的标准化可复用模块，本质是将技术场景中的最佳实践、工作流、工具调用逻辑，固化为可被AI Agent或开发工具一键加载、调用的配置单元（常见格式如skill.md、YAML配置）。其核心价值在于解决技术场景中的重复开发、流程不规范、Prompt调试繁琐三大痛点——不用你每次处理同类任务，都重复编写脚本、调试参数、梳理流程，加载对应Skill就能直接执行。</p>
+
+<p><strong>模块化</strong>：Skills是一个个独立的文件夹，每个Skill做一件事</p>
+
+<p><strong>能力包</strong>：
+每个Skill文件夹里可以包含：</p>
+<ul>
+  <li>SKILL.md（核心指令文件，必需）</li>
+  <li>scripts/（可执行脚本，可选）</li>
+  <li>references/（参考文档，可选）</li>
+  <li>assets/（模板和资源，可选）</li>
+</ul>
+
+<p><strong>自动加载</strong></p>
+
+<p>Claude会根据你的任务描述，自动判断需要哪个Skill，然后加载</p>
+
+<p>不使用skills时需要审校文章时：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>“帮我审校这篇文章。注意检查事实准确性，去掉AI味的表达，比如’不是…而是…'这种套话，   
+把长句拆成短句，段落不要太长，像手机屏幕3-5行这样，加粗不要太多，每200-300字1-2处就够了，还要检查是否像真人在说话…”
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>使用skill时,提前把规则写到skill里，会自动识别：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>“帮我审校这篇文章”
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="渐进式披露机制">渐进式披露机制</h2>
+<p>渐进式披露机制：（Progressive Disclosure）是 Skills 系统的核心设计思想，简单来说就是： AI Agent 先只看”目录”，确定需要后，再加载完整”章节”。是一种按需加载知识的策略，目的是解决 AI 模型的”上下文窗口有限”这个根本瓶颈。</p>
+
+<p>说白了就是只给 Agent 看 Skills 的名字和简短描述（几十 tokens）上下文清爽；Agent 快速判断需要哪个 Skill；然后 按需加载完整内容</p>
+
+<p>渐进式披露机制分为三级：</p>
+<ul>
+  <li>第一级别 元数据： 启动时加载，只需要skills名称和一句话描述，消耗几十token，让Claude知道有哪些Skills可用，什么时候该用哪个。
+内容：SKILL.md文件开头的YAML部分，就两个字段：name和description。</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre>---
+
+name: ai-proofreading
+
+description: 系统化降低AI检测率，增加人味。使用场景：审校文章、降低AI味、初稿完成后。
+
+---
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>第二级别  指令：触发时加载，任务匹配该skills时加载，需要 <code class="language-plaintext highlighter-rouge">skill.md</code> 完整内容，详细的操作指南，消耗几百至几千token，告诉Claude具体怎么做</li>
+  <li>第三级别 资源：引用时加载，需要执行具体操作时；需要脚本，资源文件，token消耗数量几乎无限，脚本执行后只有输出进入上下文，代码本身不占Token。提供确定性的执行能力和详细的参考资料</li>
+</ul>
+
+<h2 id="skills-vs-mcp-vs-subagent">Skills vs MCP vs Subagent</h2>
+<blockquote>
+  <p>MCP让Claude能碰到外部系统。Skills告诉Claude碰到之后怎么用。Subagent是派一个人出去干活。</p>
+</blockquote>
+
+<p><strong>MCP</strong>（Model Context Protocol）MCP的核心价值是连接。它解决的问题是”Claude能访问什么数据”。</p>
+
+<p><strong>Skills</strong> Skills的核心价值是程序化知识。它解决的问题是”Claude应该怎么做”。</p>
+
+<p><strong>Subagent</strong> Subagent的核心价值是并行执行和上下文隔离。它解决的问题是”怎么处理复杂的多步骤任务”。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>维度</th>
+      <th>MCP</th>
+      <th>Skills</th>
+      <th>Subagent</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>核心作用</td>
+      <td>连接外部系统</td>
+      <td>提供程序化知识</td>
+      <td>并行执行任务</td>
+    </tr>
+    <tr>
+      <td>类比</td>
+      <td>发工具</td>
+      <td>使用手册</td>
+      <td>派助手</td>
+    </tr>
+    <tr>
+      <td>Token消耗</td>
+      <td>高（预加载能力描述）</td>
+      <td>低（按需加载）</td>
+      <td>高（独立会话）</td>
+    </tr>
+    <tr>
+      <td>技术门槛</td>
+      <td>需要写代码、配服务器</td>
+      <td>写Markdown就行</td>
+      <td>需要配置</td>
+    </tr>
+    <tr>
+      <td>能访问外部数据</td>
+      <td>是</td>
+      <td>否</td>
+      <td>否</td>
+    </tr>
+    <tr>
+      <td>适用场景</td>
+      <td>需要实时数据</td>
+      <td>重复性工作流</td>
+      <td>复杂多步骤任务</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>使用场景：
+<strong>MCP</strong>：查询数据库，调用第三方API，读写Github等
+<strong>Skills</strong>: 代码审查，文章校验，报告生成等重复性流程
+<strong>Subagent</strong>: 任务复杂，需要并行执行</p>
+
+<blockquote>
+  <p>三者可以同时组合使用，三者是互补关系</p>
+</blockquote>
+
+<h2 id="skills--vs-workflow">Skills  vs Workflow</h2>
+
+<p><strong>skills</strong>（技能）和 <strong>workflow</strong>（工作流）是两个核心且互补的概念，二者的本质区别在于：<strong>skills是AI完成单一任务的能力单元，workflow是多skills按逻辑串联形成的任务执行链路</strong>。</p>
+
+<p><strong>对比</strong>：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>维度</th>
+      <th>AI Skills</th>
+      <th>AI Workflow</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>粒度</td>
+      <td>细粒度，单一能力单元</td>
+      <td>粗粒度，多能力组合的完整流程</td>
+    </tr>
+    <tr>
+      <td>独立性</td>
+      <td>可独立调用，不依赖其他skills</td>
+      <td>依赖多个skills，需按规则协同</td>
+    </tr>
+    <tr>
+      <td>复用性</td>
+      <td>高，可嵌入不同workflow中重复使用</td>
+      <td>低，通常针对特定复杂任务定制</td>
+    </tr>
+    <tr>
+      <td>核心目标</td>
+      <td>解决单一子任务</td>
+      <td>解决复杂完整任务</td>
+    </tr>
+    <tr>
+      <td>灵活性</td>
+      <td>能力固定，调整仅需优化自身参数</td>
+      <td>灵活性高，可修改skills组合或执行逻辑</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>联系</strong></p>
+
+<ul>
+  <li>skills是workflow的基础：没有独立可用的skills，workflow就成了“无源之水”，无法完成任何子任务。</li>
+  <li>workflow是skills的价值放大器：单一skills的功能有限，通过workflow编排，可将多个skills的能力叠加，解决更复杂的实际问题。</li>
+  <li>动态适配关系：同一个skill可以被多个workflow复用；同一个workflow也可以根据需求替换不同的skills（比如将“文本摘要技能”替换为“长文精简技能”）。</li>
+</ul>
+
+<h1 id="skills-基本结构">skills 基本结构</h1>
+
+<p>一个Skill就是一个文件夹，里面至少有一个<code class="language-plaintext highlighter-rouge">SKILL.md</code>文件。 <br />
+<code class="language-plaintext highlighter-rouge">skill.md</code> 示例：</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre></td><td class="rouge-code"><pre><span class="nn">---</span>
+
+<span class="na">name</span><span class="pi">:</span> <span class="s">hello-skill</span>
+
+<span class="na">description</span><span class="pi">:</span> <span class="s">A simple greeting skill. Use when user says hello or asks for a greeting.</span>
+
+<span class="nn">---</span>
+
+<span class="gh"># Hello Skill</span>
+
+When user greets you, respond with a warm, personalized greeting.
+
+<span class="gu">## Guidelines</span>
+<span class="p">
+-</span> Be friendly and natural
+<span class="p">
+-</span> If user mentions their name, use it
+<span class="p">
+-</span> Keep it brief (1-2 sentences)
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ol>
+  <li>YAML Frontmatter（必需）
+ 文件必须以YAML frontmatter开头，包含两个必需字段：name 和 description
+ <strong>name</strong>是skill的唯一标识符
+    <ul>
+      <li>最多64个字符</li>
+      <li>只能用小写字母、数字、连字符</li>
+      <li>不能以连字符开头或结尾</li>
+      <li>不能有连续的连字符
+ <strong>description</strong> 告诉Claude什么时候用这个Skill</li>
+      <li>最多1024个字符</li>
+      <li>要包含 做什么 和 什么时候用</li>
+      <li>触发关键词很重要</li>
+    </ul>
+  </li>
+  <li>Markdown主体（可选但建议有）
+ 是skill的详细指令，没有格式限制，但建议包含：核心目标，执行步骤，示例输入输出，注意事项等
+    <blockquote>
+      <p><strong>官方建议</strong> 主体部分控制在500行以内。如果需要更多内容，放到references/目录下</p>
+    </blockquote>
+  </li>
+  <li>添加脚本和参考文档（进阶）
+完整skill结构：</li>
+</ol>
+
+<pre><code class="language-Markdown">	my-skill/
+	
+	├── SKILL.md                 # 核心指令
+	
+	├── scripts/
+	
+	│   └── process.py           # 可执行脚本
+	
+	├── references/
+	
+	│   └── DETAILED_GUIDE.md    # 详细参考文档
+	
+	└── assets/
+	
+		└── template.md          # 模板资源
+</code></pre>
+
+<ul>
+  <li>scripts/: 可执行脚本：当<code class="language-plaintext highlighter-rouge">SKILL.md</code>中引用脚本时，Claude会执行它。脚本代码不进入上下文，只有执行结果进入</li>
+  <li>references/ ：参考文档：当任务需要更多信息时，Claude会读取这些文档。采用渐进式披露，平时不加载</li>
+  <li>assets/ ：模板和资源，比如报告模板、配置文件、样例数据</li>
+</ul>
+
+<blockquote>
+  <p>建议避免使用一个大的Skills，而是拆分为多个小的skills
+优势：1. 按需加载，节省Token<br />
+	   2.  触发更加精准<br />
+	   3. 可自由组合</p>
+</blockquote>
+
+<p><strong>Skills的最佳实践</strong></p>
+<ul>
+  <li>Description决定一切：做什么（核心功能）+ 什么时候用（触发场景）+ 触发关键词</li>
+  <li>单一职责，每个Skill只做一件事</li>
+  <li>渐进式披露，核心内容放<code class="language-plaintext highlighter-rouge">SKILL.md</code>，详细内容放<code class="language-plaintext highlighter-rouge">references/</code>。<code class="language-plaintext highlighter-rouge">SKILL.md</code>应该简洁，包含核心流程和最常用的指令。详细的参考资料、边界情况、深入解释，放到<code class="language-plaintext highlighter-rouge">references/</code>目录下。</li>
+  <li>脚本优于生成代码 如果一个任务可以用脚本完成，就写成脚本。</li>
+  <li>从简单开始，逐步迭代</li>
+</ul>
+
+<h1 id="skills使用">Skills使用</h1>
+
+<p>Skills可以在多个平台使用：Claude Code、Claude API、Claude.ai。</p>
+
+<p>这是最方便的平台。</p>
+<ul>
+  <li>个人级Skills：放在 ~/.claude/skills/ 目录下。所有项目都可以用。适合：通用能力，比如代码审查、文档生成。</li>
+  <li>项目级Skills：放在项目目录的 .claude/skills/ 下。只有当前项目可以用。适合：项目特定的规则，比如这个项目的代码规范、这个团队的工作流。</li>
+</ul>
+
+<p><strong>安装</strong>
+从插件市场安装 或 直接下载解压到对应文件夹里</p>
+
+<h1 id="skills-库和资源">Skills 库和资源</h1>
+
+<h2 id="karpathy-inspired-claude-code-guidelines">Karpathy-Inspired Claude Code Guidelines</h2>
+
+<p>仓库地址：<a href="https://github.com/forrestchang/andrej-karpathy-skills">github仓库</a></p>
+
+<p>claude 安装 此 skills : 
+按照官方仓库教程即可</p>
+
+<ol>
+  <li>启动 claude</li>
+  <li>添加市场 <code class="language-plaintext highlighter-rouge">/plugin marketplace add forrestchang/andrej-karpathy-skills</code></li>
+  <li>安装插件 <code class="language-plaintext highlighter-rouge">/plugin install andrej-karpathy-skills@karpathy-skills</code></li>
+  <li>重启 claude</li>
+  <li>运行指令查看结果 <code class="language-plaintext highlighter-rouge">/skills</code> 可以看到安装的可用的 skills</li>
+</ol>
+
+<p>codex 安装此 skills 方式：</p>
+<ol>
+  <li>启动 codex</li>
+  <li>使用命令 <code class="language-plaintext highlighter-rouge">$Skill Installer andrej-karpathy-skills@karpathy-skills</code> 安装</li>
+  <li>重启 codex</li>
+  <li>运行 <code class="language-plaintext highlighter-rouge">/skills</code> ，<code class="language-plaintext highlighter-rouge">List Skills</code> 查看安装的 skills</li>
+</ol>
+
+<h2 id="superpowers">superpowers</h2>
+
+<p>仓库地址: <a href="https://github.com/obra/superpowers">superpowers</a>
+一套完整的开发工作流Skills，包含：TDD、调试、代码审查、计划执行等，社区口碑最好的Skills库，设计理念先进</p>
+
+<h2 id="skills-仓库资源">skills 仓库/资源</h2>
+
+<ol>
+  <li><a href="https://skillsmp.com/zh">Agent Skills Marketplace</a></li>
+  <li><a href="https://clawhub.ai/skills?sort=downloads">ClawHub</a></li>
+  <li><a href="https://skillstore.io/zh-hans">skillstore</a></li>
+  <li><a href="https://skills.sh/">skills.sh</a></li>
+</ol>
+
+<h1 id="参考">参考</h1>
+<ol>
+  <li><a href="https://mp.weixin.qq.com/s/aoNwyY5ZkCRMkZirn1rElQ">从 7 个顶级 Skill 中提炼的模式与最佳实践</a></li>
+  <li><a href="https://mp.weixin.qq.com/s/PG-rXJllhrtynAfNZn5asg">Qoder Skills 完全指南：从零开始，让 AI 按你的标准执行</a></li>
+  <li><a href="https://mp.weixin.qq.com/s/PonVlfEFbGLkaDt_1oWfdA">Agent Skills：打通可复用专业领域知识的最后一公里</a></li>
+  <li><a href="https://mp.weixin.qq.com/s/OmA2xcmpXNITxbR5bTsT6w">Skills：从编程工具的配角到Agent研发的核心</a></li>
+</ol>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+  
+
+  
+    
+
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 分类: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/blog/categories/#ai" class="page__taxonomy-item p-category" rel="tag">AI</a>
+    
+    </span>
+  </p>
+
+
+  
+
+
+        
+
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 更新时间:</strong> <time class="dt-published" datetime="2026-03-10T00:00:00+00:00">March 10, 2026</time></p>
+
+
+      </footer>
+
+      
+
+      
+
+  <nav class="pagination" aria-label="文章翻页">
+    
+      <a href="/blog/AI%E5%AD%A6%E4%B9%A03-RAG/" class="pagination--pager" title="AI学习(三）- RAG">上一页</a>
+    
+    
+      <a href="/blog/Android%E5%AD%A6%E4%B9%A0/" class="pagination--pager" title="Android 学习">下一页</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    
+
+<div class="page__related">
+  
+  <h2 class="page__related-title">猜您还喜欢</h2>
+  <div class="grid__wrapper">
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/DESIGN-md%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="permalink">DESIGN.md 文档学习（AI总结整理）
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-22T00:00:00+00:00">June 22, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">DESIGN.md 学习笔记，整理设计规范文档的作用、结构、写法、约束内容和 AI 协作方式。
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/Material3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="permalink">Material3学习(AI总结整理)
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-18T00:00:00+00:00">June 18, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">Material 3 学习笔记，整理设计原则、动态颜色、组件规范、状态层和 Android Compose 实践。
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/Mermaid%E7%AC%94%E8%AE%B0/" rel="permalink">Mermaid笔记(AI生成）
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-08T00:00:00+00:00">June 8, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">Mermaid 学习笔记，整理文本绘图语法、流程图、时序图、架构图、适用场景和常见示例。
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/%E5%88%A9%E7%94%A8AI%E5%AE%8C%E6%88%90UI%E8%AE%BE%E8%AE%A1/" rel="permalink">利用 AI 完成 UI 设计
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-05T00:00:00+00:00">June 5, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">AI UI 设计工具笔记，整理 Claude Design、Open Design、Google Stitch 的能力、费用和使用场景。
+</p>
+  </article>
+</div>
+
+    
+  </div>
+</div>
+
+  
+  
+</div>
+
+      
+    </div>
+
+    
+      <div class="search-content">
+        
+<div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';" role="search">
+    <label class="sr-only" for="search">
+      输入您要搜索的关键词...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="输入您要搜索的关键词..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        
+
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>关注:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://github.com/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://www.bilibili.com/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-bilibili" aria-hidden="true"></i> Bilibili</a></li>
+        
+      
+    
+
+    
+      <li><a href="/blog/feed.xml"><i class="fas fa-fw fa-square-rss" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+
+<div class="page__footer-copyright">&copy; 2025-2026 - 2026 <a href="https://NiuSX.github.io">一只捡星星的熊</a>. 技术来自于 <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/jekyll-themes/minimal-mistakes/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+
+  <script src="/blog/assets/js/main.min.js"></script>
+
+
+
+
+
+<script src="/blog/assets/js/lunr/lunr.min.js"></script>
+<script src="/blog/assets/js/lunr/lunr-store.js"></script>
+<script src="/blog/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  
+    <script src="/blog/assets/js/mermaid-init.js"></script>
+  
+
+
+  </body>
+</html>

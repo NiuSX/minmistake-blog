@@ -1,0 +1,771 @@
+
+
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.28.0 by Michael Rose
+  Copyright 2013-2026 Michael Rose - mademistakes.com | @mmistakes
+  Copyright 2024-2026 iBug - ibugone.com | @iBug
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+
+<html lang="zh-CN" class="no-js" dir="ltr">
+  <head>
+    
+<meta charset="utf-8">
+
+
+<!-- begin _includes/seo.html --><title>AI学习(五）- HarnessEngineering(未完待续) - 一只捡星星的熊</title>
+<meta name="description" content="Harness Engineering 学习笔记，整理 Agent 运行框架、上下文管理、工具调用、验证闭环和工程实践。">
+
+
+  <meta name="author" content="一只捡星星的熊">
+  
+  <meta property="article:author" content="一只捡星星的熊">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:site_name" content="一只捡星星的熊">
+<meta property="og:title" content="AI学习(五）- HarnessEngineering(未完待续)">
+<meta property="og:url" content="https://niusx.github.io/blog/AI%E5%AD%A6%E4%B9%A05-Harness/">
+
+
+  <meta property="og:description" content="Harness Engineering 学习笔记，整理 Agent 运行框架、上下文管理、工具调用、验证闭环和工程实践。">
+
+
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2026-04-25T00:00:00+00:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://niusx.github.io/blog/AI%E5%AD%A6%E4%B9%A05-Harness/">
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/blog/feed.xml" type="application/atom+xml" rel="alternate" title="一只捡星星的熊 Feed">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+  
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/blog/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    
+<nav class="skip-links" aria-label="Skip links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">转到主导航栏</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">转到内容</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">转到底部</a></li>
+  </ul>
+</nav>
+
+    
+
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav" aria-label="Primary navigation">
+        
+        <a class="site-title" href="/blog/">
+          一只捡星星的熊
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item"><a
+                  href="/blog/"
+                  
+                  
+                >首页</a></li><li class="masthead__menu-item"><a
+                  href="/blog/year-archive/"
+                  
+                  
+                >归档</a></li><li class="masthead__menu-item masthead__menu-item--has-children"><button class="masthead__menu-toggle" type="button" aria-haspopup="true">
+                  分类
+                </button>
+                <ul class="masthead__submenu">
+                  <li>
+                    <a href="/blog/categories/">全部笔记</a>
+                  </li><li>
+                        <a href="/blog/categories/#ai">AI</a>
+                      </li><li>
+                        <a href="/blog/categories/#ai-%E5%B7%A5%E5%85%B7">AI 工具</a>
+                      </li><li>
+                        <a href="/blog/categories/#agent">Agent</a>
+                      </li><li>
+                        <a href="/blog/categories/#android">Android</a>
+                      </li><li>
+                        <a href="/blog/categories/#git">Git</a>
+                      </li><li>
+                        <a href="/blog/categories/#kotlin">Kotlin</a>
+                      </li><li>
+                        <a href="/blog/categories/#nav2">Nav2</a>
+                      </li><li>
+                        <a href="/blog/categories/#ros2">ROS2</a>
+                      </li><li>
+                        <a href="/blog/categories/#sdd">SDD</a>
+                      </li><li>
+                        <a href="/blog/categories/#ui">UI</a>
+                      </li><li>
+                        <a href="/blog/categories/#ui%E8%AE%BE%E8%AE%A1">UI设计</a>
+                      </li><li>
+                        <a href="/blog/categories/#ollama">ollama</a>
+                      </li><li>
+                        <a href="/blog/categories/#python">python</a>
+                      </li><li>
+                        <a href="/blog/categories/#yaml">yaml</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%85%B6%E4%BB%96">其他</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%89%8D%E7%AB%AF">前端</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%91%BD%E4%BB%A4%E8%AF%AD%E8%A8%80">命令语言</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%AF%BC%E8%88%AA">导航</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%B7%A5%E5%85%B7">工具</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%9C%BA%E5%99%A8%E4%BA%BA">机器人</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7">构建工具</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%9E%B6%E6%9E%84">架构</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%A0%87%E8%AE%B0%E8%AF%AD%E8%A8%80">标记语言</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80">编程语言</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E8%AE%A1%E7%AE%97%E6%9C%BA">计算机</a>
+                      </li></ul></li><li class="masthead__menu-item"><a
+                  href="/blog/about/"
+                  
+                  
+                >关于</a></li></ul>
+
+        
+        <form class="masthead-search" action="/blog/search/" method="get" role="search">
+          <label class="visually-hidden" for="masthead-search-input">
+            切换搜索
+          </label>
+          <input
+            id="masthead-search-input"
+            class="masthead-search__input"
+            type="search"
+            name="q"
+            placeholder="输入您要搜索的关键词..."
+          >
+          <button class="masthead-search__button" type="submit">
+            <span class="visually-hidden">切换搜索</span>
+            <i class="fas fa-search" aria-hidden="true"></i>
+          </button>
+        </form>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">切换菜单</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+
+
+<div id="main" role="main">
+  
+
+  <div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="https://niusx.github.io/blog/">
+        <img src="/blog/assets/images/wukong-photo.jpg" alt="一只捡星星的熊" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="https://niusx.github.io/blog/" itemprop="url">一只捡星星的熊</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>什么也没写</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">关注</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-location-dot" aria-hidden="true"></i> <span itemprop="name" class="p-locality">中国</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://github.com/NiuSX/" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://space.bilibili.com/347549684/" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-bilibili" aria-hidden="true"></i><span class="label">Bilibili</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="AI学习(五）- HarnessEngineering(未完待续)">
+    <meta itemprop="description" content="Harness Engineering 学习笔记，整理 Agent 运行框架、上下文管理、工具调用、验证闭环和工程实践。">
+    <meta itemprop="datePublished" content="2026-04-25T00:00:00+00:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="https://niusx.github.io/blog/AI%E5%AD%A6%E4%B9%A05-Harness/" itemprop="url">AI学习(五）- HarnessEngineering(未完待续)
+</a>
+          </h1>
+          
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-04-25T00:00:00+00:00">April 25, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc" aria-label="文章目录">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> 文章目录</h4></header>
+              <ul class="toc__menu"><li><a href="#介绍">介绍</a></li><li><a href="#参考">参考</a></li></ul>
+            </nav>
+          </aside>
+        
+        <h1 id="介绍">介绍</h1>
+
+<p>一个Agent = Model + Harness，所有Harness Engineering 指的是模型之外的一切，包含系统提示词，工具调用，文件系统，编排逻辑，钩子中间件、反馈回路、约束机制等等。model是Agent的能力来源，而 Harness 则把状态、工具、反馈和约束串起来。</p>
+
+<p>Harness Engineering 和 Prompt 以及 Context Enginering 三者之间是嵌套关系，每一层解决不同的问题。Harness Engineering  包含 Context Enginering 包含  Prompt Enginering</p>
+
+<ul>
+  <li>Harness Engineering  解决的是<strong>执行</strong>问题，负责长链路任务中持续做对，不跑偏，犯错能更正，包含文件系统，约束执行，反馈回路，沙箱等等</li>
+  <li>Context Enginering 则解决的是<strong>信息</strong>问题，负责确保模型在合适时机拿到正确且必要的事实信息。包含上下文管理，RAG,记忆注入，Token优化等等</li>
+  <li>Prompt Enginering  则解决的是<strong>表达问题</strong>,确保让模型听懂需求，包括系统提示词，思维链引导等。</li>
+</ul>
+
+<blockquote>
+  <p>注：在简单任务里，提示词最重要；依赖外部知识的任务里，上下文重要；长链路的商业应用中，Harness 重要</p>
+</blockquote>
+
+<p>Harness Engineering 包含记忆系统，执行环境，外部知识获取，文件系统，验证闭环，上下文管理。  <br />
+一个完整的 HarnessEngineering 包含六层体系：</p>
+<ol>
+  <li>信息边界层： 角色目标定义，信息隔离，Agents.md规范</li>
+</ol>
+
+<blockquote>
+  <p>确保AI该知道什么，不该知道什么</p>
+</blockquote>
+
+<ol>
+  <li>工具系统层：文件系统抽象，bansh执行环境，MCP 工具挂载</li>
+</ol>
+
+<blockquote>
+  <p>确保Agent 如何跟外部世界交互</p>
+</blockquote>
+
+<ol>
+  <li>执行编排层：多步骤任务串联，混合状态机编排</li>
+</ol>
+
+<blockquote>
+  <p>确保多步骤任务如何串联起来</p>
+</blockquote>
+
+<ol>
+  <li>记忆与状态层：独立管理任务状态，跨会话记忆，上下文压缩</li>
+</ol>
+
+<blockquote>
+  <p>确保长任务中间结果如何管理</p>
+</blockquote>
+
+<ol>
+  <li>评估与观测层：独立验证机制，沙箱环境测试，可观测性接入</li>
+</ol>
+
+<blockquote>
+  <p>确保 Agent 有自知之明，知道自己是否做错</p>
+</blockquote>
+
+<ol>
+  <li>约束校验与回复层：预设红线规则，API 超时重试，状态回滚机制</li>
+</ol>
+
+<blockquote>
+  <p>确保Agent 出错后能重新更正</p>
+</blockquote>
+
+<h1 id="参考">参考</h1>
+<ol>
+  <li><a href="https://mp.weixin.qq.com/s/rlIyIIZOXFObNIXbPI7gDg">Harness Engineering：耗时一周，我是如何将应用的AI Coding率提升至90%的</a></li>
+  <li><a href="https://mp.weixin.qq.com/s/2xFei8dMx99lc-iyrZZrww">深度解析 Hermes Agent 如何实现“自进化”及其 Prompt / Context / Harness 的设计实践</a></li>
+  <li><a href="https://mp.weixin.qq.com/s/xLdQ9Z3n3SNwaQtmrM28FA">从玩具到生产力：用真实项目讲透 AI Agent 的 Harness Engineering</a></li>
+</ol>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+  
+
+  
+    
+
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 分类: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/blog/categories/#ai" class="page__taxonomy-item p-category" rel="tag">AI</a>
+    
+    </span>
+  </p>
+
+
+  
+
+
+        
+
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 更新时间:</strong> <time class="dt-published" datetime="2026-04-25T00:00:00+00:00">April 25, 2026</time></p>
+
+
+      </footer>
+
+      
+
+      
+
+  <nav class="pagination" aria-label="文章翻页">
+    
+      <a href="/blog/KMP%E5%A4%9A%E5%B9%B3%E5%8F%B0%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE/" class="pagination--pager" title="KMP 多平台项目配置(未完待续）">上一页</a>
+    
+    
+      <a href="/blog/AI%E7%BC%96%E7%A8%8B%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" class="pagination--pager" title="AI 编程工具使用">下一页</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    
+
+<div class="page__related">
+  
+  <h2 class="page__related-title">猜您还喜欢</h2>
+  <div class="grid__wrapper">
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/DESIGN-md%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="permalink">DESIGN.md 文档学习（AI总结整理）
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-22T00:00:00+00:00">June 22, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">DESIGN.md 学习笔记，整理设计规范文档的作用、结构、写法、约束内容和 AI 协作方式。
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/Material3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="permalink">Material3学习(AI总结整理)
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-18T00:00:00+00:00">June 18, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">Material 3 学习笔记，整理设计原则、动态颜色、组件规范、状态层和 Android Compose 实践。
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/Mermaid%E7%AC%94%E8%AE%B0/" rel="permalink">Mermaid笔记(AI生成）
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-08T00:00:00+00:00">June 8, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">Mermaid 学习笔记，整理文本绘图语法、流程图、时序图、架构图、适用场景和常见示例。
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/%E5%88%A9%E7%94%A8AI%E5%AE%8C%E6%88%90UI%E8%AE%BE%E8%AE%A1/" rel="permalink">利用 AI 完成 UI 设计
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-05T00:00:00+00:00">June 5, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">AI UI 设计工具笔记，整理 Claude Design、Open Design、Google Stitch 的能力、费用和使用场景。
+</p>
+  </article>
+</div>
+
+    
+  </div>
+</div>
+
+  
+  
+</div>
+
+      
+    </div>
+
+    
+      <div class="search-content">
+        
+<div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';" role="search">
+    <label class="sr-only" for="search">
+      输入您要搜索的关键词...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="输入您要搜索的关键词..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        
+
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>关注:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://github.com/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://www.bilibili.com/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-bilibili" aria-hidden="true"></i> Bilibili</a></li>
+        
+      
+    
+
+    
+      <li><a href="/blog/feed.xml"><i class="fas fa-fw fa-square-rss" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+
+<div class="page__footer-copyright">&copy; 2025-2026 - 2026 <a href="https://NiuSX.github.io">一只捡星星的熊</a>. 技术来自于 <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/jekyll-themes/minimal-mistakes/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+
+  <script src="/blog/assets/js/main.min.js"></script>
+
+
+
+
+
+<script src="/blog/assets/js/lunr/lunr.min.js"></script>
+<script src="/blog/assets/js/lunr/lunr-store.js"></script>
+<script src="/blog/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  
+    <script src="/blog/assets/js/mermaid-init.js"></script>
+  
+
+
+  </body>
+</html>

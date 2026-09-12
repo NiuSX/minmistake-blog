@@ -1,0 +1,1243 @@
+
+
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.28.0 by Michael Rose
+  Copyright 2013-2026 Michael Rose - mademistakes.com | @mmistakes
+  Copyright 2024-2026 iBug - ibugone.com | @iBug
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+
+<html lang="zh-CN" class="no-js" dir="ltr">
+  <head>
+    
+<meta charset="utf-8">
+
+
+<!-- begin _includes/seo.html --><title>xml学习(未完待续) - 一只捡星星的熊</title>
+<meta name="description" content="XML 学习笔记，整理语法结构、标签规则、数据传输特点、与 HTML 的区别和常见应用。">
+
+
+  <meta name="author" content="一只捡星星的熊">
+  
+  <meta property="article:author" content="一只捡星星的熊">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:site_name" content="一只捡星星的熊">
+<meta property="og:title" content="xml学习(未完待续)">
+<meta property="og:url" content="https://niusx.github.io/blog/xml/">
+
+
+  <meta property="og:description" content="XML 学习笔记，整理语法结构、标签规则、数据传输特点、与 HTML 的区别和常见应用。">
+
+
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-12-01T00:00:00+00:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://niusx.github.io/blog/xml/">
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/blog/feed.xml" type="application/atom+xml" rel="alternate" title="一只捡星星的熊 Feed">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+  
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/blog/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    
+<nav class="skip-links" aria-label="Skip links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">转到主导航栏</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">转到内容</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">转到底部</a></li>
+  </ul>
+</nav>
+
+    
+
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav" aria-label="Primary navigation">
+        
+        <a class="site-title" href="/blog/">
+          一只捡星星的熊
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item"><a
+                  href="/blog/"
+                  
+                  
+                >首页</a></li><li class="masthead__menu-item"><a
+                  href="/blog/year-archive/"
+                  
+                  
+                >归档</a></li><li class="masthead__menu-item masthead__menu-item--has-children"><button class="masthead__menu-toggle" type="button" aria-haspopup="true">
+                  分类
+                </button>
+                <ul class="masthead__submenu">
+                  <li>
+                    <a href="/blog/categories/">全部笔记</a>
+                  </li><li>
+                        <a href="/blog/categories/#ai">AI</a>
+                      </li><li>
+                        <a href="/blog/categories/#ai-%E5%B7%A5%E5%85%B7">AI 工具</a>
+                      </li><li>
+                        <a href="/blog/categories/#agent">Agent</a>
+                      </li><li>
+                        <a href="/blog/categories/#android">Android</a>
+                      </li><li>
+                        <a href="/blog/categories/#git">Git</a>
+                      </li><li>
+                        <a href="/blog/categories/#kotlin">Kotlin</a>
+                      </li><li>
+                        <a href="/blog/categories/#nav2">Nav2</a>
+                      </li><li>
+                        <a href="/blog/categories/#ros2">ROS2</a>
+                      </li><li>
+                        <a href="/blog/categories/#sdd">SDD</a>
+                      </li><li>
+                        <a href="/blog/categories/#ui">UI</a>
+                      </li><li>
+                        <a href="/blog/categories/#ui%E8%AE%BE%E8%AE%A1">UI设计</a>
+                      </li><li>
+                        <a href="/blog/categories/#ollama">ollama</a>
+                      </li><li>
+                        <a href="/blog/categories/#python">python</a>
+                      </li><li>
+                        <a href="/blog/categories/#yaml">yaml</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%85%B6%E4%BB%96">其他</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%89%8D%E7%AB%AF">前端</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%91%BD%E4%BB%A4%E8%AF%AD%E8%A8%80">命令语言</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%AF%BC%E8%88%AA">导航</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%B7%A5%E5%85%B7">工具</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%9C%BA%E5%99%A8%E4%BA%BA">机器人</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7">构建工具</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%9E%B6%E6%9E%84">架构</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%A0%87%E8%AE%B0%E8%AF%AD%E8%A8%80">标记语言</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80">编程语言</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E8%AE%A1%E7%AE%97%E6%9C%BA">计算机</a>
+                      </li></ul></li><li class="masthead__menu-item"><a
+                  href="/blog/about/"
+                  
+                  
+                >关于</a></li></ul>
+
+        
+        <form class="masthead-search" action="/blog/search/" method="get" role="search">
+          <label class="visually-hidden" for="masthead-search-input">
+            切换搜索
+          </label>
+          <input
+            id="masthead-search-input"
+            class="masthead-search__input"
+            type="search"
+            name="q"
+            placeholder="输入您要搜索的关键词..."
+          >
+          <button class="masthead-search__button" type="submit">
+            <span class="visually-hidden">切换搜索</span>
+            <i class="fas fa-search" aria-hidden="true"></i>
+          </button>
+        </form>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">切换菜单</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+
+
+<div id="main" role="main">
+  
+
+  <div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="https://niusx.github.io/blog/">
+        <img src="/blog/assets/images/wukong-photo.jpg" alt="一只捡星星的熊" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="https://niusx.github.io/blog/" itemprop="url">一只捡星星的熊</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>什么也没写</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">关注</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-location-dot" aria-hidden="true"></i> <span itemprop="name" class="p-locality">中国</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://github.com/NiuSX/" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://space.bilibili.com/347549684/" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-bilibili" aria-hidden="true"></i><span class="label">Bilibili</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="xml学习(未完待续)">
+    <meta itemprop="description" content="XML 学习笔记，整理语法结构、标签规则、数据传输特点、与 HTML 的区别和常见应用。">
+    <meta itemprop="datePublished" content="2025-12-01T00:00:00+00:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="https://niusx.github.io/blog/xml/" itemprop="url">xml学习(未完待续)
+</a>
+          </h1>
+          
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2025-12-01T00:00:00+00:00">December 1, 2025</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc" aria-label="文章目录">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> 文章目录</h4></header>
+              <ul class="toc__menu"><li><a href="#介绍">介绍</a></li><li><a href="#xml语法">XML语法</a></li><li><a href="#xml元素">XML元素</a></li><li><a href="#xml属性">XML属性</a></li><li><a href="#xml-实体">XML 实体</a></li><li><a href="#xml-pcdata">XML PCDATA</a></li><li><a href="#xml-cdata">XML CDATA</a></li><li><a href="#xml-命名空间">XML 命名空间</a></li><li><a href="#xml验证-dtd">XML验证 (DTD)</a><ul><li><a href="#dtd使用">DTD使用</a></li><li><a href="#dtd写法">DTD写法</a><ul><li><a href="#元素">元素</a></li><li><a href="#属性">属性</a></li><li><a href="#实体">实体</a></li></ul></li></ul></li><li><a href="#xml-schema">XML Schema</a><ul><li><a href="#xml-schema元素">XML schema元素</a></li></ul></li><li><a href="#未完待续">未完待续</a></li></ul>
+            </nav>
+          </aside>
+        
+        <h1 id="介绍">介绍</h1>
+
+<p>XML 指可扩展标记语言（e<strong>X</strong>tensible <strong>M</strong>arkup <strong>L</strong>anguage）。被设计用来传输和存储数据，不用于表现和展示数据，而HTML 则用来表现数据。是从标准通用标记语言（SGML）中简化修改出来的。它主要用到的有可扩展标记语言、可扩展样式语言（XSL）、XBRL和XPath等。</p>
+
+<p>XML特点：</p>
+
+<ul>
+  <li>ML 指可扩展标记语言（EXtensible Markup Language）。</li>
+  <li>XML 是一种很像HTML的标记语言。</li>
+  <li>XML 的设计宗旨是传输数据，而不是显示数据。</li>
+  <li>XML 标签没有被预定义。您需要自行定义标签。</li>
+  <li>XML 被设计为具有自我描述性。</li>
+  <li>XML 是 W3C 的推荐标准。</li>
+  <li>XML 是独立于软件和硬件的信息传输工具。</li>
+</ul>
+
+<p>XML 和 HTML 区别：</p>
+
+<ul>
+  <li>XML 不是 HTML 的替代。</li>
+  <li>XML 和 HTML 为不同的目的而设计：
+    <ul>
+      <li>HTML 被设计用来显示数据，其焦点是数据的外观。XML 被设计用来传输和存储数据，其焦点是数据的内容。</li>
+      <li>HTML 旨在显示信息，而 XML 旨在传输信息。</li>
+      <li>HTML 中使用的标签都是预定义的。</li>
+      <li>HTML 中使用的标签都是预定义的。XML 语言没有预定义的标签； 允许创作者定义自己的标签和自己的文档结构</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>用途</strong>：XML 应用于 Web 开发的许多方面，常用于简化数据的存储和共享。</p>
+
+<ul>
+  <li>XML把数据从HTML分离</li>
+  <li>XML简化数据共享</li>
+  <li>简化数据传输</li>
+  <li>简化平台变更</li>
+  <li>使数据更有用</li>
+  <li>用于创建新的互联网语言</li>
+</ul>
+
+<p>所有的 XML 文档（以及 HTML 文档）均由以下简单的构建模块构成：</p>
+
+<ul>
+  <li>元素</li>
+  <li>属性</li>
+  <li>实体</li>
+  <li>PCDATA（parsed character data，解析字符数据）</li>
+  <li>CDATA （character data，字符数据）</li>
+</ul>
+
+<h1 id="xml语法">XML语法</h1>
+
+<p>XML 文档形成了一种树结构，它从”根部”开始，然后扩展到”枝叶”。 <br />
+XML 文档必须包含根元素；该元素是所有其他元素的父元素；所有的元素都可以有子元素；父、子以及同胞等术语用于描述元素之间的关系。父元素拥有子元素。相同层级上的子元素成为同胞（兄弟或姐妹）；所有的元素都可以有文本内容和属性（类似 HTML 中）</p>
+
+<p><strong>XML 声明</strong>
+XML 声明文件的可选部分，如果存在需要放在文档的第一行</p>
+<pre><code class="language-XML">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+</code></pre>
+
+<p><strong>XML根元素</strong>
+XML 必须包含根元素，它是所有其他元素的父元素</p>
+<pre><code class="language-XML">&lt;root&gt;
+  &lt;child&gt;
+    &lt;subchild&gt;.....&lt;/subchild&gt;
+  &lt;/child&gt;
+&lt;/root&gt;
+</code></pre>
+<p>XML文档由元素构成，每个元素包括开始标签、结束标签和元素内容。</p>
+
+<p><strong>属性</strong>
+元素可以包含属性，属性提供有关元素的附加信息。属性位于开始标签中。</p>
+<pre><code class="language-XML">&lt;person age="30" gender="male"&gt;John Doe&lt;/person&gt;
+</code></pre>
+<p><strong>单标签</strong>
+所有的 XML 元素一般都有一个关闭标签，但也允许单标签的使用的</p>
+<pre><code class="language-XML">&lt;elementName attribute="value" /&gt;
+</code></pre>
+<p>单标签是指在一个标签中同时包含了开始和结束标签，形式类似于 HTML 中的空元素标签。 <br />
+在XML中，你可以使用以下两种方式表示单标签： <br />
+使用空元素标签：</p>
+<pre><code class="language-XML">&lt;exampleTag /&gt;
+</code></pre>
+<p>使用开始和结束标签，但是不包含任何内容：</p>
+<pre><code class="language-XML">&lt;exampleTag&gt;&lt;/exampleTag&gt;
+</code></pre>
+<p><strong>XML 标签对大小写敏感</strong>。标签 <code class="language-plaintext highlighter-rouge">&lt;Letter&gt;</code> 与标签<code class="language-plaintext highlighter-rouge"> &lt;letter&gt;</code> 是不同的。必须使用相同的大小写来编写打开标签和关闭标签</p>
+
+<p><strong>实体引用</strong>
+在 XML 中，一些字符拥有特殊的意义。 <br />
+如果您把字符 “&lt;” 放在 XML 元素中，会发生错误，这是因为解析器会把它当作新元素的开始 <br />
+这样会产生 XML 错误： <code class="language-plaintext highlighter-rouge">&lt;message&gt;if salary &lt; 1000 then&lt;/message&gt;</code> <br />
+用实体引用来代替 “&lt;” 字符：<code class="language-plaintext highlighter-rouge">&lt;message&gt;if salary &amp;lt; 1000 then&lt;/message&gt;</code></p>
+
+<p>在 XML 中，有 5 个预定义的实体引用：</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">&amp;lt;</code>  表示    &lt;</li>
+  <li><code class="language-plaintext highlighter-rouge">&amp;gt;</code> 表示     &gt;</li>
+  <li><code class="language-plaintext highlighter-rouge">&amp;amp;</code> 表示 &amp;</li>
+  <li><code class="language-plaintext highlighter-rouge">&amp;apos;</code> 表示  ‘</li>
+  <li><code class="language-plaintext highlighter-rouge">&amp;quot;</code>  表示 “</li>
+</ul>
+
+<p><strong>存储换行</strong></p>
+<ul>
+  <li>在 Windows 应用程序中，换行通常以一对字符来存储：回车符（CR）和换行符（LF）。</li>
+  <li>在 Unix 和 Mac OSX 中，使用 LF 来存储新行。</li>
+  <li>在旧的 Mac 系统中，使用 CR 来存储新行。</li>
+  <li>XML 以 LF 存储换行</li>
+</ul>
+
+<h1 id="xml元素">XML元素</h1>
+
+<p>XML 元素指的是从（且包括）开始标签直到（且包括）结束标签的部分。</p>
+
+<p>一个元素可以包含：</p>
+
+<ul>
+  <li>其他元素</li>
+  <li>文本</li>
+  <li>属性</li>
+  <li>或混合以上所有</li>
+</ul>
+
+<p><strong>命名规则</strong></p>
+
+<p>XML 元素必须遵循以下命名规则：</p>
+
+<ul>
+  <li>名称可以包含字母、数字以及其他的字符</li>
+  <li>名称不能以数字或者标点符号开始</li>
+  <li>名称不能以字母 xml（或者 XML、Xml 等等）开始</li>
+  <li>名称不能包含空格</li>
+</ul>
+
+<p><strong>最佳命名习惯</strong></p>
+
+<ul>
+  <li>使名称具有描述性。使用下划线的名称也很不错：<first_name>、<last_name>。</last_name></first_name></li>
+  <li>名称应简短和简单，比如：<book_title>，而不是：<the_title_of_the_book>。</the_title_of_the_book></book_title></li>
+  <li>避免 “-“ 字符。如果您按照这样的方式进行命名：”first-name”，一些软件会认为您想要从 first 里边减去 name。</li>
+  <li>避免 “.” 字符。如果您按照这样的方式进行命名：”first.name”，一些软件会认为 “name” 是对象 “first” 的属性。</li>
+  <li>避免 “:” 字符。冒号会被转换为命名空间来使用。</li>
+  <li>XML 文档经常有一个对应的数据库，其中的字段会对应 XML 文档中的元素。有一个实用的经验，即使用数据库的命名规则来命名 XML 文档中的元素。</li>
+  <li>在 XML 中，éòá 等非英语字母是完全合法的，不过需要留意，您的软件供应商不支持这些字符时可能出现的问题</li>
+</ul>
+
+<p><strong>XML 元素是可扩展，以携带更多的信息</strong> 
+XML 的优势之一，就是可以在不中断应用程序的情况下进行扩展。</p>
+
+<h1 id="xml属性">XML属性</h1>
+
+<p>XML元素具有属性，属性（Attribute）提供有关元素的额外信息。
+xml属性值使用单引号或者双引号均可，但<strong>属性值必须加引号</strong></p>
+
+<p>在XML中<strong>尽量避免使用属性</strong> 尽量使用元素来描述数据。而仅仅使用属性来提供与数据无关的信息
+因使用属性而引起的一些问题：</p>
+<ul>
+  <li>属性不能包含多个值（元素可以）</li>
+  <li>属性不能包含树结构（元素可以）</li>
+  <li>属性不容易扩展（为未来的变化）</li>
+  <li>属性难以阅读和维护</li>
+</ul>
+
+<h1 id="xml-实体">XML 实体</h1>
+
+<p><strong>XML 实体</strong>是一种<strong>占位符机制</strong>，用于在 XML 文档中<strong>引用预定义的内容</strong>。可以把它理解为“变量”或“宏”，在解析时会被替换为实际的内容。</p>
+
+<p>实体允许：</p>
+
+<ul>
+  <li><strong>引用特殊字符</strong>（如 <code class="language-plaintext highlighter-rouge">&lt;</code>、<code class="language-plaintext highlighter-rouge">&gt;</code>、<code class="language-plaintext highlighter-rouge">&amp;</code>）</li>
+  <li><strong>重复使用常用内容片段</strong></li>
+  <li><strong>引用外部文件内容</strong></li>
+  <li><strong>在 DTD 中定义可替换的内容</strong></li>
+</ul>
+
+<p><strong>实体语法</strong>：
+实体由三部分组成</p>
+<ul>
+  <li>&amp;	实体引用的开始标记</li>
+  <li>实体名称	实体的标识符</li>
+  <li>;	实体引用的结束标记</li>
+</ul>
+
+<p>在 XML 中，有 5 个预定义的实体引用：</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">&amp;lt;</code>  表示    &lt;</li>
+  <li><code class="language-plaintext highlighter-rouge">&amp;gt;</code> 表示     &gt;</li>
+  <li><code class="language-plaintext highlighter-rouge">&amp;amp;</code> 表示 &amp;</li>
+  <li><code class="language-plaintext highlighter-rouge">&amp;apos;</code> 表示  ‘</li>
+  <li><code class="language-plaintext highlighter-rouge">&amp;quot;</code>  表示 “</li>
+</ul>
+
+<h1 id="xml-pcdata">XML PCDATA</h1>
+
+<p><strong>PCDATA</strong> （<strong>Parsed Character Data</strong>，<strong>可解析字符数据</strong>）</p>
+
+<p>PCDATA 指的是<strong>会被 XML 解析器处理的文本内容</strong>。当解析器遇到 PCDATA 时，会：</p>
+
+<ol>
+  <li><strong>解析其中的实体引用</strong>（如 <code class="language-plaintext highlighter-rouge">&amp;lt;</code> 会被转换为 <code class="language-plaintext highlighter-rouge">&lt;</code>）</li>
+  <li><strong>解析其中的元素标签</strong>（如果包含子元素）</li>
+  <li><strong>进行正常的 XML 语法检查</strong></li>
+</ol>
+
+<h1 id="xml-cdata">XML CDATA</h1>
+
+<p>XML 文档中的所有文本均会被解析器解析。只有 CDATA 区段中的文本会被解析器忽略。</p>
+
+<p>DATA 部分由 “" 开始，由 "” 结束</p>
+
+<pre><code class="language-XML">&lt;script&gt;
+&lt;![CDATA[
+function matchwo(a,b)
+{
+if (a &lt; b &amp;&amp; a &lt; 0) then
+{
+return 1;
+}
+else
+{
+return 0;
+}
+}
+]]&gt;
+&lt;/script&gt;
+</code></pre>
+
+<p>PCDATA 与 CDATA对比：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>对比维度</th>
+      <th>PCDATA</th>
+      <th>CDATA</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>全称</td>
+      <td>Parsed Character Data</td>
+      <td>Character Data</td>
+    </tr>
+    <tr>
+      <td>中文</td>
+      <td>可解析字符数据</td>
+      <td>字符数据（未解析）</td>
+    </tr>
+    <tr>
+      <td>实体解析</td>
+      <td>会解析实体（如 &lt;）</td>
+      <td>不解析实体</td>
+    </tr>
+    <tr>
+      <td>标签解析</td>
+      <td>会解析子标签</td>
+      <td>不解析标签</td>
+    </tr>
+    <tr>
+      <td>使用场景</td>
+      <td>元素内容（会被解析的文本）</td>
+      <td>不需要解析的文本块（如代码示例）</td>
+    </tr>
+    <tr>
+      <td>语法</td>
+      <td>直接写在元素中</td>
+      <td> 内容 </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>示例对比：</p>
+
+<pre><code class="language-XML">&lt;element&gt;
+    &lt;!-- PCDATA：&amp;lt; 会被解析为 &lt; --&gt;
+    5 &amp;lt; 10
+&lt;/element&gt;
+
+&lt;element&gt;
+    &lt;!-- CDATA：原样输出，不会解析 --&gt;
+    &lt;![CDATA[5 &amp;lt; 10]]&gt;
+&lt;/element&gt;
+</code></pre>
+
+<h1 id="xml-命名空间">XML 命名空间</h1>
+
+<p>当两个不同的文档使用相同的元素名时，就会发生命名冲突
+在 XML 中的命名冲突可以通过使用名称前缀从而容易地避免。当在 XML 中使用前缀时，一个所谓的用于前缀的命名空间必须被定义。
+命名空间是在元素的开始标签的 xmlns 属性中定义的。
+命名空间声明的语法如下。<code class="language-plaintext highlighter-rouge">xmlns:前缀="URI"</code>。</p>
+
+<p>** 分散声明**：</p>
+<pre><code class="language-XML">&lt;root&gt;
+
+&lt;h:table xmlns:h="http://www.w3.org/TR/html4/"&gt;
+&lt;h:tr&gt;
+&lt;h:td&gt;Apples&lt;/h:td&gt;
+&lt;h:td&gt;Bananas&lt;/h:td&gt;
+&lt;/h:tr&gt;
+&lt;/h:table&gt;
+
+&lt;f:table xmlns:f="http://www.w3cschool.cc/furniture"&gt;
+&lt;f:name&gt;African Coffee Table&lt;/f:name&gt;
+&lt;f:width&gt;80&lt;/f:width&gt;
+&lt;f:length&gt;120&lt;/f:length&gt;
+&lt;/f:table&gt;
+
+&lt;/root&gt;
+</code></pre>
+<p><strong>集中声明</strong></p>
+<pre><code class="language-XML">&lt;root xmlns:h="http://www.w3.org/TR/html4/"
+xmlns:f="http://www.w3cschool.cc/furniture"&gt;
+
+&lt;h:table&gt;
+&lt;h:tr&gt;
+&lt;h:td&gt;Apples&lt;/h:td&gt;
+&lt;h:td&gt;Bananas&lt;/h:td&gt;
+&lt;/h:tr&gt;
+&lt;/h:table&gt;
+
+&lt;f:table&gt;
+&lt;f:name&gt;African Coffee Table&lt;/f:name&gt;
+&lt;f:width&gt;80&lt;/f:width&gt;
+&lt;f:length&gt;120&lt;/f:length&gt;
+&lt;/f:table&gt;
+
+&lt;/root&gt;
+</code></pre>
+
+<h1 id="xml验证-dtd">XML验证 (DTD)</h1>
+
+<p>DTD（文档类型定义，Document Type Definition，DTD）的作用是定义 XML 文档的合法构建模块。</p>
+
+<p>使用DTD：</p>
+<ul>
+  <li>通过 DTD，您的每一个 XML 文件均可携带一个有关其自身格式的描述。</li>
+  <li>通过 DTD，独立的团体可一致地使用某个标准的 DTD 来交换数据。</li>
+  <li>应用程序也可使用某个标准的 DTD 来验证从外部接收到的数据。</li>
+  <li>还可以使用 DTD 来验证自身的数据。</li>
+</ul>
+
+<h2 id="dtd使用">DTD使用</h2>
+
+<p>DTD 有两种方式使用：内部声明和外部引用</p>
+
+<p><strong>内部声明</strong>
+语法： <code class="language-plaintext highlighter-rouge">&lt;!DOCTYPE root-element [element-declarations]&gt;</code>
+示例：</p>
+<pre><code class="language-XML">&lt;?xml version="1.0"?&gt;
+&lt;!DOCTYPE note [
+&lt;!ELEMENT note (to,from,heading,body)&gt;
+&lt;!ELEMENT to (#PCDATA)&gt;
+&lt;!ELEMENT from (#PCDATA)&gt;
+&lt;!ELEMENT heading (#PCDATA)&gt;
+&lt;!ELEMENT body (#PCDATA)&gt;
+]&gt;
+&lt;note&gt;
+&lt;to&gt;Tove&lt;/to&gt;
+&lt;from&gt;Jani&lt;/from&gt;
+&lt;heading&gt;Reminder&lt;/heading&gt;
+&lt;body&gt;Don't forget me this weekend&lt;/body&gt;
+&lt;/note&gt;
+</code></pre>
+<p>其中DTD内容表示：</p>
+<ul>
+  <li>!DOCTYPE note (第二行)定义此文档是 note 类型的文档。</li>
+  <li>!ELEMENT note (第三行)定义 note 元素有四个元素：”to、from、heading,、body”</li>
+  <li>!ELEMENT to (第四行)定义 to 元素为 “#PCDATA” 类型</li>
+  <li>!ELEMENT from (第五行)定义 from 元素为 “#PCDATA” 类型</li>
+  <li>!ELEMENT heading (第六行)定义 heading 元素为 “#PCDATA” 类型</li>
+  <li>!ELEMENT body (第七行)定义 body 元素为 “#PCDATA” 类型</li>
+</ul>
+
+<p><strong>外部引用</strong>
+语法：<code class="language-plaintext highlighter-rouge">&lt;!DOCTYPE root-element SYSTEM "filename"&gt;</code>
+示例：
+xml文件：.xml</p>
+<pre><code class="language-XML">&lt;?xml version="1.0"?&gt;
+&lt;!DOCTYPE note SYSTEM "note.dtd"&gt;
+&lt;note&gt;
+  &lt;to&gt;Tove&lt;/to&gt;
+  &lt;from&gt;Jani&lt;/from&gt;
+  &lt;heading&gt;Reminder&lt;/heading&gt;
+  &lt;body&gt;Don't forget me this weekend!&lt;/body&gt;
+&lt;/note&gt;
+</code></pre>
+<p>DTD文件：.dtd</p>
+<pre><code class="language-dtd">&lt;!ELEMENT note (to,from,heading,body)&gt;
+&lt;!ELEMENT to (#PCDATA)&gt;
+&lt;!ELEMENT from (#PCDATA)&gt;
+&lt;!ELEMENT heading (#PCDATA)&gt;
+&lt;!ELEMENT body (#PCDATA)&gt;
+</code></pre>
+
+<h2 id="dtd写法">DTD写法</h2>
+
+<h3 id="元素">元素</h3>
+
+<p><strong>声明元素</strong></p>
+
+<pre><code class="language-dtd">&lt;!ELEMENT element-name category&gt;
+或
+&lt;!ELEMENT element-name (element-content)&gt;
+</code></pre>
+<p><strong>空元素</strong></p>
+<pre><code class="language-dtd">&lt;!ELEMENT element-name EMPTY&gt;
+</code></pre>
+<p><strong>只有PCDATA元素</strong></p>
+<pre><code class="language-dtd">&lt;!ELEMENT element-name (#PCDATA)&gt;
+</code></pre>
+<p><strong>带任何内容元素</strong></p>
+<pre><code class="language-dtd">&lt;!ELEMENT element-name ANY&gt;
+</code></pre>
+<p><strong>带子元素（序列）的元素</strong></p>
+<pre><code class="language-dtd">&lt;!ELEMENT element-name (child1)&gt;
+或
+&lt;!ELEMENT element-name (child1,child2,...)&gt;
+</code></pre>
+<p>当子元素按照由逗号分隔开的序列进行声明时，这些子元素必须按照相同的顺序出现在文档中。</p>
+<pre><code class="language-dtd">&lt;!ELEMENT note (to,from,heading,body)&gt;
+&lt;!ELEMENT to (#PCDATA)&gt;
+&lt;!ELEMENT from (#PCDATA)&gt;
+&lt;!ELEMENT heading (#PCDATA)&gt;
+&lt;!ELEMENT body (#PCDATA)&gt;
+</code></pre>
+<p>** 声明只出现一次的元素**</p>
+<pre><code class="language-dtd">&lt;!ELEMENT element-name (child-name)&gt;
+</code></pre>
+<p>** 声明最少出现一次的元素** 使用<strong>+</strong>号</p>
+<pre><code class="language-dtd">&lt;!ELEMENT element-name (child-name+)&gt;
+</code></pre>
+<p><strong>声明出现零次或多次的元素</strong></p>
+<pre><code class="language-dtd">&lt;!ELEMENT element-name (child-name*)&gt;
+</code></pre>
+<p><strong>声明出现零次或一次的元素</strong></p>
+<pre><code class="language-dtd">&lt;!ELEMENT element-name (child-name?)&gt;
+</code></pre>
+<p>**声明“非…即…”类型的内容</p>
+<pre><code class="language-dtd">&lt;!ELEMENT note (to,from,header,(message|body))&gt;
+</code></pre>
+<p>**声明混合型的内容</p>
+<pre><code class="language-dtd">&lt;!ELEMENT note (#PCDATA|to|from|header|message)*&gt;
+</code></pre>
+
+<h3 id="属性">属性</h3>
+<p>在 DTD 中，属性通过 ATTLIST 声明来进行声明。</p>
+
+<p><strong>声明属性</strong></p>
+<pre><code class="language-dtd">&lt;!ATTLIST element-name attribute-name attribute-type attribute-value&gt;
+</code></pre>
+
+<p>属性类型：
+|类型|	描述|
+|—|—|
+| CDATA	|值为字符数据 (character data)|
+|(en1|en2|..)	此值是枚举列表中的一个值|
+| ID	|值为唯一的 id|
+| IDREF	|值为另外一个元素的 id|
+| IDREFS	|值为其他 id 的列表|
+| NMTOKEN	|值为合法的 XML 名称|
+| NMTOKENS	|值为合法的 XML 名称的列表|
+| ENTITY	|值是一个实体|
+| ENTITIES	|值是一个实体列表|
+| NOTATION	|此值是符号的名称|
+|  xml:	|值是一个预定义的 XML 值|</p>
+
+<p>属性值：
+|值	|解释|
+|—|—|
+|值	|属性的默认值|
+| #REQUIRED	|属性值是必需的|
+| #IMPLIED	|属性不是必需的|
+| #FIXED value	|属性值是固定的|</p>
+
+<p>** 默认属性值**</p>
+<pre><code class="language-dtd">&lt;!ELEMENT square EMPTY&gt;
+&lt;!ATTLIST square width CDATA "0"&gt;
+</code></pre>
+<p><strong>#REQUIRED</strong> 必需的</p>
+<pre><code class="language-dtd">&lt;!ATTLIST element-name attribute-name attribute-type #REQUIRED&gt;
+</code></pre>
+<p><strong>#IMPLIED</strong> 不是必需的</p>
+<pre><code class="language-dtd">&lt;!ATTLIST element-name attribute-name attribute-type #IMPLIED&gt;
+</code></pre>
+<p><strong>FIXED</strong> 固定的</p>
+<pre><code class="language-dtd">&lt;!ATTLIST element-name attribute-name attribute-type #FIXED "value"&gt;
+</code></pre>
+
+<p><strong>列举属性值</strong></p>
+<pre><code class="language-dtd">&lt;!ATTLIST element-name attribute-name (en1|en2|..) default-value&gt;
+</code></pre>
+
+<h3 id="实体">实体</h3>
+
+<p>实体是用于定义引用普通文本或特殊字符的快捷方式的变量。
+实体引用是对实体的引用。
+实体可在内部或外部进行声明。</p>
+
+<p><strong>内部实体声明</strong></p>
+<pre><code class="language-dtd">&lt;!ENTITY entity-name "entity-value"&gt;
+</code></pre>
+
+<p><strong>外部实体声明</strong></p>
+<pre><code class="language-dtd">&lt;!ENTITY entity-name SYSTEM "URI/URL"&gt;
+</code></pre>
+
+<h1 id="xml-schema">XML Schema</h1>
+
+<p>XML Schema 是基于 XML 的 DTD 替代者。
+XML Schema 可描述 XML 文档的结构。
+XML Schema 语言也可作为 XSD（XML Schema Definition）来引用。</p>
+
+<p>XML Schema 的作用是定义 XML 文档的合法构建模块，类似 DTD。</p>
+
+<p><strong>XML Schema</strong>):</p>
+
+<ul>
+  <li>定义可出现在文档中的元素</li>
+  <li>定义可出现在文档中的属性</li>
+  <li>定义哪个元素是子元素</li>
+  <li>定义子元素的次序</li>
+  <li>定义子元素的数目</li>
+  <li>定义元素是否为空，或者是否可包含文本</li>
+  <li>定义元素和属性的数据类型</li>
+  <li>定义元素和属性的默认值以及固定值</li>
+</ul>
+
+<p><strong>XML 对数据类型的支持</strong>：</p>
+
+<ul>
+  <li>可更容易地描述允许的文档内容</li>
+  <li>可更容易地验证数据的正确性</li>
+  <li>可更容易地与来自数据库的数据一并工作</li>
+  <li>可更容易地定义数据约束（data facets）</li>
+  <li>可更容易地定义数据模型（或称数据格式）</li>
+  <li>可更容易地在不同的数据类型间转换数据</li>
+</ul>
+
+<h2 id="xml-schema元素">XML schema元素</h2>
+
+<h1 id="未完待续">未完待续</h1>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+  
+    
+
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 标签: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/blog/tags/#xml" class="page__taxonomy-item p-category" rel="tag">XML</a>
+    
+    </span>
+  </p>
+
+
+  
+
+  
+
+
+        
+
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 更新时间:</strong> <time class="dt-published" datetime="2025-12-01T00:00:00+00:00">December 1, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+
+  <nav class="pagination" aria-label="文章翻页">
+    
+      <a href="/blog/uv%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/" class="pagination--pager" title="uv包管理工具">上一页</a>
+    
+    
+      <a href="/blog/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="pagination--pager" title="软件设计模式">下一页</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    
+
+<div class="page__related">
+  
+  <h2 class="page__related-title">猜您还喜欢</h2>
+  <div class="grid__wrapper">
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/DESIGN-md%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="permalink">DESIGN.md 文档学习（AI总结整理）
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-22T00:00:00+00:00">June 22, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">DESIGN.md 学习笔记，整理设计规范文档的作用、结构、写法、约束内容和 AI 协作方式。
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/Material3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="permalink">Material3学习(AI总结整理)
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-18T00:00:00+00:00">June 18, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">Material 3 学习笔记，整理设计原则、动态颜色、组件规范、状态层和 Android Compose 实践。
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/Mermaid%E7%AC%94%E8%AE%B0/" rel="permalink">Mermaid笔记(AI生成）
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-08T00:00:00+00:00">June 8, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">Mermaid 学习笔记，整理文本绘图语法、流程图、时序图、架构图、适用场景和常见示例。
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/%E5%88%A9%E7%94%A8AI%E5%AE%8C%E6%88%90UI%E8%AE%BE%E8%AE%A1/" rel="permalink">利用 AI 完成 UI 设计
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-05T00:00:00+00:00">June 5, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">AI UI 设计工具笔记，整理 Claude Design、Open Design、Google Stitch 的能力、费用和使用场景。
+</p>
+  </article>
+</div>
+
+    
+  </div>
+</div>
+
+  
+  
+</div>
+
+      
+    </div>
+
+    
+      <div class="search-content">
+        
+<div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';" role="search">
+    <label class="sr-only" for="search">
+      输入您要搜索的关键词...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="输入您要搜索的关键词..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        
+
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>关注:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://github.com/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://www.bilibili.com/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-bilibili" aria-hidden="true"></i> Bilibili</a></li>
+        
+      
+    
+
+    
+      <li><a href="/blog/feed.xml"><i class="fas fa-fw fa-square-rss" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+
+<div class="page__footer-copyright">&copy; 2025-2026 - 2026 <a href="https://NiuSX.github.io">一只捡星星的熊</a>. 技术来自于 <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/jekyll-themes/minimal-mistakes/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+
+  <script src="/blog/assets/js/main.min.js"></script>
+
+
+
+
+
+<script src="/blog/assets/js/lunr/lunr.min.js"></script>
+<script src="/blog/assets/js/lunr/lunr-store.js"></script>
+<script src="/blog/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  
+    <script src="/blog/assets/js/mermaid-init.js"></script>
+  
+
+
+  </body>
+</html>

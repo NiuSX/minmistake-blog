@@ -1,0 +1,4173 @@
+
+
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.28.0 by Michael Rose
+  Copyright 2013-2026 Michael Rose - mademistakes.com | @mmistakes
+  Copyright 2024-2026 iBug - ibugone.com | @iBug
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+
+<html lang="zh-CN" class="no-js" dir="ltr">
+  <head>
+    
+<meta charset="utf-8">
+
+
+<!-- begin _includes/seo.html --><title>UI设计术语总结(AI生成) - 一只捡星星的熊</title>
+<meta name="description" content="UI 设计术语笔记，整理设计对象、视觉规则、交互行为、响应式适配和协作规范。">
+
+
+  <meta name="author" content="一只捡星星的熊">
+  
+  <meta property="article:author" content="一只捡星星的熊">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:site_name" content="一只捡星星的熊">
+<meta property="og:title" content="UI设计术语总结(AI生成)">
+<meta property="og:url" content="https://niusx.github.io/blog/UI%E8%AE%BE%E8%AE%A1%E6%9C%AF%E8%AF%AD%E6%80%BB%E7%BB%93/">
+
+
+  <meta property="og:description" content="UI 设计术语笔记，整理设计对象、视觉规则、交互行为、响应式适配和协作规范。">
+
+
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2026-06-01T00:00:00+00:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://niusx.github.io/blog/UI%E8%AE%BE%E8%AE%A1%E6%9C%AF%E8%AF%AD%E6%80%BB%E7%BB%93/">
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/blog/feed.xml" type="application/atom+xml" rel="alternate" title="一只捡星星的熊 Feed">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+  
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/blog/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    
+<nav class="skip-links" aria-label="Skip links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">转到主导航栏</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">转到内容</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">转到底部</a></li>
+  </ul>
+</nav>
+
+    
+
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav" aria-label="Primary navigation">
+        
+        <a class="site-title" href="/blog/">
+          一只捡星星的熊
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item"><a
+                  href="/blog/"
+                  
+                  
+                >首页</a></li><li class="masthead__menu-item"><a
+                  href="/blog/year-archive/"
+                  
+                  
+                >归档</a></li><li class="masthead__menu-item masthead__menu-item--has-children"><button class="masthead__menu-toggle" type="button" aria-haspopup="true">
+                  分类
+                </button>
+                <ul class="masthead__submenu">
+                  <li>
+                    <a href="/blog/categories/">全部笔记</a>
+                  </li><li>
+                        <a href="/blog/categories/#ai">AI</a>
+                      </li><li>
+                        <a href="/blog/categories/#ai-%E5%B7%A5%E5%85%B7">AI 工具</a>
+                      </li><li>
+                        <a href="/blog/categories/#agent">Agent</a>
+                      </li><li>
+                        <a href="/blog/categories/#android">Android</a>
+                      </li><li>
+                        <a href="/blog/categories/#git">Git</a>
+                      </li><li>
+                        <a href="/blog/categories/#kotlin">Kotlin</a>
+                      </li><li>
+                        <a href="/blog/categories/#nav2">Nav2</a>
+                      </li><li>
+                        <a href="/blog/categories/#ros2">ROS2</a>
+                      </li><li>
+                        <a href="/blog/categories/#sdd">SDD</a>
+                      </li><li>
+                        <a href="/blog/categories/#ui">UI</a>
+                      </li><li>
+                        <a href="/blog/categories/#ui%E8%AE%BE%E8%AE%A1">UI设计</a>
+                      </li><li>
+                        <a href="/blog/categories/#ollama">ollama</a>
+                      </li><li>
+                        <a href="/blog/categories/#python">python</a>
+                      </li><li>
+                        <a href="/blog/categories/#yaml">yaml</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%85%B6%E4%BB%96">其他</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%89%8D%E7%AB%AF">前端</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%91%BD%E4%BB%A4%E8%AF%AD%E8%A8%80">命令语言</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%AF%BC%E8%88%AA">导航</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%B7%A5%E5%85%B7">工具</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%9C%BA%E5%99%A8%E4%BA%BA">机器人</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7">构建工具</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%9E%B6%E6%9E%84">架构</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%A0%87%E8%AE%B0%E8%AF%AD%E8%A8%80">标记语言</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80">编程语言</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E8%AE%A1%E7%AE%97%E6%9C%BA">计算机</a>
+                      </li></ul></li><li class="masthead__menu-item"><a
+                  href="/blog/about/"
+                  
+                  
+                >关于</a></li></ul>
+
+        
+        <form class="masthead-search" action="/blog/search/" method="get" role="search">
+          <label class="visually-hidden" for="masthead-search-input">
+            切换搜索
+          </label>
+          <input
+            id="masthead-search-input"
+            class="masthead-search__input"
+            type="search"
+            name="q"
+            placeholder="输入您要搜索的关键词..."
+          >
+          <button class="masthead-search__button" type="submit">
+            <span class="visually-hidden">切换搜索</span>
+            <i class="fas fa-search" aria-hidden="true"></i>
+          </button>
+        </form>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">切换菜单</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+
+
+<div id="main" role="main">
+  
+
+  <div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="https://niusx.github.io/blog/">
+        <img src="/blog/assets/images/wukong-photo.jpg" alt="一只捡星星的熊" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="https://niusx.github.io/blog/" itemprop="url">一只捡星星的熊</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>什么也没写</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">关注</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-location-dot" aria-hidden="true"></i> <span itemprop="name" class="p-locality">中国</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://github.com/NiuSX/" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://space.bilibili.com/347549684/" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-bilibili" aria-hidden="true"></i><span class="label">Bilibili</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="UI设计术语总结(AI生成)">
+    <meta itemprop="description" content="UI 设计术语笔记，整理设计对象、视觉规则、交互行为、响应式适配和协作规范。">
+    <meta itemprop="datePublished" content="2026-06-01T00:00:00+00:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="https://niusx.github.io/blog/UI%E8%AE%BE%E8%AE%A1%E6%9C%AF%E8%AF%AD%E6%80%BB%E7%BB%93/" itemprop="url">UI设计术语总结(AI生成)
+</a>
+          </h1>
+          
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-01T00:00:00+00:00">June 1, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc" aria-label="文章目录">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> 文章目录</h4></header>
+              <ul class="toc__menu"><li><a href="#1-基础概念术语">1. 基础概念术语</a></li><li><a href="#2-用户体验与产品术语">2. 用户体验与产品术语</a></li><li><a href="#3-信息架构术语">3. 信息架构术语</a></li><li><a href="#4-视觉设计术语">4. 视觉设计术语</a></li><li><a href="#5-色彩术语">5. 色彩术语</a><ul><li><a href="#常见颜色角色总结">常见颜色角色总结</a></li></ul></li><li><a href="#6-字体与排版术语">6. 字体与排版术语</a><ul><li><a href="#常见字号总结">常见字号总结</a></li></ul></li><li><a href="#7-布局与空间术语">7. 布局与空间术语</a><ul><li><a href="#常见间距总结">常见间距总结</a></li></ul></li><li><a href="#8-尺寸与单位术语">8. 尺寸与单位术语</a><ul><li><a href="#81-常见长度单位">8.1 常见长度单位</a><ul><li><a href="#811绝对单位">8.1.1、绝对单位</a></li><li><a href="#812相对单位">8.1.2、相对单位</a></li><li><a href="#813移动端跨平台专用单位">8.1.3、移动端/跨平台专用单位</a></li><li><a href="#814特殊功能单位">8.1.4、特殊功能单位</a></li></ul></li><li><a href="#82-屏幕相关术语">8.2 屏幕相关术语</a></li></ul></li><li><a href="#9-图标图片与图形术语">9. 图标、图片与图形术语</a></li><li><a href="#10-组件术语">10. 组件术语</a></li><li><a href="#11-表单术语">11. 表单术语</a></li><li><a href="#12-导航术语">12. 导航术语</a></li><li><a href="#13-交互术语">13. 交互术语</a></li><li><a href="#14-状态与反馈术语">14. 状态与反馈术语</a></li><li><a href="#15-响应式与移动端术语">15. 响应式与移动端术语</a></li><li><a href="#16-可用性与无障碍术语">16. 可用性与无障碍术语</a></li><li><a href="#17-设计系统术语">17. 设计系统术语</a></li><li><a href="#18-原型与交付术语">18. 原型与交付术语</a></li><li><a href="#19-前端协作术语">19. 前端协作术语</a></li><li><a href="#20-数据与增长术语">20. 数据与增长术语</a></li><li><a href="#21-figma-常见术语">21. Figma 常见术语</a></li><li><a href="#22-常见缩写速查表">22. 常见缩写速查表</a></li></ul>
+            </nav>
+          </aside>
+        
+        <p>UI 设计术语主要归为几类：</p>
+
+<ul>
+  <li>
+    <p>设计对象：页面、组件、图标、表单、导航</p>
+  </li>
+  <li>
+    <p>视觉规则：颜色、字体、间距、对齐、层级</p>
+  </li>
+  <li>
+    <p>交互行为：点击、滑动、反馈、状态、动效</p>
+  </li>
+  <li>
+    <p>适配规则：响应式、断点、单位、安全区</p>
+  </li>
+  <li>
+    <p>协作规则：设计系统、Token、交付、标注、组件库</p>
+  </li>
+  <li>
+    <p>体验评估：可用性、转化率、留存、任务完成率</p>
+  </li>
+</ul>
+
+<h2 id="1-基础概念术语">1. 基础概念术语</h2>
+
+<p>这一部分是 UI 学习最基础的词。先把这些分清楚，后面的组件、交互、视觉才容易理解。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">术语</th>
+      <th style="text-align: left">英文</th>
+      <th style="text-align: left">含义</th>
+      <th style="text-align: left">使用场景</th>
+      <th style="text-align: left">新手注意</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">UI</td>
+      <td style="text-align: left">User Interface</td>
+      <td style="text-align: left">用户界面，用户和产品发生交互的界面</td>
+      <td style="text-align: left">App、网页、小程序、后台系统</td>
+      <td style="text-align: left">UI 不是单纯美化，而是让用户能看懂、能操作</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">UX</td>
+      <td style="text-align: left">User Experience</td>
+      <td style="text-align: left">用户体验，用户使用产品全过程的感受</td>
+      <td style="text-align: left">注册、下单、搜索、支付等完整流程</td>
+      <td style="text-align: left">UX 比 UI 范围更大，包含流程、心理、效率</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">GUI</td>
+      <td style="text-align: left">Graphical User Interface</td>
+      <td style="text-align: left">图形用户界面</td>
+      <td style="text-align: left">手机 App、桌面软件、网页</td>
+      <td style="text-align: left">现在多数 UI 都是 GUI</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">HCI</td>
+      <td style="text-align: left">Human-Computer Interaction</td>
+      <td style="text-align: left">人机交互，研究人和计算机如何交互</td>
+      <td style="text-align: left">交互设计、可用性研究</td>
+      <td style="text-align: left">比 UI 更偏学科和研究</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Product Design</td>
+      <td style="text-align: left">产品设计</td>
+      <td style="text-align: left">关注需求、功能、业务、用户目标和体验</td>
+      <td style="text-align: left">产品规划、功能设计</td>
+      <td style="text-align: left">产品设计不等于视觉设计</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Visual Design</td>
+      <td style="text-align: left">视觉设计</td>
+      <td style="text-align: left">关注画面表现、品牌感、色彩、图形</td>
+      <td style="text-align: left">官网、营销页、品牌视觉</td>
+      <td style="text-align: left">视觉好看但不好用，也不是好 UI</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Interaction Design</td>
+      <td style="text-align: left">交互设计</td>
+      <td style="text-align: left">关注用户操作和系统响应</td>
+      <td style="text-align: left">点击、滑动、拖拽、跳转、弹窗</td>
+      <td style="text-align: left">交互设计重点是行为，不只是画页面</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Web Design</td>
+      <td style="text-align: left">网页设计</td>
+      <td style="text-align: left">面向浏览器的页面设计</td>
+      <td style="text-align: left">官网、博客、Web App</td>
+      <td style="text-align: left">要考虑响应式、浏览器、SEO</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">App Design</td>
+      <td style="text-align: left">应用设计</td>
+      <td style="text-align: left">移动端或桌面应用界面设计</td>
+      <td style="text-align: left">iOS、Android、桌面软件</td>
+      <td style="text-align: left">要遵守平台习惯</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Interface</td>
+      <td style="text-align: left">界面</td>
+      <td style="text-align: left">用户看到并操作的表面</td>
+      <td style="text-align: left">页面、弹窗、控件、菜单</td>
+      <td style="text-align: left">界面是用户接触产品的入口</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Screen</td>
+      <td style="text-align: left">屏幕 / 页面</td>
+      <td style="text-align: left">App 中一个完整页面</td>
+      <td style="text-align: left">首页、详情页、设置页</td>
+      <td style="text-align: left">移动端常说 Screen</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Page</td>
+      <td style="text-align: left">页面</td>
+      <td style="text-align: left">Web 中一个页面，也可指设计文件分页</td>
+      <td style="text-align: left">首页、列表页、详情页</td>
+      <td style="text-align: left">在 Figma 中 Page 也指文件内分页</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">View</td>
+      <td style="text-align: left">视图</td>
+      <td style="text-align: left">某个界面状态或展示区域</td>
+      <td style="text-align: left">列表视图、详情视图</td>
+      <td style="text-align: left">View 有时不等于完整页面</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Canvas</td>
+      <td style="text-align: left">画布</td>
+      <td style="text-align: left">设计工具中放置内容的无限区域</td>
+      <td style="text-align: left">Figma、Sketch</td>
+      <td style="text-align: left">画布不是实际页面</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Artboard</td>
+      <td style="text-align: left">画板</td>
+      <td style="text-align: left">设计稿中的页面容器</td>
+      <td style="text-align: left">Sketch、PS、AI</td>
+      <td style="text-align: left">Figma 中更常用 Frame</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Frame</td>
+      <td style="text-align: left">框架 / 画板</td>
+      <td style="text-align: left">Figma 中最重要的容器</td>
+      <td style="text-align: left">页面、组件、模块</td>
+      <td style="text-align: left">UI 设计中优先用 Frame，不要全用 Group</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="2-用户体验与产品术语">2. 用户体验与产品术语</h2>
+
+<p>UI 设计不是孤立的视觉工作，很多决策都来自用户目标和产品目标。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">术语</th>
+      <th style="text-align: left">英文</th>
+      <th style="text-align: left">含义</th>
+      <th style="text-align: left">使用场景</th>
+      <th style="text-align: left">新手注意</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">用户</td>
+      <td style="text-align: left">User</td>
+      <td style="text-align: left">使用产品的人</td>
+      <td style="text-align: left">所有产品设计</td>
+      <td style="text-align: left">不要只按自己的喜好设计</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">目标用户</td>
+      <td style="text-align: left">Target User</td>
+      <td style="text-align: left">产品主要服务的人群</td>
+      <td style="text-align: left">需求分析、产品定位</td>
+      <td style="text-align: left">不同用户会导致完全不同的界面重点</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">用户画像</td>
+      <td style="text-align: left">Persona</td>
+      <td style="text-align: left">对典型用户的描述模型</td>
+      <td style="text-align: left">用户研究、需求讨论</td>
+      <td style="text-align: left">画像应基于调研，不是凭空编故事</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">用户场景</td>
+      <td style="text-align: left">User Scenario</td>
+      <td style="text-align: left">用户在什么情况下使用产品</td>
+      <td style="text-align: left">设计前分析</td>
+      <td style="text-align: left">场景决定功能优先级</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">用户旅程</td>
+      <td style="text-align: left">User Journey</td>
+      <td style="text-align: left">用户完成目标的完整路径</td>
+      <td style="text-align: left">体验优化、流程分析</td>
+      <td style="text-align: left">关注使用前、中、后</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">用户旅程图</td>
+      <td style="text-align: left">Journey Map</td>
+      <td style="text-align: left">可视化展示用户路径、行为、情绪和痛点</td>
+      <td style="text-align: left">UX 研究</td>
+      <td style="text-align: left">不是流程图，包含用户感受</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">痛点</td>
+      <td style="text-align: left">Pain Point</td>
+      <td style="text-align: left">用户遇到的问题或不便</td>
+      <td style="text-align: left">需求分析</td>
+      <td style="text-align: left">痛点要具体，不能只说“不好用”</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">需求</td>
+      <td style="text-align: left">Requirement</td>
+      <td style="text-align: left">用户或业务需要解决的问题</td>
+      <td style="text-align: left">产品设计、项目沟通</td>
+      <td style="text-align: left">需求不等于功能</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">用户需求</td>
+      <td style="text-align: left">User Need</td>
+      <td style="text-align: left">用户真实想完成的目标</td>
+      <td style="text-align: left">用户研究</td>
+      <td style="text-align: left">用户说的需求不一定是真需求</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">业务需求</td>
+      <td style="text-align: left">Business Requirement</td>
+      <td style="text-align: left">公司或业务侧的目标</td>
+      <td style="text-align: left">商业产品、后台系统</td>
+      <td style="text-align: left">要和用户体验平衡</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">核心任务</td>
+      <td style="text-align: left">Primary Task</td>
+      <td style="text-align: left">页面最重要的用户操作</td>
+      <td style="text-align: left">页面设计</td>
+      <td style="text-align: left">一个页面最好有明确主任务</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">用户流程</td>
+      <td style="text-align: left">User Flow</td>
+      <td style="text-align: left">用户完成任务的步骤路径</td>
+      <td style="text-align: left">注册、下单、发布内容</td>
+      <td style="text-align: left">先画流程再画高保真</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">任务流</td>
+      <td style="text-align: left">Task Flow</td>
+      <td style="text-align: left">完成某个具体任务的流程</td>
+      <td style="text-align: left">表单提交、支付</td>
+      <td style="text-align: left">更聚焦单个任务</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">使用路径</td>
+      <td style="text-align: left">Path</td>
+      <td style="text-align: left">用户在产品中的访问路线</td>
+      <td style="text-align: left">数据分析、体验优化</td>
+      <td style="text-align: left">路径太长会降低转化</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">转化</td>
+      <td style="text-align: left">Conversion</td>
+      <td style="text-align: left">用户完成目标动作</td>
+      <td style="text-align: left">注册、购买、提交</td>
+      <td style="text-align: left">转化不是只靠按钮颜色决定</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">触点</td>
+      <td style="text-align: left">Touchpoint</td>
+      <td style="text-align: left">用户和产品接触的点</td>
+      <td style="text-align: left">App、短信、邮件、客服</td>
+      <td style="text-align: left">体验不只发生在页面里</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">可用性测试</td>
+      <td style="text-align: left">Usability Testing</td>
+      <td style="text-align: left">观察用户完成任务，发现问题</td>
+      <td style="text-align: left">原型验证、上线前测试</td>
+      <td style="text-align: left">不要只问用户喜不喜欢，要看能不能完成任务</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">迭代</td>
+      <td style="text-align: left">Iteration</td>
+      <td style="text-align: left">根据反馈持续修改</td>
+      <td style="text-align: left">产品开发、设计优化</td>
+      <td style="text-align: left">设计不是一次完成</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="3-信息架构术语">3. 信息架构术语</h2>
+
+<p>信息架构决定页面内容怎么组织、怎么分类、怎么让用户找到。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">术语</th>
+      <th style="text-align: left">英文</th>
+      <th style="text-align: left">含义</th>
+      <th style="text-align: left">使用场景</th>
+      <th style="text-align: left">新手注意</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">信息架构</td>
+      <td style="text-align: left">Information Architecture / IA</td>
+      <td style="text-align: left">信息的组织、分类、层级和导航方式</td>
+      <td style="text-align: left">网站、后台、内容平台</td>
+      <td style="text-align: left">IA 乱，页面再漂亮也难用</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">信息层级</td>
+      <td style="text-align: left">Information Hierarchy</td>
+      <td style="text-align: left">信息的重要性排序</td>
+      <td style="text-align: left">页面排版、详情页</td>
+      <td style="text-align: left">重要信息要更明显</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">内容结构</td>
+      <td style="text-align: left">Content Structure</td>
+      <td style="text-align: left">页面内容之间的组织关系</td>
+      <td style="text-align: left">文章页、商品页</td>
+      <td style="text-align: left">先整理内容，再做视觉</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">分类</td>
+      <td style="text-align: left">Category</td>
+      <td style="text-align: left">把信息按规则分组</td>
+      <td style="text-align: left">商品分类、文章分类</td>
+      <td style="text-align: left">分类名称要符合用户理解</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">标签</td>
+      <td style="text-align: left">Tag</td>
+      <td style="text-align: left">用关键词给内容打标</td>
+      <td style="text-align: left">博客、商品、筛选</td>
+      <td style="text-align: left">标签比分类更灵活</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">层级</td>
+      <td style="text-align: left">Hierarchy</td>
+      <td style="text-align: left">从上到下或从大到小的等级关系</td>
+      <td style="text-align: left">导航、标题、菜单</td>
+      <td style="text-align: left">层级过深会让用户迷路</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">优先级</td>
+      <td style="text-align: left">Priority</td>
+      <td style="text-align: left">内容或功能的重要程度</td>
+      <td style="text-align: left">页面布局</td>
+      <td style="text-align: left">不能所有东西都强调</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">分组</td>
+      <td style="text-align: left">Grouping</td>
+      <td style="text-align: left">把相关内容放在一起</td>
+      <td style="text-align: left">表单、卡片、设置页</td>
+      <td style="text-align: left">相关近，不相关远</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">导航结构</td>
+      <td style="text-align: left">Navigation Structure</td>
+      <td style="text-align: left">页面之间如何连接</td>
+      <td style="text-align: left">网站、App</td>
+      <td style="text-align: left">决定用户能否找到内容</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">站点地图</td>
+      <td style="text-align: left">Sitemap</td>
+      <td style="text-align: left">网站页面结构图</td>
+      <td style="text-align: left">Web 设计</td>
+      <td style="text-align: left">适合复杂网站前期规划</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">面包屑路径</td>
+      <td style="text-align: left">Breadcrumb</td>
+      <td style="text-align: left">显示当前位置层级的导航</td>
+      <td style="text-align: left">后台、文档、电商</td>
+      <td style="text-align: left">层级深时很有用</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">内容优先</td>
+      <td style="text-align: left">Content First</td>
+      <td style="text-align: left">先确定内容，再设计界面</td>
+      <td style="text-align: left">博客、文档、课程</td>
+      <td style="text-align: left">不要先画空壳再硬塞内容</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">信息密度</td>
+      <td style="text-align: left">Information Density</td>
+      <td style="text-align: left">单位面积内承载的信息量</td>
+      <td style="text-align: left">后台、表格、仪表盘</td>
+      <td style="text-align: left">信息密度高不等于混乱</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">视觉层级</td>
+      <td style="text-align: left">Visual Hierarchy</td>
+      <td style="text-align: left">用视觉手段表达信息主次</td>
+      <td style="text-align: left">字号、颜色、位置</td>
+      <td style="text-align: left">UI 中最核心的基础能力</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="4-视觉设计术语">4. 视觉设计术语</h2>
+
+<p>视觉设计决定界面看起来是否统一、清楚、有品质。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">术语</th>
+      <th style="text-align: left">英文</th>
+      <th style="text-align: left">含义</th>
+      <th style="text-align: left">使用场景</th>
+      <th style="text-align: left">新手注意</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">视觉风格</td>
+      <td style="text-align: left">Visual Style</td>
+      <td style="text-align: left">产品整体视觉气质</td>
+      <td style="text-align: left">品牌官网、App、后台</td>
+      <td style="text-align: left">风格要符合产品和用户</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">品牌感</td>
+      <td style="text-align: left">Brand Feeling</td>
+      <td style="text-align: left">用户通过视觉感受到的品牌特征</td>
+      <td style="text-align: left">品牌产品、官网</td>
+      <td style="text-align: left">不只是放 Logo</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">一致性</td>
+      <td style="text-align: left">Consistency</td>
+      <td style="text-align: left">相同元素和行为保持一致</td>
+      <td style="text-align: left">全产品</td>
+      <td style="text-align: left">一致性是专业感的基础</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">对比</td>
+      <td style="text-align: left">Contrast</td>
+      <td style="text-align: left">元素之间的差异</td>
+      <td style="text-align: left">文字、按钮、背景</td>
+      <td style="text-align: left">对比帮助建立重点</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">重复</td>
+      <td style="text-align: left">Repetition</td>
+      <td style="text-align: left">重复使用同类样式</td>
+      <td style="text-align: left">列表、组件库</td>
+      <td style="text-align: left">重复产生统一</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">亲密性</td>
+      <td style="text-align: left">Proximity</td>
+      <td style="text-align: left">相关内容距离更近</td>
+      <td style="text-align: left">表单、卡片</td>
+      <td style="text-align: left">亲密性决定分组感</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">平衡</td>
+      <td style="text-align: left">Balance</td>
+      <td style="text-align: left">页面视觉重量的稳定关系</td>
+      <td style="text-align: left">页面布局</td>
+      <td style="text-align: left">不一定左右完全对称</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">留白</td>
+      <td style="text-align: left">White Space / Negative Space</td>
+      <td style="text-align: left">元素之间的空白区域</td>
+      <td style="text-align: left">所有界面</td>
+      <td style="text-align: left">留白不是浪费空间</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">焦点</td>
+      <td style="text-align: left">Focal Point</td>
+      <td style="text-align: left">用户首先注意到的位置</td>
+      <td style="text-align: left">首页、详情页</td>
+      <td style="text-align: left">一个区域不要有太多焦点</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">视觉重心</td>
+      <td style="text-align: left">Visual Weight</td>
+      <td style="text-align: left">元素吸引注意力的程度</td>
+      <td style="text-align: left">排版、布局</td>
+      <td style="text-align: left">大、深、鲜艳、靠前都会更重</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">装饰元素</td>
+      <td style="text-align: left">Decorative Element</td>
+      <td style="text-align: left">不直接承载信息的视觉元素</td>
+      <td style="text-align: left">营销页、活动页</td>
+      <td style="text-align: left">不要让装饰干扰操作</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">扁平化</td>
+      <td style="text-align: left">Flat Design</td>
+      <td style="text-align: left">减少拟物阴影和纹理的设计风格</td>
+      <td style="text-align: left">现代 UI</td>
+      <td style="text-align: left">扁平不等于没有层级</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">拟物化</td>
+      <td style="text-align: left">Skeuomorphism</td>
+      <td style="text-align: left">模拟真实物体的视觉风格</td>
+      <td style="text-align: left">早期 iOS、特殊产品</td>
+      <td style="text-align: left">现在较少大面积使用</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">极简主义</td>
+      <td style="text-align: left">Minimalism</td>
+      <td style="text-align: left">去除不必要元素，突出核心</td>
+      <td style="text-align: left">高端官网、工具产品</td>
+      <td style="text-align: left">极简不等于信息缺失</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">毛玻璃</td>
+      <td style="text-align: left">Glassmorphism</td>
+      <td style="text-align: left">半透明、模糊背景的视觉效果</td>
+      <td style="text-align: left">iOS、卡片、浮层</td>
+      <td style="text-align: left">需要注意文字可读性</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">新拟态</td>
+      <td style="text-align: left">Neumorphism</td>
+      <td style="text-align: left">柔和阴影模拟浮雕效果</td>
+      <td style="text-align: left">概念设计</td>
+      <td style="text-align: left">实际可用性常有问题</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="5-色彩术语">5. 色彩术语</h2>
+
+<p>颜色既影响审美，也传递状态和功能。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">术语</th>
+      <th style="text-align: left">英文</th>
+      <th style="text-align: left">含义</th>
+      <th style="text-align: left">使用场景</th>
+      <th style="text-align: left">新手注意</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">色相</td>
+      <td style="text-align: left">Hue</td>
+      <td style="text-align: left">颜色类别，如红、蓝、绿</td>
+      <td style="text-align: left">配色</td>
+      <td style="text-align: left">色相决定颜色基本倾向</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">饱和度</td>
+      <td style="text-align: left">Saturation</td>
+      <td style="text-align: left">颜色鲜艳程度</td>
+      <td style="text-align: left">品牌色、按钮</td>
+      <td style="text-align: left">饱和度太高容易刺眼</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">明度</td>
+      <td style="text-align: left">Brightness / Value</td>
+      <td style="text-align: left">颜色明暗程度</td>
+      <td style="text-align: left">背景、文字</td>
+      <td style="text-align: left">明度影响可读性</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">色调</td>
+      <td style="text-align: left">Tone</td>
+      <td style="text-align: left">色彩整体倾向</td>
+      <td style="text-align: left">品牌风格</td>
+      <td style="text-align: left">冷暖、明暗会影响情绪</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">主色</td>
+      <td style="text-align: left">Primary Color</td>
+      <td style="text-align: left">品牌和主要操作颜色</td>
+      <td style="text-align: left">主按钮、选中状态</td>
+      <td style="text-align: left">一个产品主色要稳定</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">辅助色</td>
+      <td style="text-align: left">Secondary Color</td>
+      <td style="text-align: left">配合主色的颜色</td>
+      <td style="text-align: left">图表、标签、装饰</td>
+      <td style="text-align: left">不要抢主色</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">中性色</td>
+      <td style="text-align: left">Neutral Color</td>
+      <td style="text-align: left">黑白灰等低饱和颜色</td>
+      <td style="text-align: left">文本、背景、边框</td>
+      <td style="text-align: left">UI 中中性色使用最多</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">背景色</td>
+      <td style="text-align: left">Background Color</td>
+      <td style="text-align: left">页面底色</td>
+      <td style="text-align: left">页面、区域</td>
+      <td style="text-align: left">背景要衬托内容</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">表面色</td>
+      <td style="text-align: left">Surface Color</td>
+      <td style="text-align: left">卡片、弹窗等表层颜色</td>
+      <td style="text-align: left">卡片、Modal</td>
+      <td style="text-align: left">常和背景形成轻微层级</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">文本色</td>
+      <td style="text-align: left">Text Color</td>
+      <td style="text-align: left">文字颜色</td>
+      <td style="text-align: left">标题、正文、辅助文字</td>
+      <td style="text-align: left">重要文字不要太浅</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">边框色</td>
+      <td style="text-align: left">Border Color</td>
+      <td style="text-align: left">轮廓和分割颜色</td>
+      <td style="text-align: left">输入框、表格</td>
+      <td style="text-align: left">边框通常要克制</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">成功色</td>
+      <td style="text-align: left">Success Color</td>
+      <td style="text-align: left">表示成功、通过</td>
+      <td style="text-align: left">保存成功、审核通过</td>
+      <td style="text-align: left">常用绿色</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">警告色</td>
+      <td style="text-align: left">Warning Color</td>
+      <td style="text-align: left">表示提醒、风险</td>
+      <td style="text-align: left">库存不足、即将过期</td>
+      <td style="text-align: left">常用黄或橙</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">错误色</td>
+      <td style="text-align: left">Error / Danger Color</td>
+      <td style="text-align: left">表示错误、失败、危险</td>
+      <td style="text-align: left">删除、校验失败</td>
+      <td style="text-align: left">常用红色</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">信息色</td>
+      <td style="text-align: left">Info Color</td>
+      <td style="text-align: left">表示普通提示</td>
+      <td style="text-align: left">通知、说明</td>
+      <td style="text-align: left">常用蓝色</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">渐变</td>
+      <td style="text-align: left">Gradient</td>
+      <td style="text-align: left">颜色渐变过渡</td>
+      <td style="text-align: left">品牌视觉、按钮、背景</td>
+      <td style="text-align: left">不要滥用，注意可读性</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">透明度</td>
+      <td style="text-align: left">Opacity</td>
+      <td style="text-align: left">元素不透明程度</td>
+      <td style="text-align: left">遮罩、禁用态、浮层</td>
+      <td style="text-align: left">透明度会影响对比度</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">遮罩</td>
+      <td style="text-align: left">Overlay</td>
+      <td style="text-align: left">覆盖在内容上的半透明层</td>
+      <td style="text-align: left">弹窗背景、图片文字</td>
+      <td style="text-align: left">遮罩用于压暗或隔离背景</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">对比度</td>
+      <td style="text-align: left">Contrast Ratio</td>
+      <td style="text-align: left">文字和背景的可读性对比</td>
+      <td style="text-align: left">可访问性</td>
+      <td style="text-align: left">重要文字必须有足够对比</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">调色板</td>
+      <td style="text-align: left">Palette</td>
+      <td style="text-align: left">一组配套颜色</td>
+      <td style="text-align: left">设计系统</td>
+      <td style="text-align: left">配色要有角色，不是随便选色</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="常见颜色角色总结">常见颜色角色总结</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">颜色角色</th>
+      <th style="text-align: left">主要用途</th>
+      <th style="text-align: left">常见位置</th>
+      <th style="text-align: left">注意点</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">主色</td>
+      <td style="text-align: left">强调品牌和主操作</td>
+      <td style="text-align: left">主按钮、链接、选中状态</td>
+      <td style="text-align: left">不要满屏使用主色</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">中性色</td>
+      <td style="text-align: left">承载大部分界面</td>
+      <td style="text-align: left">文字、背景、边框</td>
+      <td style="text-align: left">决定界面是否耐看</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">成功色</td>
+      <td style="text-align: left">正向结果</td>
+      <td style="text-align: left">成功提示、通过状态</td>
+      <td style="text-align: left">不要和普通强调色混用</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">警告色</td>
+      <td style="text-align: left">中等风险</td>
+      <td style="text-align: left">提醒、预警</td>
+      <td style="text-align: left">文案要说明具体原因</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">错误色</td>
+      <td style="text-align: left">高风险或失败</td>
+      <td style="text-align: left">删除、报错</td>
+      <td style="text-align: left">不要只靠红色，配文字提示</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="6-字体与排版术语">6. 字体与排版术语</h2>
+
+<p>文字是 UI 中最重要的信息载体。排版不好，用户会直接读不懂。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">术语</th>
+      <th style="text-align: left">英文</th>
+      <th style="text-align: left">含义</th>
+      <th style="text-align: left">使用场景</th>
+      <th style="text-align: left">新手注意</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">字体</td>
+      <td style="text-align: left">Font / Typeface</td>
+      <td style="text-align: left">字形风格</td>
+      <td style="text-align: left">全局文字</td>
+      <td style="text-align: left">新手先用系统字体</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">字号</td>
+      <td style="text-align: left">Font Size</td>
+      <td style="text-align: left">文字大小</td>
+      <td style="text-align: left">标题、正文、说明</td>
+      <td style="text-align: left">字号不要太多</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">字重</td>
+      <td style="text-align: left">Font Weight</td>
+      <td style="text-align: left">文字粗细</td>
+      <td style="text-align: left">标题、强调、按钮</td>
+      <td style="text-align: left">粗体不是越多越好</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">行高</td>
+      <td style="text-align: left">Line Height</td>
+      <td style="text-align: left">两行文字基线之间的距离</td>
+      <td style="text-align: left">正文、标题</td>
+      <td style="text-align: left">行高太小会拥挤</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">字距</td>
+      <td style="text-align: left">Letter Spacing</td>
+      <td style="text-align: left">字母之间的距离</td>
+      <td style="text-align: left">英文标题、标签</td>
+      <td style="text-align: left">中文 UI 一般少调字距</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">段间距</td>
+      <td style="text-align: left">Paragraph Spacing</td>
+      <td style="text-align: left">段落之间的距离</td>
+      <td style="text-align: left">长文、说明</td>
+      <td style="text-align: left">比手动空行更规范</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">对齐方式</td>
+      <td style="text-align: left">Text Alignment</td>
+      <td style="text-align: left">文字左、中、右对齐</td>
+      <td style="text-align: left">标题、正文、表格</td>
+      <td style="text-align: left">大段文字优先左对齐</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">文本层级</td>
+      <td style="text-align: left">Type Hierarchy</td>
+      <td style="text-align: left">用字号、字重、颜色区分文字层级</td>
+      <td style="text-align: left">页面标题、正文、说明</td>
+      <td style="text-align: left">层级要少而清楚</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">标题</td>
+      <td style="text-align: left">Heading</td>
+      <td style="text-align: left">页面或模块标题</td>
+      <td style="text-align: left">H1、H2、H3</td>
+      <td style="text-align: left">标题要表达内容主题</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">正文</td>
+      <td style="text-align: left">Body Text</td>
+      <td style="text-align: left">主要阅读内容</td>
+      <td style="text-align: left">文章、说明、列表</td>
+      <td style="text-align: left">保证可读性</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">辅助文字</td>
+      <td style="text-align: left">Caption / Helper Text</td>
+      <td style="text-align: left">次要说明</td>
+      <td style="text-align: left">表单说明、时间、备注</td>
+      <td style="text-align: left">不能太浅到看不清</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">标签文字</td>
+      <td style="text-align: left">Label</td>
+      <td style="text-align: left">字段或控件名称</td>
+      <td style="text-align: left">表单、设置项</td>
+      <td style="text-align: left">要简洁明确</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">占位符</td>
+      <td style="text-align: left">Placeholder</td>
+      <td style="text-align: left">输入前的提示文字</td>
+      <td style="text-align: left">输入框</td>
+      <td style="text-align: left">不应替代标签</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">截断</td>
+      <td style="text-align: left">Truncation</td>
+      <td style="text-align: left">文本过长时省略</td>
+      <td style="text-align: left">卡片、列表、表格</td>
+      <td style="text-align: left">要考虑鼠标悬停或详情查看</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">换行</td>
+      <td style="text-align: left">Text Wrap</td>
+      <td style="text-align: left">文本自动换到下一行</td>
+      <td style="text-align: left">正文、卡片标题</td>
+      <td style="text-align: left">移动端必须考虑</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">文本溢出</td>
+      <td style="text-align: left">Text Overflow</td>
+      <td style="text-align: left">文本超出容器</td>
+      <td style="text-align: left">表格、按钮、卡片</td>
+      <td style="text-align: left">设计稿要测试长文本</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">可读性</td>
+      <td style="text-align: left">Readability</td>
+      <td style="text-align: left">长文本阅读舒适度</td>
+      <td style="text-align: left">文章、说明</td>
+      <td style="text-align: left">受字号、行高、行宽影响</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">易读性</td>
+      <td style="text-align: left">Legibility</td>
+      <td style="text-align: left">单个字符是否容易辨认</td>
+      <td style="text-align: left">小字号、按钮</td>
+      <td style="text-align: left">字太小、太细都会降低易读性</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="常见字号总结">常见字号总结</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">字号</th>
+      <th style="text-align: left">常见用途</th>
+      <th style="text-align: left">注意点</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">12px</td>
+      <td style="text-align: left">辅助信息、标签、表格次要信息</td>
+      <td style="text-align: left">不适合承载重要正文</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">14px</td>
+      <td style="text-align: left">Web 正文、后台系统常用文字</td>
+      <td style="text-align: left">后台产品很常用</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">16px</td>
+      <td style="text-align: left">移动端正文、重要信息</td>
+      <td style="text-align: left">移动端阅读更舒适</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">18px</td>
+      <td style="text-align: left">小标题</td>
+      <td style="text-align: left">适合模块标题</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">20px</td>
+      <td style="text-align: left">强模块标题</td>
+      <td style="text-align: left">不要在密集后台滥用</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">24px</td>
+      <td style="text-align: left">页面标题</td>
+      <td style="text-align: left">适合详情页、设置页</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">32px+</td>
+      <td style="text-align: left">营销页大标题</td>
+      <td style="text-align: left">工具型产品中要克制</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="7-布局与空间术语">7. 布局与空间术语</h2>
+
+<p>布局决定页面骨架，空间决定信息关系。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">术语</th>
+      <th style="text-align: left">英文</th>
+      <th style="text-align: left">含义</th>
+      <th style="text-align: left">使用场景</th>
+      <th style="text-align: left">新手注意</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">布局</td>
+      <td style="text-align: left">Layout</td>
+      <td style="text-align: left">页面元素的组织方式</td>
+      <td style="text-align: left">所有 UI</td>
+      <td style="text-align: left">先布局，再美化</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">栅格</td>
+      <td style="text-align: left">Grid</td>
+      <td style="text-align: left">用列和间距组织页面的系统</td>
+      <td style="text-align: left">Web、后台、响应式</td>
+      <td style="text-align: left">栅格帮助页面统一</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">列</td>
+      <td style="text-align: left">Column</td>
+      <td style="text-align: left">栅格中的竖向区域</td>
+      <td style="text-align: left">12 栏布局</td>
+      <td style="text-align: left">Web 常用 12 栏</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">行</td>
+      <td style="text-align: left">Row</td>
+      <td style="text-align: left">横向排列的一组内容</td>
+      <td style="text-align: left">表格、列表、网格</td>
+      <td style="text-align: left">行高要稳定</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">间距</td>
+      <td style="text-align: left">Spacing</td>
+      <td style="text-align: left">元素之间的距离</td>
+      <td style="text-align: left">所有页面</td>
+      <td style="text-align: left">用 4 或 8 的倍数更稳定</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">内边距</td>
+      <td style="text-align: left">Padding</td>
+      <td style="text-align: left">元素内部内容到边界的距离</td>
+      <td style="text-align: left">按钮、卡片、输入框</td>
+      <td style="text-align: left">决定组件是否透气</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">外边距</td>
+      <td style="text-align: left">Margin</td>
+      <td style="text-align: left">元素外部和其他元素的距离</td>
+      <td style="text-align: left">模块之间</td>
+      <td style="text-align: left">决定元素关系</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">留白</td>
+      <td style="text-align: left">White Space</td>
+      <td style="text-align: left">空白空间</td>
+      <td style="text-align: left">页面、卡片、标题</td>
+      <td style="text-align: left">留白表达层级和分组</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">对齐</td>
+      <td style="text-align: left">Alignment</td>
+      <td style="text-align: left">元素边缘或中心线保持一致</td>
+      <td style="text-align: left">表单、列表、卡片</td>
+      <td style="text-align: left">对齐是专业感基础</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">分布</td>
+      <td style="text-align: left">Distribution</td>
+      <td style="text-align: left">多个元素按规则分散</td>
+      <td style="text-align: left">图标、卡片、按钮组</td>
+      <td style="text-align: left">间距要一致</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">容器</td>
+      <td style="text-align: left">Container</td>
+      <td style="text-align: left">包裹内容的区域</td>
+      <td style="text-align: left">卡片、页面、模块</td>
+      <td style="text-align: left">容器不是越多越好</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">断点</td>
+      <td style="text-align: left">Breakpoint</td>
+      <td style="text-align: left">响应式布局变化的宽度</td>
+      <td style="text-align: left">Web 适配</td>
+      <td style="text-align: left">根据内容决定，不是死记尺寸</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">固定布局</td>
+      <td style="text-align: left">Fixed Layout</td>
+      <td style="text-align: left">尺寸固定，不随屏幕变化</td>
+      <td style="text-align: left">管理后台局部区域</td>
+      <td style="text-align: left">小屏可能溢出</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">流式布局</td>
+      <td style="text-align: left">Fluid Layout</td>
+      <td style="text-align: left">宽度随容器变化</td>
+      <td style="text-align: left">响应式页面</td>
+      <td style="text-align: left">要设置最大宽度</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">弹性布局</td>
+      <td style="text-align: left">Flexible Layout</td>
+      <td style="text-align: left">元素按规则伸缩</td>
+      <td style="text-align: left">CSS Flex、Auto Layout</td>
+      <td style="text-align: left">适合一维排列</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">网格布局</td>
+      <td style="text-align: left">Grid Layout</td>
+      <td style="text-align: left">行列二维布局</td>
+      <td style="text-align: left">卡片、仪表盘</td>
+      <td style="text-align: left">适合复杂布局</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">单列布局</td>
+      <td style="text-align: left">Single Column</td>
+      <td style="text-align: left">内容纵向排列</td>
+      <td style="text-align: left">移动端、文章页</td>
+      <td style="text-align: left">阅读路径简单</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">多列布局</td>
+      <td style="text-align: left">Multi-column</td>
+      <td style="text-align: left">内容分成多列</td>
+      <td style="text-align: left">Web、后台</td>
+      <td style="text-align: left">小屏要重组</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">卡片布局</td>
+      <td style="text-align: left">Card Layout</td>
+      <td style="text-align: left">用卡片承载信息块</td>
+      <td style="text-align: left">商品、课程、仪表盘</td>
+      <td style="text-align: left">不要把所有区域都做成卡片</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">固定定位</td>
+      <td style="text-align: left">Fixed Position</td>
+      <td style="text-align: left">元素固定在视口某位置</td>
+      <td style="text-align: left">底部按钮、顶部栏</td>
+      <td style="text-align: left">注意遮挡内容</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">粘性定位</td>
+      <td style="text-align: left">Sticky</td>
+      <td style="text-align: left">滚动到某位置后吸附</td>
+      <td style="text-align: left">表头、导航</td>
+      <td style="text-align: left">提高长页面操作效率</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="常见间距总结">常见间距总结</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">间距</th>
+      <th style="text-align: left">使用场景</th>
+      <th style="text-align: left">说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">4px</td>
+      <td style="text-align: left">图标和文字、小标签内部</td>
+      <td style="text-align: left">极近关系</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">8px</td>
+      <td style="text-align: left">小元素之间</td>
+      <td style="text-align: left">常见基础间距</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">12px</td>
+      <td style="text-align: left">紧凑组件内部</td>
+      <td style="text-align: left">适合后台和卡片内部</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">16px</td>
+      <td style="text-align: left">常规内边距</td>
+      <td style="text-align: left">移动端和卡片常用</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">24px</td>
+      <td style="text-align: left">模块之间</td>
+      <td style="text-align: left">区分内容分组</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">32px</td>
+      <td style="text-align: left">大模块之间</td>
+      <td style="text-align: left">页面区块分隔</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">48px</td>
+      <td style="text-align: left">大区块之间</td>
+      <td style="text-align: left">营销页、长页面</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="8-尺寸与单位术语">8. 尺寸与单位术语</h2>
+
+<p>这部分和网页、移动端开发关系很近。UI 设计师不一定要写代码，但要看懂单位。</p>
+
+<h3 id="81-常见长度单位">8.1 常见长度单位</h3>
+
+<h4 id="811绝对单位">8.1.1、绝对单位</h4>
+
+<p>这类单位是<strong>固定值</strong>，不会因为屏幕或父元素的变化而改变。通常用于<strong>打印样式</strong>或需要精确控制物理尺寸的场景。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">单位</th>
+      <th style="text-align: left">英文全称</th>
+      <th style="text-align: left">含义/来源</th>
+      <th style="text-align: left">换算关系</th>
+      <th style="text-align: left">使用场景</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong><code class="language-plaintext highlighter-rouge">px</code></strong></td>
+      <td style="text-align: left">Pixel</td>
+      <td style="text-align: left">图像显示的基本单位，源自”picture element”</td>
+      <td style="text-align: left">屏幕最小单位，CSS绝对长度基准</td>
+      <td style="text-align: left">屏幕显示（边框、阴影、小图标）</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong><code class="language-plaintext highlighter-rouge">pt</code></strong></td>
+      <td style="text-align: left">Point</td>
+      <td style="text-align: left">印刷业传统单位</td>
+      <td style="text-align: left">1/72 英寸</td>
+      <td style="text-align: left">传统印刷、Word排版；网页中一般不用</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong><code class="language-plaintext highlighter-rouge">pc</code></strong></td>
+      <td style="text-align: left">Pica</td>
+      <td style="text-align: left">印刷业传统单位</td>
+      <td style="text-align: left">1/6 英寸 (12pt)</td>
+      <td style="text-align: left">印刷排版，Web基本不用</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong><code class="language-plaintext highlighter-rouge">cm</code></strong></td>
+      <td style="text-align: left">Centimeter</td>
+      <td style="text-align: left">厘米，公制长度单位</td>
+      <td style="text-align: left">1in = 2.54cm</td>
+      <td style="text-align: left">屏幕显示不准，偶尔用于打印样式</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong><code class="language-plaintext highlighter-rouge">mm</code></strong></td>
+      <td style="text-align: left">Millimeter</td>
+      <td style="text-align: left">毫米，公制长度单位</td>
+      <td style="text-align: left">10mm = 1cm</td>
+      <td style="text-align: left">屏幕显示不准，偶尔用于打印样式</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong><code class="language-plaintext highlighter-rouge">in</code></strong></td>
+      <td style="text-align: left">Inch</td>
+      <td style="text-align: left">英寸，英制长度单位</td>
+      <td style="text-align: left">1in = 2.54cm</td>
+      <td style="text-align: left">屏幕显示不准，偶尔用于打印样式</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="812相对单位">8.1.2、相对单位</h4>
+
+<p>这类单位是<strong>相对的</strong>，会根据某个基准值（父元素、视口、根元素）动态变化，是实现<strong>响应式设计</strong>和<strong>无障碍访问</strong>的核心。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">单位</th>
+      <th style="text-align: left">英文全称</th>
+      <th style="text-align: left">含义/来源</th>
+      <th style="text-align: left">换算关系</th>
+      <th style="text-align: left">使用场景</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong><code class="language-plaintext highlighter-rouge">rem</code></strong></td>
+      <td style="text-align: left">Root EM</td>
+      <td style="text-align: left">相对于根元素字体大小（EM指字母M宽度）</td>
+      <td style="text-align: left">根元素(<code class="language-plaintext highlighter-rouge">&lt;html&gt;</code>)的字体大小</td>
+      <td style="text-align: left">全局字体、间距、宽度；支持浏览器字号缩放</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong><code class="language-plaintext highlighter-rouge">em</code></strong></td>
+      <td style="text-align: left">EM（排版术语）</td>
+      <td style="text-align: left">相对于当前元素字体大小</td>
+      <td style="text-align: left">当前元素的字体大小</td>
+      <td style="text-align: left">相对于自身字体缩进的边距(margin/padding)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong><code class="language-plaintext highlighter-rouge">%</code></strong></td>
+      <td style="text-align: left">Percent</td>
+      <td style="text-align: left">百分比</td>
+      <td style="text-align: left">父元素的同属性值</td>
+      <td style="text-align: left">流式布局、栅格系统、弹性图片</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong><code class="language-plaintext highlighter-rouge">vw</code></strong></td>
+      <td style="text-align: left">Viewport Width</td>
+      <td style="text-align: left">视口宽度百分比</td>
+      <td style="text-align: left">视口宽度的1%</td>
+      <td style="text-align: left">全屏容器、大标题、视口适配</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong><code class="language-plaintext highlighter-rouge">vh</code></strong></td>
+      <td style="text-align: left">Viewport Height</td>
+      <td style="text-align: left">视口高度百分比</td>
+      <td style="text-align: left">视口高度的1%</td>
+      <td style="text-align: left">全屏滚动、首屏页脚、移动端全屏弹窗</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong><code class="language-plaintext highlighter-rouge">vmin</code></strong></td>
+      <td style="text-align: left">Viewport Minimum</td>
+      <td style="text-align: left">视口宽度和高度中较小者的百分比</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">vw</code>和<code class="language-plaintext highlighter-rouge">vh</code>中较小者</td>
+      <td style="text-align: left">确保元素在横竖屏切换时都能完整显示</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong><code class="language-plaintext highlighter-rouge">vmax</code></strong></td>
+      <td style="text-align: left">Viewport Maximum</td>
+      <td style="text-align: left">视口宽度和高度中较大者的百分比</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">vw</code>和<code class="language-plaintext highlighter-rouge">vh</code>中较大者</td>
+      <td style="text-align: left">超大背景装饰元素</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong><code class="language-plaintext highlighter-rouge">ex</code></strong></td>
+      <td style="text-align: left">x-height</td>
+      <td style="text-align: left">当前字体中字母”x”的高度</td>
+      <td style="text-align: left">当前字体中字母x的高度</td>
+      <td style="text-align: left">特殊垂直对齐，使用较少</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong><code class="language-plaintext highlighter-rouge">ch</code></strong></td>
+      <td style="text-align: left">Character width</td>
+      <td style="text-align: left">当前字体中数字”0”的宽度</td>
+      <td style="text-align: left">当前字体中数字0的宽度</td>
+      <td style="text-align: left">限制文本行宽（如<code class="language-plaintext highlighter-rouge">max-width: 60ch</code>）</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="813移动端跨平台专用单位">8.1.3、移动端/跨平台专用单位</h4>
+
+<p>这类单位更多出现在<strong>移动端开发</strong>、<strong>React Native</strong>、<strong>Flutter</strong> 或 <strong>微信小程序</strong>中。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">单位</th>
+      <th style="text-align: left">英文全称</th>
+      <th style="text-align: left">含义/原理</th>
+      <th style="text-align: left">所属框架/平台</th>
+      <th style="text-align: left">使用场景</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong><code class="language-plaintext highlighter-rouge">dp</code> / <code class="language-plaintext highlighter-rouge">dip</code></strong></td>
+      <td style="text-align: left">Density-Independent Pixel</td>
+      <td style="text-align: left">密度无关像素。160dpi屏幕上1dp=1px，高密度屏幕自动放大</td>
+      <td style="text-align: left">Android 原生 / React Native</td>
+      <td style="text-align: left">所有尺寸（宽高、边距、圆角）</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong><code class="language-plaintext highlighter-rouge">sp</code></strong></td>
+      <td style="text-align: left">Scale-independent Pixel</td>
+      <td style="text-align: left">缩放无关像素。类似dp，但额外缩放用户字体偏好</td>
+      <td style="text-align: left">Android 原生</td>
+      <td style="text-align: left">文字大小（保证视障用户可读）</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong><code class="language-plaintext highlighter-rouge">rpx</code></strong></td>
+      <td style="text-align: left">Responsive Pixel</td>
+      <td style="text-align: left">响应式像素。屏幕宽固定为750rpx，自动换算</td>
+      <td style="text-align: left">微信小程序</td>
+      <td style="text-align: left">所有尺寸（手机端完美适配）</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong><code class="language-plaintext highlighter-rouge">pt</code></strong> (iOS)</td>
+      <td style="text-align: left">Point</td>
+      <td style="text-align: left">逻辑点单位。1pt = 1/72英寸（非Retina屏1pt=1px）</td>
+      <td style="text-align: left">iOS (UIKit/SwiftUI)</td>
+      <td style="text-align: left">iOS界面设计稿标注和开发</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="814特殊功能单位">8.1.4、特殊功能单位</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">单位/函数</th>
+      <th style="text-align: left">英文全称</th>
+      <th style="text-align: left">含义</th>
+      <th style="text-align: left">作用</th>
+      <th style="text-align: left">使用场景</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong><code class="language-plaintext highlighter-rouge">fr</code></strong></td>
+      <td style="text-align: left">Fraction</td>
+      <td style="text-align: left">分数单位</td>
+      <td style="text-align: left">CSS Grid中的剩余空间分数</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">grid-template-columns: 1fr 2fr</code>（比例分配宽度）</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong><code class="language-plaintext highlighter-rouge">min()</code></strong></td>
+      <td style="text-align: left">Minimum function</td>
+      <td style="text-align: left">取最小值函数</td>
+      <td style="text-align: left">取两个值中的较小值</td>
+      <td style="text-align: left">让容器响应式缩小但有上限：<code class="language-plaintext highlighter-rouge">width: min(100%, 600px)</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong><code class="language-plaintext highlighter-rouge">max()</code></strong></td>
+      <td style="text-align: left">Maximum function</td>
+      <td style="text-align: left">取最大值函数</td>
+      <td style="text-align: left">取两个值中的较大值</td>
+      <td style="text-align: left">让容器响应式放大但有下限：<code class="language-plaintext highlighter-rouge">width: max(50%, 300px)</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong><code class="language-plaintext highlighter-rouge">clamp()</code></strong></td>
+      <td style="text-align: left">Clamp function</td>
+      <td style="text-align: left">钳位函数</td>
+      <td style="text-align: left">限制在一个区间内</td>
+      <td style="text-align: left">响应式字体：<code class="language-plaintext highlighter-rouge">font-size: clamp(12px, 4vw, 24px)</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong><code class="language-plaintext highlighter-rouge">calc()</code></strong></td>
+      <td style="text-align: left">Calculate function</td>
+      <td style="text-align: left">计算函数</td>
+      <td style="text-align: left">混合单位计算</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">width: calc(100% - 20px)</code>（混合百分比和绝对单位）</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p>记忆口诀：</p>
+
+  <p><strong>屏幕细节用 <code class="language-plaintext highlighter-rouge">px</code>，全局缩放找 <code class="language-plaintext highlighter-rouge">rem</code>，父级参照用 <code class="language-plaintext highlighter-rouge">%</code>，视口比例 <code class="language-plaintext highlighter-rouge">vw</code>/<code class="language-plaintext highlighter-rouge">vh</code>，安卓尺寸用 <code class="language-plaintext highlighter-rouge">dp</code>，iOS 布局靠 <code class="language-plaintext highlighter-rouge">pt</code>，比例布局上 <code class="language-plaintext highlighter-rouge">fr</code>，文本行宽可用 <code class="language-plaintext highlighter-rouge">ch</code>。</strong></p>
+</blockquote>
+
+<h3 id="82-屏幕相关术语">8.2 屏幕相关术语</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">术语</th>
+      <th style="text-align: left">英文</th>
+      <th style="text-align: left">含义</th>
+      <th style="text-align: left">使用场景</th>
+      <th style="text-align: left">新手注意</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">分辨率</td>
+      <td style="text-align: left">Resolution</td>
+      <td style="text-align: left">屏幕物理像素数量</td>
+      <td style="text-align: left">设备参数</td>
+      <td style="text-align: left">如 1920 x 1080</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">物理像素</td>
+      <td style="text-align: left">Physical Pixel</td>
+      <td style="text-align: left">屏幕真实发光点</td>
+      <td style="text-align: left">硬件显示</td>
+      <td style="text-align: left">设计中不直接按它布局</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">逻辑像素</td>
+      <td style="text-align: left">Logical Pixel</td>
+      <td style="text-align: left">系统和设计使用的抽象像素</td>
+      <td style="text-align: left">Web、iOS、Android</td>
+      <td style="text-align: left">Figma 中多按逻辑尺寸设计</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">DPR</td>
+      <td style="text-align: left">Device Pixel Ratio</td>
+      <td style="text-align: left">设备像素比</td>
+      <td style="text-align: left">Web 适配、图片导出</td>
+      <td style="text-align: left">DPR=2 表示 1 逻辑像素对应更多物理像素</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">PPI</td>
+      <td style="text-align: left">Pixels Per Inch</td>
+      <td style="text-align: left">每英寸像素数</td>
+      <td style="text-align: left">屏幕清晰度</td>
+      <td style="text-align: left">PPI 越高越细腻</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">DPI</td>
+      <td style="text-align: left">Dots Per Inch</td>
+      <td style="text-align: left">每英寸点数</td>
+      <td style="text-align: left">打印、Android 密度</td>
+      <td style="text-align: left">屏幕和打印语境不同</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">视口</td>
+      <td style="text-align: left">Viewport</td>
+      <td style="text-align: left">浏览器可视区域</td>
+      <td style="text-align: left">Web 响应式</td>
+      <td style="text-align: left">不一定等于屏幕尺寸</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">安全区</td>
+      <td style="text-align: left">Safe Area</td>
+      <td style="text-align: left">不被刘海、圆角、手势条遮挡的区域</td>
+      <td style="text-align: left">iOS、全面屏手机</td>
+      <td style="text-align: left">底部按钮要避开手势条</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">断点</td>
+      <td style="text-align: left">Breakpoint</td>
+      <td style="text-align: left">响应式变化点</td>
+      <td style="text-align: left">Web</td>
+      <td style="text-align: left">常见 375、768、1024、1440 等</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="9-图标图片与图形术语">9. 图标、图片与图形术语</h2>
+
+<p>图标和图片是 UI 视觉表达的重要组成部分。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">术语</th>
+      <th style="text-align: left">英文</th>
+      <th style="text-align: left">含义</th>
+      <th style="text-align: left">使用场景</th>
+      <th style="text-align: left">新手注意</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">图标</td>
+      <td style="text-align: left">Icon</td>
+      <td style="text-align: left">用简单图形表达功能或状态</td>
+      <td style="text-align: left">导航、按钮、操作栏</td>
+      <td style="text-align: left">图标含义要清楚</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">线性图标</td>
+      <td style="text-align: left">Outline Icon</td>
+      <td style="text-align: left">由线条构成的图标</td>
+      <td style="text-align: left">工具栏、导航</td>
+      <td style="text-align: left">线宽要统一</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">面性图标</td>
+      <td style="text-align: left">Filled Icon</td>
+      <td style="text-align: left">实心填充图标</td>
+      <td style="text-align: left">选中状态、强调入口</td>
+      <td style="text-align: left">不要和线性图标乱混</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">图标网格</td>
+      <td style="text-align: left">Icon Grid</td>
+      <td style="text-align: left">绘制图标的参考网格</td>
+      <td style="text-align: left">图标设计</td>
+      <td style="text-align: left">保证尺寸和视觉重心统一</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">插画</td>
+      <td style="text-align: left">Illustration</td>
+      <td style="text-align: left">更复杂的图形叙事</td>
+      <td style="text-align: left">空状态、引导页</td>
+      <td style="text-align: left">不要影响主要内容</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">位图</td>
+      <td style="text-align: left">Bitmap / Raster</td>
+      <td style="text-align: left">由像素组成的图片</td>
+      <td style="text-align: left">照片、截图</td>
+      <td style="text-align: left">放大可能模糊</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">矢量图</td>
+      <td style="text-align: left">Vector</td>
+      <td style="text-align: left">用路径描述的图形</td>
+      <td style="text-align: left">图标、Logo</td>
+      <td style="text-align: left">放大不失真</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">SVG</td>
+      <td style="text-align: left">Scalable Vector Graphics</td>
+      <td style="text-align: left">Web 常用矢量格式</td>
+      <td style="text-align: left">图标、Logo</td>
+      <td style="text-align: left">适合导出图标</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">PNG</td>
+      <td style="text-align: left">Portable Network Graphics</td>
+      <td style="text-align: left">支持透明的位图格式</td>
+      <td style="text-align: left">透明图片、截图</td>
+      <td style="text-align: left">文件可能较大</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">JPG / JPEG</td>
+      <td style="text-align: left">Joint Photographic Experts Group</td>
+      <td style="text-align: left">有损压缩图片格式</td>
+      <td style="text-align: left">照片</td>
+      <td style="text-align: left">不支持透明</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">WebP</td>
+      <td style="text-align: left">Web Picture</td>
+      <td style="text-align: left">现代图片格式</td>
+      <td style="text-align: left">Web 图片优化</td>
+      <td style="text-align: left">兼顾体积和质量</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">裁剪</td>
+      <td style="text-align: left">Crop</td>
+      <td style="text-align: left">截取图片某部分</td>
+      <td style="text-align: left">卡片封面、头像</td>
+      <td style="text-align: left">不要裁掉主体</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">蒙版</td>
+      <td style="text-align: left">Mask</td>
+      <td style="text-align: left">用形状限制显示区域</td>
+      <td style="text-align: left">圆形头像、特殊裁剪</td>
+      <td style="text-align: left">注意图层结构</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">占位图</td>
+      <td style="text-align: left">Placeholder Image</td>
+      <td style="text-align: left">图片未加载或临时图片</td>
+      <td style="text-align: left">原型、加载状态</td>
+      <td style="text-align: left">不要交付时忘记替换</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">纵横比</td>
+      <td style="text-align: left">Aspect Ratio</td>
+      <td style="text-align: left">宽高比例</td>
+      <td style="text-align: left">图片、视频、卡片</td>
+      <td style="text-align: left">同类图片比例要统一</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">图像压缩</td>
+      <td style="text-align: left">Image Compression</td>
+      <td style="text-align: left">减小图片体积</td>
+      <td style="text-align: left">Web 性能</td>
+      <td style="text-align: left">压缩过度会影响质量</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Retina 图</td>
+      <td style="text-align: left">Retina Asset</td>
+      <td style="text-align: left">高清屏适配图片</td>
+      <td style="text-align: left">iOS、Web</td>
+      <td style="text-align: left">常见 2x、3x 导出</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="10-组件术语">10. 组件术语</h2>
+
+<p>组件是 UI 中可复用的基础单元。现代 UI 设计离不开组件思维。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">术语</th>
+      <th style="text-align: left">英文</th>
+      <th style="text-align: left">含义</th>
+      <th style="text-align: left">使用场景</th>
+      <th style="text-align: left">新手注意</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">组件</td>
+      <td style="text-align: left">Component</td>
+      <td style="text-align: left">可复用 UI 单元</td>
+      <td style="text-align: left">按钮、输入框、卡片</td>
+      <td style="text-align: left">重复出现的元素应组件化</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">主组件</td>
+      <td style="text-align: left">Main Component</td>
+      <td style="text-align: left">组件源头</td>
+      <td style="text-align: left">Figma 组件库</td>
+      <td style="text-align: left">修改主组件会影响实例</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">实例</td>
+      <td style="text-align: left">Instance</td>
+      <td style="text-align: left">主组件的副本</td>
+      <td style="text-align: left">页面中使用组件</td>
+      <td style="text-align: left">可覆盖内容但保持关联</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">变体</td>
+      <td style="text-align: left">Variant</td>
+      <td style="text-align: left">同一组件的不同状态或类型</td>
+      <td style="text-align: left">按钮状态、输入框状态</td>
+      <td style="text-align: left">不要把无关组件塞成变体</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">属性</td>
+      <td style="text-align: left">Property</td>
+      <td style="text-align: left">控制组件可变内容的设置</td>
+      <td style="text-align: left">图标显示、文本替换</td>
+      <td style="text-align: left">属性要清楚，不要过多</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">状态</td>
+      <td style="text-align: left">State</td>
+      <td style="text-align: left">组件在不同交互下的表现</td>
+      <td style="text-align: left">Hover、Disabled</td>
+      <td style="text-align: left">组件必须补状态</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">主按钮</td>
+      <td style="text-align: left">Primary Button</td>
+      <td style="text-align: left">页面最重要操作按钮</td>
+      <td style="text-align: left">提交、保存、购买</td>
+      <td style="text-align: left">一个区域不要太多主按钮</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">次按钮</td>
+      <td style="text-align: left">Secondary Button</td>
+      <td style="text-align: left">辅助操作按钮</td>
+      <td style="text-align: left">取消、返回</td>
+      <td style="text-align: left">视觉弱于主按钮</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">文本按钮</td>
+      <td style="text-align: left">Text Button</td>
+      <td style="text-align: left">无明显容器的轻量按钮</td>
+      <td style="text-align: left">查看详情、编辑</td>
+      <td style="text-align: left">点击区域仍要足够</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">危险按钮</td>
+      <td style="text-align: left">Danger Button</td>
+      <td style="text-align: left">高风险操作按钮</td>
+      <td style="text-align: left">删除、清空</td>
+      <td style="text-align: left">需要确认或明显提示</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">输入框</td>
+      <td style="text-align: left">Input</td>
+      <td style="text-align: left">文本输入控件</td>
+      <td style="text-align: left">登录、搜索、表单</td>
+      <td style="text-align: left">要有标签和错误提示</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">下拉选择</td>
+      <td style="text-align: left">Select</td>
+      <td style="text-align: left">从选项中选择一个</td>
+      <td style="text-align: left">城市、分类、状态</td>
+      <td style="text-align: left">选项过多时考虑搜索</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">复选框</td>
+      <td style="text-align: left">Checkbox</td>
+      <td style="text-align: left">多选控件</td>
+      <td style="text-align: left">批量选择、协议</td>
+      <td style="text-align: left">可多选</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">单选框</td>
+      <td style="text-align: left">Radio</td>
+      <td style="text-align: left">单选控件</td>
+      <td style="text-align: left">性别、支付方式</td>
+      <td style="text-align: left">一组中只能选一个</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">开关</td>
+      <td style="text-align: left">Switch</td>
+      <td style="text-align: left">即时启用或关闭设置</td>
+      <td style="text-align: left">通知开关、深色模式</td>
+      <td style="text-align: left">不适合需要提交确认的表单项</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">标签</td>
+      <td style="text-align: left">Tag</td>
+      <td style="text-align: left">表达分类、状态或属性</td>
+      <td style="text-align: left">商品标签、状态标签</td>
+      <td style="text-align: left">不要把标签当按钮乱用</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">徽标</td>
+      <td style="text-align: left">Badge</td>
+      <td style="text-align: left">小型数字或状态提示</td>
+      <td style="text-align: left">未读数、通知</td>
+      <td style="text-align: left">数字过大要处理</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">卡片</td>
+      <td style="text-align: left">Card</td>
+      <td style="text-align: left">承载一组相关内容的容器</td>
+      <td style="text-align: left">商品、文章、数据概览</td>
+      <td style="text-align: left">卡片不是万能装饰</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">弹窗</td>
+      <td style="text-align: left">Modal / Dialog</td>
+      <td style="text-align: left">打断当前流程的浮层</td>
+      <td style="text-align: left">确认、编辑、提示</td>
+      <td style="text-align: left">不要滥用弹窗</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">抽屉</td>
+      <td style="text-align: left">Drawer</td>
+      <td style="text-align: left">从边缘滑出的面板</td>
+      <td style="text-align: left">详情、筛选、编辑</td>
+      <td style="text-align: left">适合保留上下文</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">气泡提示</td>
+      <td style="text-align: left">Tooltip</td>
+      <td style="text-align: left">鼠标悬停显示轻量说明</td>
+      <td style="text-align: left">图标解释、字段说明</td>
+      <td style="text-align: left">不适合放重要信息</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Toast</td>
+      <td style="text-align: left">Toast</td>
+      <td style="text-align: left">短暂轻提示</td>
+      <td style="text-align: left">保存成功、复制成功</td>
+      <td style="text-align: left">不应承载复杂操作</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">分页</td>
+      <td style="text-align: left">Pagination</td>
+      <td style="text-align: left">分页浏览数据</td>
+      <td style="text-align: left">表格、列表</td>
+      <td style="text-align: left">大数据列表常用</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">步骤条</td>
+      <td style="text-align: left">Steps</td>
+      <td style="text-align: left">显示多步骤进度</td>
+      <td style="text-align: left">注册、下单、审批</td>
+      <td style="text-align: left">告诉用户当前在哪一步</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">进度条</td>
+      <td style="text-align: left">Progress</td>
+      <td style="text-align: left">显示任务完成程度</td>
+      <td style="text-align: left">上传、下载</td>
+      <td style="text-align: left">长任务必须有反馈</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p>记忆口诀：</p>
+
+  <p>重复出现做组件，不同状态做变体，可变内容做属性。</p>
+</blockquote>
+
+<h2 id="11-表单术语">11. 表单术语</h2>
+
+<p>表单是 UI 中最容易影响体验的部分。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">术语</th>
+      <th style="text-align: left">英文</th>
+      <th style="text-align: left">含义</th>
+      <th style="text-align: left">使用场景</th>
+      <th style="text-align: left">新手注意</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">表单</td>
+      <td style="text-align: left">Form</td>
+      <td style="text-align: left">收集用户输入的一组控件</td>
+      <td style="text-align: left">注册、登录、编辑资料</td>
+      <td style="text-align: left">字段越多，用户成本越高</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">字段</td>
+      <td style="text-align: left">Field</td>
+      <td style="text-align: left">一个输入项</td>
+      <td style="text-align: left">姓名、手机号、邮箱</td>
+      <td style="text-align: left">字段名称要明确</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">标签</td>
+      <td style="text-align: left">Label</td>
+      <td style="text-align: left">字段名称</td>
+      <td style="text-align: left">表单输入框上方或左侧</td>
+      <td style="text-align: left">不要只用占位符代替标签</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">占位符</td>
+      <td style="text-align: left">Placeholder</td>
+      <td style="text-align: left">输入前的示例或提示</td>
+      <td style="text-align: left">输入框内部</td>
+      <td style="text-align: left">输入后会消失</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">帮助文本</td>
+      <td style="text-align: left">Helper Text</td>
+      <td style="text-align: left">辅助解释填写规则</td>
+      <td style="text-align: left">密码规则、格式说明</td>
+      <td style="text-align: left">放在字段附近</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">错误提示</td>
+      <td style="text-align: left">Error Message</td>
+      <td style="text-align: left">告诉用户哪里错了</td>
+      <td style="text-align: left">表单校验失败</td>
+      <td style="text-align: left">要说明怎么改</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">必填项</td>
+      <td style="text-align: left">Required Field</td>
+      <td style="text-align: left">必须填写的字段</td>
+      <td style="text-align: left">注册、提交</td>
+      <td style="text-align: left">标记要清楚</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">可选项</td>
+      <td style="text-align: left">Optional Field</td>
+      <td style="text-align: left">不一定要填写的字段</td>
+      <td style="text-align: left">个人简介、备注</td>
+      <td style="text-align: left">可标“选填”</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">表单校验</td>
+      <td style="text-align: left">Validation</td>
+      <td style="text-align: left">检查输入是否符合规则</td>
+      <td style="text-align: left">邮箱、手机号、密码</td>
+      <td style="text-align: left">最好给实时或失焦反馈</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">实时校验</td>
+      <td style="text-align: left">Inline Validation</td>
+      <td style="text-align: left">用户输入过程中或失焦时校验</td>
+      <td style="text-align: left">注册表单</td>
+      <td style="text-align: left">不要过早打断输入</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">提交校验</td>
+      <td style="text-align: left">Submit Validation</td>
+      <td style="text-align: left">点击提交后统一校验</td>
+      <td style="text-align: left">长表单</td>
+      <td style="text-align: left">错误要定位到字段</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">输入格式</td>
+      <td style="text-align: left">Input Format</td>
+      <td style="text-align: left">要求输入的格式</td>
+      <td style="text-align: left">日期、金额、手机号</td>
+      <td style="text-align: left">可以用示例降低错误</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">输入掩码</td>
+      <td style="text-align: left">Input Mask</td>
+      <td style="text-align: left">自动格式化输入</td>
+      <td style="text-align: left">银行卡、手机号</td>
+      <td style="text-align: left">要避免妨碍复制粘贴</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">默认值</td>
+      <td style="text-align: left">Default Value</td>
+      <td style="text-align: left">字段初始值</td>
+      <td style="text-align: left">设置项、筛选器</td>
+      <td style="text-align: left">默认值会影响用户选择</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">禁用字段</td>
+      <td style="text-align: left">Disabled Field</td>
+      <td style="text-align: left">不可编辑字段</td>
+      <td style="text-align: left">权限不足、系统生成</td>
+      <td style="text-align: left">样式要明显但仍可理解</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">只读字段</td>
+      <td style="text-align: left">Readonly Field</td>
+      <td style="text-align: left">可查看但不能编辑</td>
+      <td style="text-align: left">订单号、ID</td>
+      <td style="text-align: left">和禁用含义不同</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">字段分组</td>
+      <td style="text-align: left">Field Grouping</td>
+      <td style="text-align: left">将相关字段归类</td>
+      <td style="text-align: left">地址信息、账号信息</td>
+      <td style="text-align: left">长表单必须分组</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">分步表单</td>
+      <td style="text-align: left">Multi-step Form</td>
+      <td style="text-align: left">把长表单拆成多步</td>
+      <td style="text-align: left">注册、申请流程</td>
+      <td style="text-align: left">显示进度和返回方式</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="12-导航术语">12. 导航术语</h2>
+
+<p>导航帮助用户知道自己在哪里、还能去哪里。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">术语</th>
+      <th style="text-align: left">英文</th>
+      <th style="text-align: left">含义</th>
+      <th style="text-align: left">使用场景</th>
+      <th style="text-align: left">新手注意</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">导航</td>
+      <td style="text-align: left">Navigation</td>
+      <td style="text-align: left">页面或功能入口系统</td>
+      <td style="text-align: left">App、网站、后台</td>
+      <td style="text-align: left">导航不是越多越好</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">顶部导航</td>
+      <td style="text-align: left">Top Navigation</td>
+      <td style="text-align: left">位于页面顶部的导航</td>
+      <td style="text-align: left">官网、Web 应用</td>
+      <td style="text-align: left">适合一级栏目较少</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">侧边导航</td>
+      <td style="text-align: left">Sidebar Navigation</td>
+      <td style="text-align: left">位于左侧或右侧的导航</td>
+      <td style="text-align: left">后台、工具产品</td>
+      <td style="text-align: left">当前选中状态要明显</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">底部标签栏</td>
+      <td style="text-align: left">Tab Bar</td>
+      <td style="text-align: left">移动端底部一级导航</td>
+      <td style="text-align: left">App、小程序</td>
+      <td style="text-align: left">通常 3 到 5 个入口</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">标签页</td>
+      <td style="text-align: left">Tabs</td>
+      <td style="text-align: left">同一区域内切换内容</td>
+      <td style="text-align: left">设置页、详情页</td>
+      <td style="text-align: left">适合同层级内容切换</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">面包屑</td>
+      <td style="text-align: left">Breadcrumb</td>
+      <td style="text-align: left">显示当前位置层级</td>
+      <td style="text-align: left">后台、文档、电商</td>
+      <td style="text-align: left">层级深时使用</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">菜单</td>
+      <td style="text-align: left">Menu</td>
+      <td style="text-align: left">操作或页面入口列表</td>
+      <td style="text-align: left">更多操作、下拉菜单</td>
+      <td style="text-align: left">文案要清楚</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">下拉菜单</td>
+      <td style="text-align: left">Dropdown Menu</td>
+      <td style="text-align: left">点击后展开的菜单</td>
+      <td style="text-align: left">用户菜单、更多操作</td>
+      <td style="text-align: left">不要藏核心功能</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">汉堡菜单</td>
+      <td style="text-align: left">Hamburger Menu</td>
+      <td style="text-align: left">三横线菜单按钮</td>
+      <td style="text-align: left">移动端导航</td>
+      <td style="text-align: left">会降低入口可见性</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">返回</td>
+      <td style="text-align: left">Back</td>
+      <td style="text-align: left">回到上一级或上一页</td>
+      <td style="text-align: left">移动端、详情页</td>
+      <td style="text-align: left">返回逻辑要符合用户预期</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">当前状态</td>
+      <td style="text-align: left">Active State</td>
+      <td style="text-align: left">当前所在导航项</td>
+      <td style="text-align: left">侧边栏、Tab</td>
+      <td style="text-align: left">必须明显</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">悬停状态</td>
+      <td style="text-align: left">Hover State</td>
+      <td style="text-align: left">鼠标移上去的状态</td>
+      <td style="text-align: left">Web 导航</td>
+      <td style="text-align: left">移动端没有 Hover</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">深层链接</td>
+      <td style="text-align: left">Deep Link</td>
+      <td style="text-align: left">直接进入具体页面或状态的链接</td>
+      <td style="text-align: left">App、Web</td>
+      <td style="text-align: left">便于分享和跳转</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="13-交互术语">13. 交互术语</h2>
+
+<p>交互描述用户如何操作，系统如何响应。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">术语</th>
+      <th style="text-align: left">英文</th>
+      <th style="text-align: left">含义</th>
+      <th style="text-align: left">使用场景</th>
+      <th style="text-align: left">新手注意</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">交互</td>
+      <td style="text-align: left">Interaction</td>
+      <td style="text-align: left">用户动作和系统响应</td>
+      <td style="text-align: left">点击、输入、滑动</td>
+      <td style="text-align: left">交互要可预期</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">触发器</td>
+      <td style="text-align: left">Trigger</td>
+      <td style="text-align: left">引发交互的动作</td>
+      <td style="text-align: left">点击、悬停、拖拽</td>
+      <td style="text-align: left">原型设计常用</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">动作</td>
+      <td style="text-align: left">Action</td>
+      <td style="text-align: left">系统执行的行为</td>
+      <td style="text-align: left">跳转、打开弹窗、提交</td>
+      <td style="text-align: left">动作要有反馈</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">点击</td>
+      <td style="text-align: left">Click / Tap</td>
+      <td style="text-align: left">鼠标点击或手指轻触</td>
+      <td style="text-align: left">按钮、链接</td>
+      <td style="text-align: left">移动端更常说 Tap</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">双击</td>
+      <td style="text-align: left">Double Click</td>
+      <td style="text-align: left">连续点击两次</td>
+      <td style="text-align: left">桌面工具</td>
+      <td style="text-align: left">移动端少用</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">长按</td>
+      <td style="text-align: left">Long Press</td>
+      <td style="text-align: left">按住一段时间</td>
+      <td style="text-align: left">移动端菜单</td>
+      <td style="text-align: left">可发现性较弱</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">滑动</td>
+      <td style="text-align: left">Swipe</td>
+      <td style="text-align: left">手指横向或纵向滑动</td>
+      <td style="text-align: left">轮播、返回、删除</td>
+      <td style="text-align: left">需要有视觉提示</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">拖拽</td>
+      <td style="text-align: left">Drag and Drop</td>
+      <td style="text-align: left">拖动物体到目标位置</td>
+      <td style="text-align: left">排序、上传、编辑器</td>
+      <td style="text-align: left">要有拖拽反馈</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">悬停</td>
+      <td style="text-align: left">Hover</td>
+      <td style="text-align: left">鼠标停留在元素上</td>
+      <td style="text-align: left">Web 工具、按钮</td>
+      <td style="text-align: left">触屏设备没有 Hover</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">聚焦</td>
+      <td style="text-align: left">Focus</td>
+      <td style="text-align: left">元素获得键盘或输入焦点</td>
+      <td style="text-align: left">输入框、按钮</td>
+      <td style="text-align: left">对键盘用户很重要</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">手势</td>
+      <td style="text-align: left">Gesture</td>
+      <td style="text-align: left">触屏操作方式</td>
+      <td style="text-align: left">捏合、滑动、长按</td>
+      <td style="text-align: left">不要只依赖隐藏手势</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">跳转</td>
+      <td style="text-align: left">Navigation Action</td>
+      <td style="text-align: left">从一个页面到另一个页面</td>
+      <td style="text-align: left">链接、按钮</td>
+      <td style="text-align: left">跳转目标要明确</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">展开</td>
+      <td style="text-align: left">Expand</td>
+      <td style="text-align: left">显示更多内容</td>
+      <td style="text-align: left">折叠面板、菜单</td>
+      <td style="text-align: left">展开后状态要清楚</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">折叠</td>
+      <td style="text-align: left">Collapse</td>
+      <td style="text-align: left">收起内容</td>
+      <td style="text-align: left">FAQ、侧边栏</td>
+      <td style="text-align: left">不要隐藏关键信息</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">确认</td>
+      <td style="text-align: left">Confirm</td>
+      <td style="text-align: left">高风险操作前二次确认</td>
+      <td style="text-align: left">删除、支付</td>
+      <td style="text-align: left">避免误操作</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">撤销</td>
+      <td style="text-align: left">Undo</td>
+      <td style="text-align: left">回退上一步操作</td>
+      <td style="text-align: left">删除、编辑</td>
+      <td style="text-align: left">比频繁确认更顺畅</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">重做</td>
+      <td style="text-align: left">Redo</td>
+      <td style="text-align: left">恢复撤销的操作</td>
+      <td style="text-align: left">编辑器、设计工具</td>
+      <td style="text-align: left">和 Undo 搭配</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">微交互</td>
+      <td style="text-align: left">Microinteraction</td>
+      <td style="text-align: left">小范围交互反馈</td>
+      <td style="text-align: left">点赞、开关、加载</td>
+      <td style="text-align: left">提升可理解性</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">动效</td>
+      <td style="text-align: left">Motion / Animation</td>
+      <td style="text-align: left">运动效果</td>
+      <td style="text-align: left">页面切换、按钮反馈</td>
+      <td style="text-align: left">动效要服务理解，不是炫技</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">过渡</td>
+      <td style="text-align: left">Transition</td>
+      <td style="text-align: left">两个状态之间的变化</td>
+      <td style="text-align: left">Hover、弹窗、页面切换</td>
+      <td style="text-align: left">过渡应自然快速</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="14-状态与反馈术语">14. 状态与反馈术语</h2>
+
+<p>状态设计是新手最容易漏掉的部分。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">术语</th>
+      <th style="text-align: left">英文</th>
+      <th style="text-align: left">含义</th>
+      <th style="text-align: left">使用场景</th>
+      <th style="text-align: left">新手注意</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">默认状态</td>
+      <td style="text-align: left">Default State</td>
+      <td style="text-align: left">元素正常状态</td>
+      <td style="text-align: left">所有组件</td>
+      <td style="text-align: left">设计组件时最基础</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">悬停状态</td>
+      <td style="text-align: left">Hover State</td>
+      <td style="text-align: left">鼠标移上时状态</td>
+      <td style="text-align: left">Web 按钮、菜单</td>
+      <td style="text-align: left">移动端不依赖 Hover</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">按下状态</td>
+      <td style="text-align: left">Pressed State</td>
+      <td style="text-align: left">点击按下瞬间状态</td>
+      <td style="text-align: left">按钮、卡片</td>
+      <td style="text-align: left">让用户知道点到了</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">聚焦状态</td>
+      <td style="text-align: left">Focus State</td>
+      <td style="text-align: left">键盘或输入焦点状态</td>
+      <td style="text-align: left">表单、按钮</td>
+      <td style="text-align: left">可访问性必须考虑</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">选中状态</td>
+      <td style="text-align: left">Selected State</td>
+      <td style="text-align: left">当前被选中</td>
+      <td style="text-align: left">Tab、Checkbox、列表项</td>
+      <td style="text-align: left">要和 Hover 区分</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">禁用状态</td>
+      <td style="text-align: left">Disabled State</td>
+      <td style="text-align: left">不可操作</td>
+      <td style="text-align: left">按钮、输入框</td>
+      <td style="text-align: left">要说明为什么不可用</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">加载状态</td>
+      <td style="text-align: left">Loading State</td>
+      <td style="text-align: left">数据或操作处理中</td>
+      <td style="text-align: left">页面、按钮、列表</td>
+      <td style="text-align: left">防止用户重复操作</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">空状态</td>
+      <td style="text-align: left">Empty State</td>
+      <td style="text-align: left">没有数据</td>
+      <td style="text-align: left">列表、项目页</td>
+      <td style="text-align: left">要告诉用户下一步</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">错误状态</td>
+      <td style="text-align: left">Error State</td>
+      <td style="text-align: left">操作或请求失败</td>
+      <td style="text-align: left">表单、页面</td>
+      <td style="text-align: left">错误提示要具体</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">成功状态</td>
+      <td style="text-align: left">Success State</td>
+      <td style="text-align: left">操作完成</td>
+      <td style="text-align: left">保存、提交</td>
+      <td style="text-align: left">不一定都需要弹窗</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">警告状态</td>
+      <td style="text-align: left">Warning State</td>
+      <td style="text-align: left">有风险但未失败</td>
+      <td style="text-align: left">余额不足、即将过期</td>
+      <td style="text-align: left">要提前提醒</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">离线状态</td>
+      <td style="text-align: left">Offline State</td>
+      <td style="text-align: left">网络不可用</td>
+      <td style="text-align: left">移动 App、Web</td>
+      <td style="text-align: left">提供重试或缓存说明</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">骨架屏</td>
+      <td style="text-align: left">Skeleton Screen</td>
+      <td style="text-align: left">用占位结构表示加载中</td>
+      <td style="text-align: left">列表、详情页</td>
+      <td style="text-align: left">比空白加载更稳定</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Spinner</td>
+      <td style="text-align: left">加载转圈</td>
+      <td style="text-align: left">表示短时间等待</td>
+      <td style="text-align: left">按钮、局部加载</td>
+      <td style="text-align: left">长任务不适合只用转圈</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Toast</td>
+      <td style="text-align: left">轻提示</td>
+      <td style="text-align: left">短暂消息反馈</td>
+      <td style="text-align: left">复制成功、保存成功</td>
+      <td style="text-align: left">不要放复杂内容</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Alert</td>
+      <td style="text-align: left">警告提示</td>
+      <td style="text-align: left">强提醒信息</td>
+      <td style="text-align: left">错误、风险</td>
+      <td style="text-align: left">不要滥用</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Notification</td>
+      <td style="text-align: left">通知</td>
+      <td style="text-align: left">系统或业务消息</td>
+      <td style="text-align: left">消息中心、提醒</td>
+      <td style="text-align: left">注意优先级</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Modal Feedback</td>
+      <td style="text-align: left">弹窗反馈</td>
+      <td style="text-align: left">打断式反馈</td>
+      <td style="text-align: left">删除确认、重要结果</td>
+      <td style="text-align: left">会打断流程</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="15-响应式与移动端术语">15. 响应式与移动端术语</h2>
+
+<p>这一部分和网页、移动端适配关系密切。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">术语</th>
+      <th style="text-align: left">英文</th>
+      <th style="text-align: left">含义</th>
+      <th style="text-align: left">使用场景</th>
+      <th style="text-align: left">新手注意</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">响应式设计</td>
+      <td style="text-align: left">Responsive Design</td>
+      <td style="text-align: left">页面适配不同屏幕尺寸</td>
+      <td style="text-align: left">Web、H5</td>
+      <td style="text-align: left">不是简单缩放</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">自适应设计</td>
+      <td style="text-align: left">Adaptive Design</td>
+      <td style="text-align: left">为不同设备设计不同布局</td>
+      <td style="text-align: left">Web、App</td>
+      <td style="text-align: left">通常有几个固定断点</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">移动优先</td>
+      <td style="text-align: left">Mobile First</td>
+      <td style="text-align: left">先设计小屏，再扩展大屏</td>
+      <td style="text-align: left">电商、内容站</td>
+      <td style="text-align: left">先处理核心内容</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">桌面优先</td>
+      <td style="text-align: left">Desktop First</td>
+      <td style="text-align: left">先设计桌面，再压缩到移动端</td>
+      <td style="text-align: left">后台、复杂工具</td>
+      <td style="text-align: left">小屏可能需要重组</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">断点</td>
+      <td style="text-align: left">Breakpoint</td>
+      <td style="text-align: left">布局变化的屏幕宽度</td>
+      <td style="text-align: left">CSS、设计稿</td>
+      <td style="text-align: left">根据内容而非只按设备</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">媒体查询</td>
+      <td style="text-align: left">Media Query</td>
+      <td style="text-align: left">CSS 中根据条件应用样式</td>
+      <td style="text-align: left">前端响应式</td>
+      <td style="text-align: left">设计师知道概念即可</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">流体网格</td>
+      <td style="text-align: left">Fluid Grid</td>
+      <td style="text-align: left">宽度按比例变化的栅格</td>
+      <td style="text-align: left">响应式页面</td>
+      <td style="text-align: left">要有最大宽度</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">弹性图片</td>
+      <td style="text-align: left">Flexible Image</td>
+      <td style="text-align: left">图片随容器缩放</td>
+      <td style="text-align: left">Web 图片</td>
+      <td style="text-align: left">保持比例，避免变形</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">安全区</td>
+      <td style="text-align: left">Safe Area</td>
+      <td style="text-align: left">避开系统遮挡的区域</td>
+      <td style="text-align: left">iPhone、全面屏</td>
+      <td style="text-align: left">底部操作栏要留安全距离</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">状态栏</td>
+      <td style="text-align: left">Status Bar</td>
+      <td style="text-align: left">手机顶部系统信息区域</td>
+      <td style="text-align: left">移动端设计</td>
+      <td style="text-align: left">设计稿要考虑高度</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">导航栏</td>
+      <td style="text-align: left">Navigation Bar</td>
+      <td style="text-align: left">移动端顶部标题和操作区</td>
+      <td style="text-align: left">App</td>
+      <td style="text-align: left">和系统规范有关</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">手势条</td>
+      <td style="text-align: left">Home Indicator</td>
+      <td style="text-align: left">iPhone 底部手势区域</td>
+      <td style="text-align: left">iOS</td>
+      <td style="text-align: left">底部按钮不要贴太近</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">拇指热区</td>
+      <td style="text-align: left">Thumb Zone</td>
+      <td style="text-align: left">单手操作容易触达区域</td>
+      <td style="text-align: left">移动端</td>
+      <td style="text-align: left">重要操作尽量易触达</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">横屏</td>
+      <td style="text-align: left">Landscape</td>
+      <td style="text-align: left">设备横向使用</td>
+      <td style="text-align: left">平板、视频</td>
+      <td style="text-align: left">布局可能重排</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">竖屏</td>
+      <td style="text-align: left">Portrait</td>
+      <td style="text-align: left">设备竖向使用</td>
+      <td style="text-align: left">手机</td>
+      <td style="text-align: left">最常见移动端场景</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">触控目标</td>
+      <td style="text-align: left">Touch Target</td>
+      <td style="text-align: left">可点击区域大小</td>
+      <td style="text-align: left">移动端按钮、图标</td>
+      <td style="text-align: left">不应只看图标视觉尺寸</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="16-可用性与无障碍术语">16. 可用性与无障碍术语</h2>
+
+<p>可用性让产品好用，无障碍让更多人能用。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">术语</th>
+      <th style="text-align: left">英文</th>
+      <th style="text-align: left">含义</th>
+      <th style="text-align: left">使用场景</th>
+      <th style="text-align: left">新手注意</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">可用性</td>
+      <td style="text-align: left">Usability</td>
+      <td style="text-align: left">用户能否高效完成任务</td>
+      <td style="text-align: left">产品体验评估</td>
+      <td style="text-align: left">好看不等于可用</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">易学性</td>
+      <td style="text-align: left">Learnability</td>
+      <td style="text-align: left">新用户是否容易学会</td>
+      <td style="text-align: left">工具产品、复杂系统</td>
+      <td style="text-align: left">新手引导要适度</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">效率</td>
+      <td style="text-align: left">Efficiency</td>
+      <td style="text-align: left">熟练用户完成任务的速度</td>
+      <td style="text-align: left">后台、工具</td>
+      <td style="text-align: left">减少重复操作</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">容错性</td>
+      <td style="text-align: left">Error Tolerance</td>
+      <td style="text-align: left">用户犯错后能否恢复</td>
+      <td style="text-align: left">表单、删除、支付</td>
+      <td style="text-align: left">提供撤销和确认</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">可发现性</td>
+      <td style="text-align: left">Discoverability</td>
+      <td style="text-align: left">功能是否容易被发现</td>
+      <td style="text-align: left">导航、工具栏</td>
+      <td style="text-align: left">隐藏手势可发现性低</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">可访问性</td>
+      <td style="text-align: left">Accessibility / A11y</td>
+      <td style="text-align: left">让不同能力用户都能使用</td>
+      <td style="text-align: left">公共服务、商业产品</td>
+      <td style="text-align: left">不只是残障用户才需要</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">屏幕阅读器</td>
+      <td style="text-align: left">Screen Reader</td>
+      <td style="text-align: left">朗读界面内容的软件</td>
+      <td style="text-align: left">视障用户</td>
+      <td style="text-align: left">需要语义和替代文本</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">键盘导航</td>
+      <td style="text-align: left">Keyboard Navigation</td>
+      <td style="text-align: left">只用键盘操作界面</td>
+      <td style="text-align: left">Web、后台</td>
+      <td style="text-align: left">Focus 状态很重要</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">替代文本</td>
+      <td style="text-align: left">Alt Text</td>
+      <td style="text-align: left">图片的文字描述</td>
+      <td style="text-align: left">图片、图标</td>
+      <td style="text-align: left">重要图片要有说明</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">语义化</td>
+      <td style="text-align: left">Semantic</td>
+      <td style="text-align: left">用正确结构表达含义</td>
+      <td style="text-align: left">HTML、可访问性</td>
+      <td style="text-align: left">设计交付也应说明语义</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">对比度</td>
+      <td style="text-align: left">Contrast Ratio</td>
+      <td style="text-align: left">前景和背景的对比程度</td>
+      <td style="text-align: left">文本、按钮</td>
+      <td style="text-align: left">影响阅读</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">色盲友好</td>
+      <td style="text-align: left">Color Blind Friendly</td>
+      <td style="text-align: left">色觉障碍用户也能理解</td>
+      <td style="text-align: left">图表、状态</td>
+      <td style="text-align: left">不只靠颜色区分</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">WCAG</td>
+      <td style="text-align: left">Web Content Accessibility Guidelines</td>
+      <td style="text-align: left">Web 无障碍指南</td>
+      <td style="text-align: left">Web 产品</td>
+      <td style="text-align: left">常用于规范参考</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">ARIA</td>
+      <td style="text-align: left">Accessible Rich Internet Applications</td>
+      <td style="text-align: left">Web 辅助语义属性</td>
+      <td style="text-align: left">前端开发</td>
+      <td style="text-align: left">设计师了解即可</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="17-设计系统术语">17. 设计系统术语</h2>
+
+<p>设计系统是现代 UI 协作中的重点。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">术语</th>
+      <th style="text-align: left">英文</th>
+      <th style="text-align: left">含义</th>
+      <th style="text-align: left">使用场景</th>
+      <th style="text-align: left">新手注意</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">设计系统</td>
+      <td style="text-align: left">Design System</td>
+      <td style="text-align: left">设计语言、组件、规范和文档的整体体系</td>
+      <td style="text-align: left">中大型产品</td>
+      <td style="text-align: left">不只是组件库</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">设计规范</td>
+      <td style="text-align: left">Design Guidelines</td>
+      <td style="text-align: left">设计规则说明</td>
+      <td style="text-align: left">团队协作</td>
+      <td style="text-align: left">说明怎么用、何时用</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">组件库</td>
+      <td style="text-align: left">Component Library</td>
+      <td style="text-align: left">可复用组件集合</td>
+      <td style="text-align: left">Figma、前端代码</td>
+      <td style="text-align: left">设计和代码最好一致</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">样式库</td>
+      <td style="text-align: left">Style Library</td>
+      <td style="text-align: left">颜色、文字、效果等样式集合</td>
+      <td style="text-align: left">Figma</td>
+      <td style="text-align: left">用于保持视觉统一</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">设计令牌</td>
+      <td style="text-align: left">Design Tokens</td>
+      <td style="text-align: left">可被设计和代码共用的设计变量</td>
+      <td style="text-align: left">主题、跨端</td>
+      <td style="text-align: left">如颜色、字号、间距</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Token</td>
+      <td style="text-align: left">Token</td>
+      <td style="text-align: left">设计变量的抽象名称和值</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">color.primary</code></td>
+      <td style="text-align: left">不要直接只写“蓝色”</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Foundation</td>
+      <td style="text-align: left">基础层</td>
+      <td style="text-align: left">色彩、字体、间距、圆角等基础规范</td>
+      <td style="text-align: left">设计系统</td>
+      <td style="text-align: left">是组件的基础</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Pattern</td>
+      <td style="text-align: left">设计模式</td>
+      <td style="text-align: left">可复用的问题解决方案</td>
+      <td style="text-align: left">表单、搜索、筛选</td>
+      <td style="text-align: left">比组件更偏场景</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Guideline</td>
+      <td style="text-align: left">指南</td>
+      <td style="text-align: left">使用原则和规则</td>
+      <td style="text-align: left">组件说明</td>
+      <td style="text-align: left">说明正确和错误用法</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Variant</td>
+      <td style="text-align: left">变体</td>
+      <td style="text-align: left">组件不同类型和状态</td>
+      <td style="text-align: left">按钮、输入框</td>
+      <td style="text-align: left">适合同类组件</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Theme</td>
+      <td style="text-align: left">主题</td>
+      <td style="text-align: left">一套视觉变量组合</td>
+      <td style="text-align: left">暗色模式、多品牌</td>
+      <td style="text-align: left">主题切换靠 Token 更稳定</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Dark Mode</td>
+      <td style="text-align: left">深色模式</td>
+      <td style="text-align: left">深色背景界面主题</td>
+      <td style="text-align: left">App、系统、工具</td>
+      <td style="text-align: left">不是简单反色</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Light Mode</td>
+      <td style="text-align: left">浅色模式</td>
+      <td style="text-align: left">浅色背景界面主题</td>
+      <td style="text-align: left">默认 UI</td>
+      <td style="text-align: left">注意对比度</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Brand Guidelines</td>
+      <td style="text-align: left">品牌规范</td>
+      <td style="text-align: left">品牌视觉使用规则</td>
+      <td style="text-align: left">Logo、颜色、字体</td>
+      <td style="text-align: left">UI 要符合品牌但不能牺牲可用性</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Single Source of Truth</td>
+      <td style="text-align: left">单一可信源</td>
+      <td style="text-align: left">团队共用的唯一规范源</td>
+      <td style="text-align: left">设计系统协作</td>
+      <td style="text-align: left">避免多个版本冲突</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="18-原型与交付术语">18. 原型与交付术语</h2>
+
+<p>原型帮助验证流程，交付帮助开发落地。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">术语</th>
+      <th style="text-align: left">英文</th>
+      <th style="text-align: left">含义</th>
+      <th style="text-align: left">使用场景</th>
+      <th style="text-align: left">新手注意</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">原型</td>
+      <td style="text-align: left">Prototype</td>
+      <td style="text-align: left">可模拟交互的设计稿</td>
+      <td style="text-align: left">评审、测试</td>
+      <td style="text-align: left">原型不是最终产品</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">低保真</td>
+      <td style="text-align: left">Low Fidelity / Lo-fi</td>
+      <td style="text-align: left">粗略结构稿</td>
+      <td style="text-align: left">早期需求讨论</td>
+      <td style="text-align: left">重点是结构和流程</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">中保真</td>
+      <td style="text-align: left">Mid Fidelity</td>
+      <td style="text-align: left">有基本布局和部分视觉</td>
+      <td style="text-align: left">流程确认</td>
+      <td style="text-align: left">介于线框和高保真之间</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">高保真</td>
+      <td style="text-align: left">High Fidelity / Hi-fi</td>
+      <td style="text-align: left">接近最终视觉的设计稿</td>
+      <td style="text-align: left">开发交付</td>
+      <td style="text-align: left">要包含真实内容和状态</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">线框图</td>
+      <td style="text-align: left">Wireframe</td>
+      <td style="text-align: left">页面结构草图</td>
+      <td style="text-align: left">前期设计</td>
+      <td style="text-align: left">不关注精细视觉</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">用户流程图</td>
+      <td style="text-align: left">User Flow Diagram</td>
+      <td style="text-align: left">用户操作路径图</td>
+      <td style="text-align: left">原型前规划</td>
+      <td style="text-align: left">帮助发现流程问题</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">交互说明</td>
+      <td style="text-align: left">Interaction Spec</td>
+      <td style="text-align: left">说明点击、状态、跳转规则</td>
+      <td style="text-align: left">开发交付</td>
+      <td style="text-align: left">复杂交互必须写</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">标注</td>
+      <td style="text-align: left">Spec / Annotation</td>
+      <td style="text-align: left">尺寸、颜色、间距说明</td>
+      <td style="text-align: left">开发还原</td>
+      <td style="text-align: left">Figma 可自动查看很多标注</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">切图</td>
+      <td style="text-align: left">Asset Export</td>
+      <td style="text-align: left">导出图片、图标资源</td>
+      <td style="text-align: left">开发实现</td>
+      <td style="text-align: left">图标优先 SVG</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">设计交付</td>
+      <td style="text-align: left">Handoff</td>
+      <td style="text-align: left">设计稿移交给开发</td>
+      <td style="text-align: left">Figma Dev Mode、蓝湖</td>
+      <td style="text-align: left">交付不是发截图</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">版本历史</td>
+      <td style="text-align: left">Version History</td>
+      <td style="text-align: left">文件历史版本</td>
+      <td style="text-align: left">协作、回滚</td>
+      <td style="text-align: left">重要节点可命名版本</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">评审</td>
+      <td style="text-align: left">Review</td>
+      <td style="text-align: left">团队检查设计方案</td>
+      <td style="text-align: left">设计评审、产品评审</td>
+      <td style="text-align: left">要围绕目标和问题讨论</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">走查</td>
+      <td style="text-align: left">Design QA</td>
+      <td style="text-align: left">检查开发实现是否符合设计</td>
+      <td style="text-align: left">上线前</td>
+      <td style="text-align: left">关注还原和状态完整性</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">可点击原型</td>
+      <td style="text-align: left">Clickable Prototype</td>
+      <td style="text-align: left">可以点击跳转的原型</td>
+      <td style="text-align: left">演示、测试</td>
+      <td style="text-align: left">适合验证流程</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">热区</td>
+      <td style="text-align: left">Hotspot</td>
+      <td style="text-align: left">原型中可点击区域</td>
+      <td style="text-align: left">Figma、Axure</td>
+      <td style="text-align: left">点击范围要符合真实控件</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="19-前端协作术语">19. 前端协作术语</h2>
+
+<p>UI 设计最终通常需要前端开发实现。了解这些词能减少沟通障碍。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">术语</th>
+      <th style="text-align: left">英文</th>
+      <th style="text-align: left">含义</th>
+      <th style="text-align: left">使用场景</th>
+      <th style="text-align: left">新手注意</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">前端</td>
+      <td style="text-align: left">Frontend</td>
+      <td style="text-align: left">用户直接看到和操作的界面实现</td>
+      <td style="text-align: left">Web、App H5</td>
+      <td style="text-align: left">UI 设计主要和前端协作</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">后端</td>
+      <td style="text-align: left">Backend</td>
+      <td style="text-align: left">服务端逻辑、数据和接口</td>
+      <td style="text-align: left">登录、订单、权限</td>
+      <td style="text-align: left">很多状态来自后端数据</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">API</td>
+      <td style="text-align: left">Application Programming Interface</td>
+      <td style="text-align: left">前后端数据接口</td>
+      <td style="text-align: left">获取列表、提交表单</td>
+      <td style="text-align: left">设计要考虑接口失败状态</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">HTML</td>
+      <td style="text-align: left">HyperText Markup Language</td>
+      <td style="text-align: left">Web 页面结构语言</td>
+      <td style="text-align: left">前端开发</td>
+      <td style="text-align: left">决定内容语义</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">CSS</td>
+      <td style="text-align: left">Cascading Style Sheets</td>
+      <td style="text-align: left">Web 样式语言</td>
+      <td style="text-align: left">布局、颜色、字体</td>
+      <td style="text-align: left">UI 样式主要靠 CSS</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">JavaScript</td>
+      <td style="text-align: left">JS</td>
+      <td style="text-align: left">Web 交互逻辑语言</td>
+      <td style="text-align: left">动态效果、数据请求</td>
+      <td style="text-align: left">原型交互最终常由 JS 实现</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">组件化</td>
+      <td style="text-align: left">Componentization</td>
+      <td style="text-align: left">把 UI 拆成可复用组件</td>
+      <td style="text-align: left">React、Vue</td>
+      <td style="text-align: left">和设计组件对应</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">响应式</td>
+      <td style="text-align: left">Responsive</td>
+      <td style="text-align: left">适配不同屏幕</td>
+      <td style="text-align: left">Web 开发</td>
+      <td style="text-align: left">设计稿要说明断点</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Flexbox</td>
+      <td style="text-align: left">Flexible Box Layout</td>
+      <td style="text-align: left">CSS 一维弹性布局</td>
+      <td style="text-align: left">横向、纵向排列</td>
+      <td style="text-align: left">类似 Figma Auto Layout 的部分思路</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Grid</td>
+      <td style="text-align: left">CSS Grid</td>
+      <td style="text-align: left">CSS 二维网格布局</td>
+      <td style="text-align: left">卡片、仪表盘</td>
+      <td style="text-align: left">适合复杂页面</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">变量</td>
+      <td style="text-align: left">CSS Variables</td>
+      <td style="text-align: left">CSS 中可复用变量</td>
+      <td style="text-align: left">主题、Token</td>
+      <td style="text-align: left">如 <code class="language-plaintext highlighter-rouge">--color-primary</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">断点</td>
+      <td style="text-align: left">Breakpoint</td>
+      <td style="text-align: left">CSS 媒体查询变化点</td>
+      <td style="text-align: left">响应式开发</td>
+      <td style="text-align: left">设计和开发要统一</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">还原度</td>
+      <td style="text-align: left">Implementation Fidelity</td>
+      <td style="text-align: left">开发实现和设计稿的匹配程度</td>
+      <td style="text-align: left">设计走查</td>
+      <td style="text-align: left">不只看像不像，也看交互和状态</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">组件文档</td>
+      <td style="text-align: left">Component Docs</td>
+      <td style="text-align: left">组件使用说明</td>
+      <td style="text-align: left">Storybook</td>
+      <td style="text-align: left">设计系统落地重要</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Storybook</td>
+      <td style="text-align: left">Storybook</td>
+      <td style="text-align: left">前端组件展示和测试工具</td>
+      <td style="text-align: left">组件库</td>
+      <td style="text-align: left">可展示组件所有状态</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">CI/CD</td>
+      <td style="text-align: left">Continuous Integration / Deployment</td>
+      <td style="text-align: left">持续集成和部署</td>
+      <td style="text-align: left">工程协作</td>
+      <td style="text-align: left">设计师了解即可</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">SEO</td>
+      <td style="text-align: left">Search Engine Optimization</td>
+      <td style="text-align: left">搜索引擎优化</td>
+      <td style="text-align: left">官网、博客、电商</td>
+      <td style="text-align: left">Web 设计要考虑内容结构</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">性能</td>
+      <td style="text-align: left">Performance</td>
+      <td style="text-align: left">页面加载和运行速度</td>
+      <td style="text-align: left">Web、App</td>
+      <td style="text-align: left">图片和动效会影响性能</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="20-数据与增长术语">20. 数据与增长术语</h2>
+
+<p>设计上线后可以通过数据判断效果，但数据需要正确理解。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">术语</th>
+      <th style="text-align: left">英文</th>
+      <th style="text-align: left">含义</th>
+      <th style="text-align: left">使用场景</th>
+      <th style="text-align: left">新手注意</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">PV</td>
+      <td style="text-align: left">Page View</td>
+      <td style="text-align: left">页面浏览次数</td>
+      <td style="text-align: left">网站数据</td>
+      <td style="text-align: left">同一用户多次访问会重复计算</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">UV</td>
+      <td style="text-align: left">Unique Visitor</td>
+      <td style="text-align: left">独立访客数</td>
+      <td style="text-align: left">网站数据</td>
+      <td style="text-align: left">更接近访问人数</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">DAU</td>
+      <td style="text-align: left">Daily Active Users</td>
+      <td style="text-align: left">日活跃用户数</td>
+      <td style="text-align: left">App、平台</td>
+      <td style="text-align: left">衡量每日活跃</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">MAU</td>
+      <td style="text-align: left">Monthly Active Users</td>
+      <td style="text-align: left">月活跃用户数</td>
+      <td style="text-align: left">App、平台</td>
+      <td style="text-align: left">衡量长期规模</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">留存率</td>
+      <td style="text-align: left">Retention Rate</td>
+      <td style="text-align: left">用户过一段时间后仍回来使用的比例</td>
+      <td style="text-align: left">产品增长</td>
+      <td style="text-align: left">体验差会影响留存</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">跳出率</td>
+      <td style="text-align: left">Bounce Rate</td>
+      <td style="text-align: left">只访问一个页面就离开的比例</td>
+      <td style="text-align: left">网站分析</td>
+      <td style="text-align: left">需结合页面类型看</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">转化率</td>
+      <td style="text-align: left">Conversion Rate</td>
+      <td style="text-align: left">完成目标行为的比例</td>
+      <td style="text-align: left">注册、购买</td>
+      <td style="text-align: left">UI 只是影响因素之一</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">点击率</td>
+      <td style="text-align: left">CTR</td>
+      <td style="text-align: left">Click Through Rate，点击比例</td>
+      <td style="text-align: left">按钮、广告、入口</td>
+      <td style="text-align: left">点击高不代表最终转化高</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">漏斗</td>
+      <td style="text-align: left">Funnel</td>
+      <td style="text-align: left">用户从开始到完成的分步转化</td>
+      <td style="text-align: left">注册、下单</td>
+      <td style="text-align: left">找出流失最多的步骤</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">A/B 测试</td>
+      <td style="text-align: left">A/B Testing</td>
+      <td style="text-align: left">同时测试多个版本</td>
+      <td style="text-align: left">按钮文案、页面布局</td>
+      <td style="text-align: left">需要足够样本量</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">埋点</td>
+      <td style="text-align: left">Tracking Event</td>
+      <td style="text-align: left">记录用户行为的数据点</td>
+      <td style="text-align: left">数据分析</td>
+      <td style="text-align: left">设计可参与定义关键行为</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">热力图</td>
+      <td style="text-align: left">Heatmap</td>
+      <td style="text-align: left">可视化用户点击或浏览集中区域</td>
+      <td style="text-align: left">页面优化</td>
+      <td style="text-align: left">只能辅助判断</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">任务完成率</td>
+      <td style="text-align: left">Task Success Rate</td>
+      <td style="text-align: left">用户完成指定任务的比例</td>
+      <td style="text-align: left">可用性测试</td>
+      <td style="text-align: left">比“喜不喜欢”更重要</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">平均完成时间</td>
+      <td style="text-align: left">Time on Task</td>
+      <td style="text-align: left">完成任务所需时间</td>
+      <td style="text-align: left">可用性评估</td>
+      <td style="text-align: left">后台工具常关注效率</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="21-figma-常见术语">21. Figma 常见术语</h2>
+
+<p>这些术语在使用 Figma 时经常出现。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">术语</th>
+      <th style="text-align: left">英文</th>
+      <th style="text-align: left">含义</th>
+      <th style="text-align: left">使用场景</th>
+      <th style="text-align: left">新手注意</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Frame</td>
+      <td style="text-align: left">Frame</td>
+      <td style="text-align: left">Figma 中的容器</td>
+      <td style="text-align: left">页面、组件、模块</td>
+      <td style="text-align: left">最重要基础概念</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Group</td>
+      <td style="text-align: left">Group</td>
+      <td style="text-align: left">简单编组</td>
+      <td style="text-align: left">临时组织对象</td>
+      <td style="text-align: left">不适合复杂 UI 布局</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Section</td>
+      <td style="text-align: left">Section</td>
+      <td style="text-align: left">画布上的区域分组</td>
+      <td style="text-align: left">管理流程、版本</td>
+      <td style="text-align: left">适合整理大型文件</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Layer</td>
+      <td style="text-align: left">Layer</td>
+      <td style="text-align: left">图层</td>
+      <td style="text-align: left">所有设计对象</td>
+      <td style="text-align: left">图层命名要清楚</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Auto Layout</td>
+      <td style="text-align: left">Auto Layout</td>
+      <td style="text-align: left">自动布局</td>
+      <td style="text-align: left">按钮、列表、卡片</td>
+      <td style="text-align: left">Figma 核心能力</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Hug Contents</td>
+      <td style="text-align: left">Hug Contents</td>
+      <td style="text-align: left">容器尺寸包裹内容</td>
+      <td style="text-align: left">按钮、标签</td>
+      <td style="text-align: left">文本变长时自动撑开</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Fill Container</td>
+      <td style="text-align: left">Fill Container</td>
+      <td style="text-align: left">填满父容器剩余空间</td>
+      <td style="text-align: left">输入框、主内容区</td>
+      <td style="text-align: left">响应式很常用</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Fixed Size</td>
+      <td style="text-align: left">Fixed Size</td>
+      <td style="text-align: left">固定尺寸</td>
+      <td style="text-align: left">图标、头像、侧边栏</td>
+      <td style="text-align: left">过多 Fixed 会降低适配</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Constraints</td>
+      <td style="text-align: left">Constraints</td>
+      <td style="text-align: left">约束</td>
+      <td style="text-align: left">父 Frame 尺寸变化时的位置规则</td>
+      <td style="text-align: left">和 Auto Layout 不同</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Component</td>
+      <td style="text-align: left">Component</td>
+      <td style="text-align: left">组件</td>
+      <td style="text-align: left">复用 UI 元素</td>
+      <td style="text-align: left">紫色图标</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Instance</td>
+      <td style="text-align: left">Instance</td>
+      <td style="text-align: left">组件实例</td>
+      <td style="text-align: left">页面中使用组件</td>
+      <td style="text-align: left">修改主组件会影响实例</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Variant</td>
+      <td style="text-align: left">Variant</td>
+      <td style="text-align: left">组件变体</td>
+      <td style="text-align: left">状态、尺寸、类型</td>
+      <td style="text-align: left">适合同类组件</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Component Property</td>
+      <td style="text-align: left">Component Property</td>
+      <td style="text-align: left">组件属性</td>
+      <td style="text-align: left">控制文字、图标、显示隐藏</td>
+      <td style="text-align: left">让实例更好用</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Style</td>
+      <td style="text-align: left">Style</td>
+      <td style="text-align: left">样式</td>
+      <td style="text-align: left">颜色、文字、效果</td>
+      <td style="text-align: left">保持视觉统一</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Variable</td>
+      <td style="text-align: left">Variable</td>
+      <td style="text-align: left">变量</td>
+      <td style="text-align: left">Token、主题、原型逻辑</td>
+      <td style="text-align: left">比 Style 更灵活</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Library</td>
+      <td style="text-align: left">Library</td>
+      <td style="text-align: left">共享库</td>
+      <td style="text-align: left">团队组件和样式</td>
+      <td style="text-align: left">团队协作常用</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Prototype</td>
+      <td style="text-align: left">Prototype</td>
+      <td style="text-align: left">原型模式</td>
+      <td style="text-align: left">连接页面和交互</td>
+      <td style="text-align: left">用于演示流程</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Overlay</td>
+      <td style="text-align: left">Overlay</td>
+      <td style="text-align: left">浮层</td>
+      <td style="text-align: left">弹窗、下拉、Toast</td>
+      <td style="text-align: left">可设置遮罩和关闭方式</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Smart Animate</td>
+      <td style="text-align: left">Smart Animate</td>
+      <td style="text-align: left">智能动画</td>
+      <td style="text-align: left">状态切换、页面过渡</td>
+      <td style="text-align: left">对应图层命名要一致</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Dev Mode</td>
+      <td style="text-align: left">Dev Mode</td>
+      <td style="text-align: left">开发模式</td>
+      <td style="text-align: left">查看标注和代码</td>
+      <td style="text-align: left">用于设计交付</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Comment</td>
+      <td style="text-align: left">Comment</td>
+      <td style="text-align: left">评论</td>
+      <td style="text-align: left">协作评审</td>
+      <td style="text-align: left">评论要指向具体问题</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Branch</td>
+      <td style="text-align: left">Branch</td>
+      <td style="text-align: left">分支</td>
+      <td style="text-align: left">团队文件修改</td>
+      <td style="text-align: left">类似设计文件版本分支</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Publish</td>
+      <td style="text-align: left">Publish</td>
+      <td style="text-align: left">发布库更新</td>
+      <td style="text-align: left">组件库更新</td>
+      <td style="text-align: left">更新前要确认影响</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="22-常见缩写速查表">22. 常见缩写速查表</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">缩写</th>
+      <th style="text-align: left">全称</th>
+      <th style="text-align: left">中文含义</th>
+      <th style="text-align: left">常见场景</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">UI</td>
+      <td style="text-align: left">User Interface</td>
+      <td style="text-align: left">用户界面</td>
+      <td style="text-align: left">界面设计</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">UX</td>
+      <td style="text-align: left">User Experience</td>
+      <td style="text-align: left">用户体验</td>
+      <td style="text-align: left">产品体验</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">GUI</td>
+      <td style="text-align: left">Graphical User Interface</td>
+      <td style="text-align: left">图形用户界面</td>
+      <td style="text-align: left">软件界面</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">HCI</td>
+      <td style="text-align: left">Human-Computer Interaction</td>
+      <td style="text-align: left">人机交互</td>
+      <td style="text-align: left">交互研究</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">IA</td>
+      <td style="text-align: left">Information Architecture</td>
+      <td style="text-align: left">信息架构</td>
+      <td style="text-align: left">网站结构</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">UCD</td>
+      <td style="text-align: left">User-Centered Design</td>
+      <td style="text-align: left">用户中心设计</td>
+      <td style="text-align: left">设计方法</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">HIG</td>
+      <td style="text-align: left">Human Interface Guidelines</td>
+      <td style="text-align: left">人机界面指南</td>
+      <td style="text-align: left">Apple 设计规范</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">A11y</td>
+      <td style="text-align: left">Accessibility</td>
+      <td style="text-align: left">无障碍</td>
+      <td style="text-align: left">可访问性设计</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">WCAG</td>
+      <td style="text-align: left">Web Content Accessibility Guidelines</td>
+      <td style="text-align: left">Web 内容无障碍指南</td>
+      <td style="text-align: left">Web 可访问性</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">CTA</td>
+      <td style="text-align: left">Call To Action</td>
+      <td style="text-align: left">行动号召</td>
+      <td style="text-align: left">主按钮、营销页</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">MVP</td>
+      <td style="text-align: left">Minimum Viable Product</td>
+      <td style="text-align: left">最小可行产品</td>
+      <td style="text-align: left">产品开发</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">MPA</td>
+      <td style="text-align: left">Multi-Page Application</td>
+      <td style="text-align: left">多页应用</td>
+      <td style="text-align: left">传统网站</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">SPA</td>
+      <td style="text-align: left">Single-Page Application</td>
+      <td style="text-align: left">单页应用</td>
+      <td style="text-align: left">Web App</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">SSR</td>
+      <td style="text-align: left">Server-Side Rendering</td>
+      <td style="text-align: left">服务端渲染</td>
+      <td style="text-align: left">前端架构</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">SSG</td>
+      <td style="text-align: left">Static Site Generation</td>
+      <td style="text-align: left">静态站点生成</td>
+      <td style="text-align: left">博客、文档</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">API</td>
+      <td style="text-align: left">Application Programming Interface</td>
+      <td style="text-align: left">应用程序接口</td>
+      <td style="text-align: left">前后端协作</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">SEO</td>
+      <td style="text-align: left">Search Engine Optimization</td>
+      <td style="text-align: left">搜索引擎优化</td>
+      <td style="text-align: left">官网、博客</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">KPI</td>
+      <td style="text-align: left">Key Performance Indicator</td>
+      <td style="text-align: left">关键绩效指标</td>
+      <td style="text-align: left">数据评估</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">CTR</td>
+      <td style="text-align: left">Click Through Rate</td>
+      <td style="text-align: left">点击率</td>
+      <td style="text-align: left">数据分析</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">DAU</td>
+      <td style="text-align: left">Daily Active Users</td>
+      <td style="text-align: left">日活</td>
+      <td style="text-align: left">产品数据</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">MAU</td>
+      <td style="text-align: left">Monthly Active Users</td>
+      <td style="text-align: left">月活</td>
+      <td style="text-align: left">产品数据</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">PV</td>
+      <td style="text-align: left">Page View</td>
+      <td style="text-align: left">页面浏览量</td>
+      <td style="text-align: left">网站数据</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">UV</td>
+      <td style="text-align: left">Unique Visitor</td>
+      <td style="text-align: left">独立访客</td>
+      <td style="text-align: left">网站数据</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">DPR</td>
+      <td style="text-align: left">Device Pixel Ratio</td>
+      <td style="text-align: left">设备像素比</td>
+      <td style="text-align: left">屏幕适配</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">PPI</td>
+      <td style="text-align: left">Pixels Per Inch</td>
+      <td style="text-align: left">每英寸像素</td>
+      <td style="text-align: left">屏幕清晰度</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">DPI</td>
+      <td style="text-align: left">Dots Per Inch</td>
+      <td style="text-align: left">每英寸点数</td>
+      <td style="text-align: left">打印、屏幕密度</td>
+    </tr>
+  </tbody>
+</table>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+  
+
+  
+    
+
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 分类: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/blog/categories/#ui%E8%AE%BE%E8%AE%A1" class="page__taxonomy-item p-category" rel="tag">UI设计</a>
+    
+    </span>
+  </p>
+
+
+  
+
+
+        
+
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 更新时间:</strong> <time class="dt-published" datetime="2026-06-01T00:00:00+00:00">June 1, 2026</time></p>
+
+
+      </footer>
+
+      
+
+      
+
+  <nav class="pagination" aria-label="文章翻页">
+    
+      <a href="/blog/Langchain%E5%AD%A6%E4%B9%A0/" class="pagination--pager" title="Langchain学习">上一页</a>
+    
+    
+      <a href="/blog/UI%E8%AE%BE%E8%AE%A1%E4%BA%86%E8%A7%A3/" class="pagination--pager" title="UI设计了解(AI生成)">下一页</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    
+
+<div class="page__related">
+  
+  <h2 class="page__related-title">猜您还喜欢</h2>
+  <div class="grid__wrapper">
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/DESIGN-md%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="permalink">DESIGN.md 文档学习（AI总结整理）
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-22T00:00:00+00:00">June 22, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">DESIGN.md 学习笔记，整理设计规范文档的作用、结构、写法、约束内容和 AI 协作方式。
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/Material3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="permalink">Material3学习(AI总结整理)
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-18T00:00:00+00:00">June 18, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">Material 3 学习笔记，整理设计原则、动态颜色、组件规范、状态层和 Android Compose 实践。
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/Mermaid%E7%AC%94%E8%AE%B0/" rel="permalink">Mermaid笔记(AI生成）
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-08T00:00:00+00:00">June 8, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">Mermaid 学习笔记，整理文本绘图语法、流程图、时序图、架构图、适用场景和常见示例。
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/%E5%88%A9%E7%94%A8AI%E5%AE%8C%E6%88%90UI%E8%AE%BE%E8%AE%A1/" rel="permalink">利用 AI 完成 UI 设计
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-05T00:00:00+00:00">June 5, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">AI UI 设计工具笔记，整理 Claude Design、Open Design、Google Stitch 的能力、费用和使用场景。
+</p>
+  </article>
+</div>
+
+    
+  </div>
+</div>
+
+  
+  
+</div>
+
+      
+    </div>
+
+    
+      <div class="search-content">
+        
+<div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';" role="search">
+    <label class="sr-only" for="search">
+      输入您要搜索的关键词...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="输入您要搜索的关键词..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        
+
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>关注:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://github.com/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://www.bilibili.com/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-bilibili" aria-hidden="true"></i> Bilibili</a></li>
+        
+      
+    
+
+    
+      <li><a href="/blog/feed.xml"><i class="fas fa-fw fa-square-rss" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+
+<div class="page__footer-copyright">&copy; 2025-2026 - 2026 <a href="https://NiuSX.github.io">一只捡星星的熊</a>. 技术来自于 <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/jekyll-themes/minimal-mistakes/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+
+  <script src="/blog/assets/js/main.min.js"></script>
+
+
+
+
+
+<script src="/blog/assets/js/lunr/lunr.min.js"></script>
+<script src="/blog/assets/js/lunr/lunr-store.js"></script>
+<script src="/blog/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  
+    <script src="/blog/assets/js/mermaid-init.js"></script>
+  
+
+
+  </body>
+</html>

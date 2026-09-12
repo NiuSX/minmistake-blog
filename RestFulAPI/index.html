@@ -1,0 +1,1775 @@
+
+
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.28.0 by Michael Rose
+  Copyright 2013-2026 Michael Rose - mademistakes.com | @mmistakes
+  Copyright 2024-2026 iBug - ibugone.com | @iBug
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+
+<html lang="zh-CN" class="no-js" dir="ltr">
+  <head>
+    
+<meta charset="utf-8">
+
+
+<!-- begin _includes/seo.html --><title>RestFulAPI - 一只捡星星的熊</title>
+<meta name="description" content="RESTful API 学习笔记，整理接口设计原则、HTTP 方法、状态码、资源建模和常见规范。">
+
+
+  <meta name="author" content="一只捡星星的熊">
+  
+  <meta property="article:author" content="一只捡星星的熊">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:site_name" content="一只捡星星的熊">
+<meta property="og:title" content="RestFulAPI">
+<meta property="og:url" content="https://niusx.github.io/blog/RestFulAPI/">
+
+
+  <meta property="og:description" content="RESTful API 学习笔记，整理接口设计原则、HTTP 方法、状态码、资源建模和常见规范。">
+
+
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2026-03-18T00:00:00+00:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://niusx.github.io/blog/RestFulAPI/">
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/blog/feed.xml" type="application/atom+xml" rel="alternate" title="一只捡星星的熊 Feed">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+  
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/blog/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    
+<nav class="skip-links" aria-label="Skip links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">转到主导航栏</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">转到内容</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">转到底部</a></li>
+  </ul>
+</nav>
+
+    
+
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav" aria-label="Primary navigation">
+        
+        <a class="site-title" href="/blog/">
+          一只捡星星的熊
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item"><a
+                  href="/blog/"
+                  
+                  
+                >首页</a></li><li class="masthead__menu-item"><a
+                  href="/blog/year-archive/"
+                  
+                  
+                >归档</a></li><li class="masthead__menu-item masthead__menu-item--has-children"><button class="masthead__menu-toggle" type="button" aria-haspopup="true">
+                  分类
+                </button>
+                <ul class="masthead__submenu">
+                  <li>
+                    <a href="/blog/categories/">全部笔记</a>
+                  </li><li>
+                        <a href="/blog/categories/#ai">AI</a>
+                      </li><li>
+                        <a href="/blog/categories/#ai-%E5%B7%A5%E5%85%B7">AI 工具</a>
+                      </li><li>
+                        <a href="/blog/categories/#agent">Agent</a>
+                      </li><li>
+                        <a href="/blog/categories/#android">Android</a>
+                      </li><li>
+                        <a href="/blog/categories/#git">Git</a>
+                      </li><li>
+                        <a href="/blog/categories/#kotlin">Kotlin</a>
+                      </li><li>
+                        <a href="/blog/categories/#nav2">Nav2</a>
+                      </li><li>
+                        <a href="/blog/categories/#ros2">ROS2</a>
+                      </li><li>
+                        <a href="/blog/categories/#sdd">SDD</a>
+                      </li><li>
+                        <a href="/blog/categories/#ui">UI</a>
+                      </li><li>
+                        <a href="/blog/categories/#ui%E8%AE%BE%E8%AE%A1">UI设计</a>
+                      </li><li>
+                        <a href="/blog/categories/#ollama">ollama</a>
+                      </li><li>
+                        <a href="/blog/categories/#python">python</a>
+                      </li><li>
+                        <a href="/blog/categories/#yaml">yaml</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%85%B6%E4%BB%96">其他</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%89%8D%E7%AB%AF">前端</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%91%BD%E4%BB%A4%E8%AF%AD%E8%A8%80">命令语言</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%AF%BC%E8%88%AA">导航</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%B7%A5%E5%85%B7">工具</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%9C%BA%E5%99%A8%E4%BA%BA">机器人</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7">构建工具</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%9E%B6%E6%9E%84">架构</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%A0%87%E8%AE%B0%E8%AF%AD%E8%A8%80">标记语言</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80">编程语言</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E8%AE%A1%E7%AE%97%E6%9C%BA">计算机</a>
+                      </li></ul></li><li class="masthead__menu-item"><a
+                  href="/blog/about/"
+                  
+                  
+                >关于</a></li></ul>
+
+        
+        <form class="masthead-search" action="/blog/search/" method="get" role="search">
+          <label class="visually-hidden" for="masthead-search-input">
+            切换搜索
+          </label>
+          <input
+            id="masthead-search-input"
+            class="masthead-search__input"
+            type="search"
+            name="q"
+            placeholder="输入您要搜索的关键词..."
+          >
+          <button class="masthead-search__button" type="submit">
+            <span class="visually-hidden">切换搜索</span>
+            <i class="fas fa-search" aria-hidden="true"></i>
+          </button>
+        </form>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">切换菜单</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+
+
+<div id="main" role="main">
+  
+
+  <div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="https://niusx.github.io/blog/">
+        <img src="/blog/assets/images/wukong-photo.jpg" alt="一只捡星星的熊" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="https://niusx.github.io/blog/" itemprop="url">一只捡星星的熊</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>什么也没写</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">关注</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-location-dot" aria-hidden="true"></i> <span itemprop="name" class="p-locality">中国</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://github.com/NiuSX/" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://space.bilibili.com/347549684/" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-bilibili" aria-hidden="true"></i><span class="label">Bilibili</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="RestFulAPI">
+    <meta itemprop="description" content="RESTful API 学习笔记，整理接口设计原则、HTTP 方法、状态码、资源建模和常见规范。">
+    <meta itemprop="datePublished" content="2026-03-18T00:00:00+00:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="https://niusx.github.io/blog/RestFulAPI/" itemprop="url">RestFulAPI
+</a>
+          </h1>
+          
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-03-18T00:00:00+00:00">March 18, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc" aria-label="文章目录">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> 文章目录</h4></header>
+              <ul class="toc__menu"><li><a href="#介绍">介绍</a><ul><li><a href="#rest架构风格">Rest架构风格</a></li><li><a href="#api介绍">API介绍</a></li><li><a href="#restful-api">RESTful API</a></li></ul></li><li><a href="#http方法">HTTP方法</a></li><li><a href="#url设计">URL设计</a></li><li><a href="#请求和响应格式">请求和响应格式</a><ul><li><a href="#http请求格式">HTTP请求格式</a></li><li><a href="#http响应格式">HTTP响应格式</a></li></ul></li><li><a href="#认证和授权">认证和授权</a><ul><li><a href="#jwt-json-web-token-认证">JWT (JSON Web Token) 认证</a></li><li><a href="#oauth-20-集成">OAuth 2.0 集成</a></li></ul></li><li><a href="#数据缓存策略">数据缓存策略</a><ul><li><a href="#http-缓存头">HTTP 缓存头</a></li><li><a href="#redis缓存">Redis缓存</a></li></ul></li><li><a href="#微服务架构中的-api">微服务架构中的 API</a></li><li><a href="#graphql-vs-rest-vs-grpc">GraphQL vs REST vs gRPC</a></li></ul>
+            </nav>
+          </aside>
+        
+        <h1 id="介绍">介绍</h1>
+
+<h2 id="rest架构风格">Rest架构风格</h2>
+<p>REST（Representational State Transfer，表述性状态转移）是一种软件架构风格，由 Roy Fielding 博士在 2000 年提出，REST 定义了一组约束条件和原则，用于创建可扩展、松耦合的 Web 服务。
+它是一种针对网络应用的设计和开发方式，可以降低开发的复杂性，提高系统的可伸缩性。</p>
+
+<p><strong>六大原则</strong></p>
+<ul>
+  <li>客户端-服务器架构:前端（客户端）和后端（服务器）完全分离.</li>
+  <li>无状态性:每次请求都是独立的，服务器不会记住之前的请求。</li>
+  <li>可缓存性: 响应数据可以被缓存，提高性能。</li>
+  <li>统一接口:所有 API 都遵循相同的规则和格式,统一接口为REST定义了对系统资源进行操作统一的方法和链接入口，REST架构的核心就是资源，它将互联网中所有的可访问、操作的数据信息都看作资源进行处理，从而简化了REST对不同数据信息的处理方式和过程，也为REST的高度 重用性以及不同分布式异构系统的高交互性奠定了基础</li>
+  <li>分层系统:系统可以有多层，比如：客户端 → 负载均衡器 → API 服务器 → 数据库，分层系统的定义使得web Service的定义和实现Web系 统不同的层次之间具有良好的独立性，从而降低了系统层次依赖耦合性和复杂性，而良好的接口封装、应用功能实现等干扰性大大降低，从而为Web系统的可维护性、扩展性等奠定了良好的基础。</li>
+  <li>按需代码（可选）:服务器可以向客户端发送可执行代码，按需代码则是web Service可选的要求，通过按需代码开发者可以在客户端的应用程序进行功能扩展，从而实现对客户需求的满足，从而使得系统更加人性化，提升其友好性。</li>
+</ul>
+
+<h2 id="api介绍">API介绍</h2>
+
+<p>API（Application Programming Interface，应用程序编程接口）就像是不同软件之间的”翻译官”。 在编程世界中，API 让不同的软件系统能够相互交流和协作。</p>
+
+<p>API 的主要作用包括：</p>
+<ul>
+  <li>数据交换：让不同系统之间能够传递信息</li>
+  <li>功能复用：避免重复造轮子，使用现成的服务</li>
+  <li>系统解耦：让前端和后端可以独立开发</li>
+  <li>安全控制：控制谁可以访问什么数据</li>
+</ul>
+
+<p><img src="../imgs/RestFulAPI/API.png" alt="" /></p>
+
+<h2 id="restful-api">RESTful API</h2>
+<p>REST API（Representational State Transfer Application Programming Interface）是一种基于HTTP协议的软件架构风格，用于构建网络应用程序接口。 <br />
+REST API 是现代 Web 服务开发中最常用的 API 设计模式之一，在现代 Web 开发中，RESTful API 已成为应用程序之间通信的标准方式。 <br />
+RESTful API 是遵循 REST 架构风格设计的 API。它使用HTTP协议的特性，通过 URL 定位资源，用 HTTP 方法（GET、POST等）描述操作，实现客户端与服务器之间的交互。</p>
+
+<p><img src="../imgs/RestFulAPI/RESTAPI.png" alt="" /></p>
+
+<p><strong>特点：</strong></p>
+<ul>
+  <li>无状态：每个请求包含处理所需的所有信息</li>
+  <li>统一接口：使用标准 HTTP 方法进行操作</li>
+  <li>资源导向：所有内容都被抽象为资源</li>
+  <li>可缓存：响应应明确是否可缓存</li>
+  <li>可缓存：响应应明确是否可缓存</li>
+</ul>
+
+<p><strong>核心原则</strong></p>
+<ol>
+  <li>
+    <p>资源与URI <br />
+在REST中，所有事物都被抽象为资源，每个资源有唯一的标识符（URI）。</p>
+
+    <p>URI设计规范：</p>
+    <ul>
+      <li>使用名词而非动词表示资源</li>
+      <li>使用复数形式命名集合</li>
+      <li>使用小写字母和连字符(-)</li>
+      <li>避免文件扩展名</li>
+    </ul>
+  </li>
+  <li>
+    <p>HTTP方法的使用 <br />
+RESTful API充分利用HTTP方法的语义：</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>HTTP方法</th>
+          <th>描述</th>
+          <th>幂等性</th>
+          <th>安全性</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>GET</td>
+          <td>获取资源</td>
+          <td>是</td>
+          <td>是</td>
+        </tr>
+        <tr>
+          <td>POST</td>
+          <td>创建资源</td>
+          <td>否</td>
+          <td>否</td>
+        </tr>
+        <tr>
+          <td>PUT</td>
+          <td>完整更新资源</td>
+          <td>是</td>
+          <td>否</td>
+        </tr>
+        <tr>
+          <td>PATCH</td>
+          <td>部分更新资源</td>
+          <td>否</td>
+          <td>否</td>
+        </tr>
+        <tr>
+          <td>DELET</td>
+          <td>删除资源</td>
+          <td>是</td>
+          <td>否</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <p>无状态性 <br />
+每个请求必须包含处理所需的所有信息，服务器不保存客户端状态。这使得API易于扩展和负载均衡。</p>
+  </li>
+  <li>
+    <p>表述形式 <br />
+资源可以有多种表述形式（如JSON、XML），客户端通过Accept头指定需要的格式。</p>
+  </li>
+</ol>
+
+<h1 id="http方法">HTTP方法</h1>
+<p>在 RESTful API 中，我们主要使用四种方法，它们对应数据的四种基本操作：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>HTTP方法</th>
+      <th>作用</th>
+      <th>对应操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>GET</td>
+      <td>获取数据</td>
+      <td>读取</td>
+    </tr>
+    <tr>
+      <td>POST</td>
+      <td>创建数据</td>
+      <td>创建</td>
+    </tr>
+    <tr>
+      <td>PUT</td>
+      <td>更新数据</td>
+      <td>更新</td>
+    </tr>
+    <tr>
+      <td>DELETE</td>
+      <td>删除数据</td>
+      <td>删除</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>GET 方法</strong>  <br />
+特点：</p>
+<ul>
+  <li>安全操作，不会修改数据</li>
+  <li>可以被缓存</li>
+  <li>参数放在 URL 中</li>
+</ul>
+
+<p><strong>POST 方法</strong> <br />
+特点：</p>
+<ul>
+  <li>会修改服务器状态</li>
+  <li>不是幂等的（多次调用会创建多个资源）</li>
+  <li>数据放在请求体中</li>
+</ul>
+
+<blockquote>
+  <p>幂等是一个数学与计算机科学中的概念，指的是一个操作无论执行多少次，产生的效果都与执行一次相同</p>
+</blockquote>
+
+<p><strong>PUT 方法</strong> <br />
+特点：</p>
+<ul>
+  <li>是幂等的（多次调用结果相同）</li>
+  <li>通常替换整个资源</li>
+  <li>如果资源不存在，可能会创建新资源</li>
+</ul>
+
+<p><strong>DELETE 方法</strong></p>
+<ul>
+  <li>是幂等的</li>
+  <li>删除指定资源</li>
+  <li>成功后资源不再存在</li>
+</ul>
+
+<p><strong>HTTP 状态码</strong> <br />
+当服务器处理完请求后，会返回状态码告诉你结果：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>状态码</th>
+      <th>含义</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>200</td>
+      <td>OK</td>
+      <td>请求成功</td>
+    </tr>
+    <tr>
+      <td>201</td>
+      <td>Created</td>
+      <td>资源创建成功</td>
+    </tr>
+    <tr>
+      <td>400</td>
+      <td>Bad Request</td>
+      <td>请求有误</td>
+    </tr>
+    <tr>
+      <td>401</td>
+      <td>Unauthorized</td>
+      <td>未授权</td>
+    </tr>
+    <tr>
+      <td>404</td>
+      <td>Not Found</td>
+      <td>资源不存在</td>
+    </tr>
+    <tr>
+      <td>500</td>
+      <td>Internal Server Error</td>
+      <td>服务器内部错误</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p>总结： <br />
+1xx: 信息响应，表示请求已接收，正在处理，通常为临时响应 <br />
+2xx: 成功，表示请求已成功被服务器接收、理解并处理 <br />
+3xx: 重定向，表示客户端需要进一步操作才能完成请求 <br />
+4xx: 客户端错误，表示请求包含错误或无法被服务器处理（问题出在客户端） <br />
+5xx：服务器错误，表示服务器未能完成有效请求（问题出在服务端）</p>
+</blockquote>
+
+<h1 id="url设计">URL设计</h1>
+<p>RESTful API 的 URL 应该表示”资源”而不是”动作”。 <br />
+<strong>命名规范</strong></p>
+<ul>
+  <li>使用名词而非动词</li>
+  <li>使用复数形式</li>
+  <li>使用小写字母</li>
+  <li>使用连字符分隔单词</li>
+</ul>
+
+<p><strong>嵌套资源</strong> <br />
+当资源之间有从属关系时，可以使用嵌套 URL</p>
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="err">// 获取用户 123 的所有订单
+GET /api/users/123/orders
+
+// 获取用户 123 的订单 456
+GET /api/users/123/orders/456
+
+// 为用户 123 创建新订单
+POST /api/users/123/orders
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+<p><strong>查询参数</strong> <br />
+用于过滤、排序和分页</p>
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="err">// 分页
+GET /api/users?page=1&amp;limit=10
+
+// 过滤
+GET /api/users?status=active&amp;city=beijing
+
+// 排序
+GET /api/users?sort=created_at&amp;order=desc
+
+// 搜索
+GET /api/users?search=张三
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><strong>版本控制</strong> <br />
+为了保持向后兼容，API 需要版本控制</p>
+<ul>
+  <li>URL 路径版本控制
+    <div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="err">GET /api/v1/users
+GET /api/v2/users
+</span></pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>请求头版本控制
+    <div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="err">GET /api/users
+Accept: application/vnd.api+json;version=1
+</span></pre></td></tr></tbody></table></code></pre></div>    </div>
+    <h1 id="请求和响应格式">请求和响应格式</h1>
+    <p>在HTTP协议中，请求和响应有固定的格式结构。它们都遵循起始行 + 首部（Header） + 空行 + 主体（Body） 的格式</p>
+    <h2 id="http请求格式">HTTP请求格式</h2>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>请求行（Request Line）
+首部字段（Headers）
+（空行）
+消息主体（Body）
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+    <p><strong>请求行</strong> <br />
+格式：方法 路径 协议版本 <br />
+示例：<code class="language-plaintext highlighter-rouge">POST /api/users HTTP/1.1</code></p>
+  </li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>组成部分</th>
+      <th>说明</th>
+      <th>示例</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>方法</td>
+      <td>操作类型</td>
+      <td>GET POST PUT DELETE</td>
+    </tr>
+    <tr>
+      <td>路径</td>
+      <td>请求的资源路径，可含查询参数</td>
+      <td>/api/users?id=1 或 /api/users</td>
+    </tr>
+    <tr>
+      <td>协议版本</td>
+      <td>HTTP版本</td>
+      <td>HTTP/1.1 或 HTTP/2</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>首部字段</strong>
+键值对形式，每行一个，用于传递元信息。
+常见请求头：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>首部</th>
+      <th>说明</th>
+      <th>示例</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Host</td>
+      <td>服务器域名和端口（HTTP/1.1 必需）</td>
+      <td>Host: api.example.com</td>
+    </tr>
+    <tr>
+      <td>User-Agent</td>
+      <td>客户端标识</td>
+      <td>User-Agent: Mozilla/5.0</td>
+    </tr>
+    <tr>
+      <td>Content-Type</td>
+      <td>请求体的媒体类型</td>
+      <td>Content-Type: application/json</td>
+    </tr>
+    <tr>
+      <td>Content-Length</td>
+      <td>请求体的字节长度</td>
+      <td>Content-Length: 1024</td>
+    </tr>
+    <tr>
+      <td>Authorization</td>
+      <td>身份认证信息</td>
+      <td>Authorization: Bearer xxxxx</td>
+    </tr>
+    <tr>
+      <td>Accept</td>
+      <td>客户端期望接收的响应格式</td>
+      <td>Accept: application/json</td>
+    </tr>
+    <tr>
+      <td>Cookie</td>
+      <td>携带的Cookie</td>
+      <td>Cookie: sessionId=abc123</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>空行</strong>
+一个空行（\r\n）用于分隔首部和主体，表示首部结束。</p>
+
+<p><strong>消息主体</strong>
+请求携带的数据，不是所有请求都有（如GET通常没有Body）。</p>
+
+<p>常见Body格式：</p>
+
+<ul>
+  <li>JSON：{“name”: “张三”, “age”: 25}</li>
+  <li>表单：name=张三&amp;age=25</li>
+  <li>文件：multipart/form-data 格式</li>
+</ul>
+
+<p>HTTP请求完整示例：</p>
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="nf">POST</span> <span class="nn">/api/users</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">example.com</span>
+<span class="na">User-Agent</span><span class="p">:</span> <span class="s">Mozilla/5.0</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Content-Length</span><span class="p">:</span> <span class="s">37</span>
+<span class="na">Authorization</span><span class="p">:</span> <span class="s">Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9</span>
+
+<span class="p">{</span><span class="nl">"username"</span><span class="p">:</span><span class="s2">"zhangsan"</span><span class="p">,</span><span class="nl">"password"</span><span class="p">:</span><span class="s2">"123456"</span><span class="p">}</span><span class="w">
+
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="http响应格式">HTTP响应格式</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>状态行（Status Line）
+首部字段（Headers）
+（空行）
+消息主体（Body）
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><strong>状态行</strong>
+格式：协议版本 状态码 状态描述</p>
+
+<p>示例： <code class="language-plaintext highlighter-rouge">HTTP/1.1 200 OK</code></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>组成部分</th>
+      <th>说明</th>
+      <th>示例</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>协议版本</td>
+      <td>HTTP版本</td>
+      <td>HTTP/1.1</td>
+    </tr>
+    <tr>
+      <td>状态码</td>
+      <td>三位数字结果码</td>
+      <td>200 404 500</td>
+    </tr>
+    <tr>
+      <td>状态描述</td>
+      <td>状态码的文本说明</td>
+      <td>OK Not Found</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>首部字段</strong></p>
+
+<p>常见响应头：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>首部</th>
+      <th>说明</th>
+      <th>示例</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Content-Type</td>
+      <td>响应体的媒体类型</td>
+      <td>Content-Type: application/json</td>
+    </tr>
+    <tr>
+      <td>Content-Length</td>
+      <td>响应体的字节长度</td>
+      <td>Content-Length: 256</td>
+    </tr>
+    <tr>
+      <td>Set-Cookie</td>
+      <td>设置Cookie</td>
+      <td>Set-Cookie: sessionId=xyz; HttpOnly</td>
+    </tr>
+    <tr>
+      <td>Cache-Control</td>
+      <td>缓存控制策略</td>
+      <td>Cache-Control: no-cache</td>
+    </tr>
+    <tr>
+      <td>Location</td>
+      <td>重定向的目标地址（配合3xx使用）</td>
+      <td>Location: /api/users/1</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>空行</strong>
+同样用空行分隔首部和主体。</p>
+
+<p><strong>消息主体</strong>
+返回的实际数据</p>
+
+<p><strong>HTTP响应完整示例</strong></p>
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Content-Length</span><span class="p">:</span> <span class="s">58</span>
+<span class="na">Cache-Control</span><span class="p">:</span> <span class="s">no-cache</span>
+
+<span class="p">{</span><span class="w">
+</span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+</span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
+</span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nl">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"zhangsan"</span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><strong>JSON 格式</strong> <br />
+现代 RESTful API 主要使用 JSON（JavaScript Object Notation）格式来传输数据</p>
+
+<p><strong>请求头常用字段</strong>
+|字段名|	作用|	示例|
+|—|—|—|
+|Content-Type	|请求体数据格式|	application/json|
+|Accept	|期望的响应格式|	application/json|
+|Authorization	|身份验证信息|	Bearer token123|
+|User-Agent	|客户端信息|	MyApp/1.0|</p>
+
+<h1 id="认证和授权">认证和授权</h1>
+
+<h2 id="jwt-json-web-token-认证">JWT (JSON Web Token) 认证</h2>
+<p>JWT 就像是一张”数字身份证”，包含了用户的身份信息，并且可以验证真伪。</p>
+
+<p>示例：</p>
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+</pre></td><td class="rouge-code"><pre><span class="err">// 登录流程
+POST /api/auth/login
+{
+  "email": "user@example.com",
+  "password": "password123"
+}
+
+// 响应
+{
+  "success": true,
+  "data": {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "user": {
+      "id": 123,
+      "name": "张三",
+      "email": "user@example.com"
+    }
+  }
+}
+
+// 在后续的请求中携带 Token
+GET /api/users/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="oauth-20-集成">OAuth 2.0 集成</h2>
+<p>OAuth 2.0 集成是指将一个应用程序接入 OAuth 2.0 授权协议，让应用能够安全地委托第三方平台（如微信、Google、GitHub）进行用户认证或授权访问资源。</p>
+
+<p><strong>角色</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>角色</th>
+      <th>说明</th>
+      <th>示例</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>资源拥有者</td>
+      <td>数据的拥有者，通常是用户</td>
+      <td>你（用户）</td>
+    </tr>
+    <tr>
+      <td>客户端</td>
+      <td>想要访问资源的第三方应用</td>
+      <td>你的App、网站</td>
+    </tr>
+    <tr>
+      <td>授权服务器</td>
+      <td>负责认证用户并颁发访问凭证</td>
+      <td>微信OAuth服务、Google OAuth服务</td>
+    </tr>
+    <tr>
+      <td>资源服务器</td>
+      <td>存储用户数据的服务器</td>
+      <td>微信API、Google API</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>核心流程（简化版）</strong></p>
+<ol>
+  <li>用户点击“微信登录”</li>
+  <li>应用跳转到微信授权页面</li>
+  <li>用户确认授权（微信账号密码验证）</li>
+  <li>微信返回授权码（Authorization Code）</li>
+  <li>应用后端用授权码换取访问令牌（Access Token）</li>
+  <li>应用使用访问令牌获取用户信息</li>
+  <li>应用创建本地会话，用户登录成功</li>
+</ol>
+
+<p><strong>传统方式的痛点</strong></p>
+<ul>
+  <li>用户需要为每个应用注册独立账号，记忆负担重</li>
+  <li>密码泄露风险高（用户重复使用密码）</li>
+  <li>应用需要自行管理密码存储、加密、找回密码等复杂功能</li>
+</ul>
+
+<p><strong>OAuth 2.0 的优势</strong></p>
+<ul>
+  <li>简化注册登录：用户一键授权即可登录，降低注册门槛</li>
+  <li>安全性：应用不接触用户密码，密码由第三方平台保管</li>
+  <li>可控授权：用户可以随时在第三方平台撤销应用权限</li>
+  <li>减少开发成本：无需自建完整的认证系统</li>
+</ul>
+
+<p><strong>常见集成场景</strong></p>
+<ol>
+  <li>第三方登录（最常见）：使用微信、QQ、支付宝、Google、GitHub 账号登录，获取用户基本信息（头像、昵称、邮箱）</li>
+  <li>授权访问用户数据，应用需要访问用户在第三方平台的资源</li>
+  <li>企业级单点登录（SSO），企业内部系统集成 OAuth 2.0，一套账号打通所有内部应用</li>
+</ol>
+
+<p><strong>四种授权模式</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>模式</th>
+      <th>适用场景</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>授权码模式（Authorization Code）</td>
+      <td>最常用、最安全，适用于有后端的Web应用</td>
+    </tr>
+    <tr>
+      <td>隐式模式（Implicit）</td>
+      <td>已弃用，适用于纯前端应用（现推荐授权码 + PKCE）</td>
+    </tr>
+    <tr>
+      <td>密码模式（Resource Owner Password Credentials）</td>
+      <td>适用于受信任的第一方应用（如官方App）</td>
+    </tr>
+    <tr>
+      <td>客户端凭证模式（Client Credentials）</td>
+      <td>适用于应用间通信（无用户参与）</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p>最常见的是<strong>授权码模式</strong>，也是微信、Google等主流平台使用的方式。</p>
+</blockquote>
+
+<p><strong>注意事项</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>要点</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>使用 HTTPS</td>
+      <td>所有OAuth通信必须加密，防止中间人攻击</td>
+    </tr>
+    <tr>
+      <td>AppSecret 保密</td>
+      <td>仅在服务端使用，绝对不能暴露在客户端代码中</td>
+    </tr>
+    <tr>
+      <td>State 参数</td>
+      <td>用于防止CSRF攻击，前后端需要校验</td>
+    </tr>
+    <tr>
+      <td>授权码只用一次</td>
+      <td>授权码有效期短且只能使用一次</td>
+    </tr>
+    <tr>
+      <td>PKCE 增强</td>
+      <td>对于移动App和SPA应用，使用PKCE（Proof Key for Code Exchange）增强安全性</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>典型步骤</strong></p>
+<ol>
+  <li>申请接入，在微信开放平台创建应用，获取 AppID 和 AppSecret</li>
+  <li>前端发起授权
+    <div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="err">GET https://open.weixin.qq.com/connect/qrconnect
+?appid=APPID
+&amp;redirect_uri=https://yourapp.com/callback
+&amp;response_type=code
+&amp;scope=snsapi_login
+&amp;state=STATE
+</span></pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>用户扫码确认，微信回调返回授权码
+<code class="language-plaintext highlighter-rouge">GET https://yourapp.com/callback?code=AUTHORIZATION_CODE&amp;state=STATE</code></li>
+  <li>后端用授权码换取访问令牌
+    <div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="err">POST https://api.weixin.qq.com/sns/oauth2/access_token
+?appid=APPID
+&amp;secret=APPSECRET
+&amp;code=AUTHORIZATION_CODE
+&amp;grant_type=authorization_code
+</span></pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>用访问令牌获取用户信息
+    <div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="err">GET https://api.weixin.qq.com/sns/userinfo
+?access_token=ACCESS_TOKEN
+&amp;openid=OPENID
+</span></pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>创建本地会话:根据获取的用户信息（openid、昵称、头像）,在本地数据库中创建或查找用户,生成应用自己的Session或JWT Token</li>
+</ol>
+
+<p>示例：</p>
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+</pre></td><td class="rouge-code"><pre><span class="err">// 第三方登录流程
+GET /api/auth/google/redirect
+// 重定向到 Google 授权页面
+
+// 回调处理
+GET /api/auth/google/callback?code=authorization_code
+// 返回应用 Token
+API 限流和配额
+请求频率限制
+javascript// 响应头中包含限流信息
+</span><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">X-RateLimit-Limit</span><span class="p">:</span> <span class="s">1000        // 每小时限制1000次请求</span>
+<span class="na">X-RateLimit-Remaining</span><span class="p">:</span> <span class="s">999     // 剩余请求次数</span>
+<span class="na">X-RateLimit-Reset</span><span class="p">:</span> <span class="s">1642694400  // 重置时间戳</span>
+
+// 超出限制时的响应
+HTTP/1.1 429 Too Many Requests
+{
+  "success": false,
+  "error": {
+    "code": "RATE_LIMIT_EXCEEDED",
+    "message": "请求过于频繁，请稍后再试",
+    "retryAfter": 3600  // 建议等待时间（秒）
+  }
+}
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h1 id="数据缓存策略">数据缓存策略</h1>
+<h2 id="http-缓存头">HTTP 缓存头</h2>
+<p>示例：</p>
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="err">// 设置缓存策略
+GET /api/users/123
+Cache-Control: public, max-age=3600  // 缓存1小时
+ETag: "a1b2c3d4e5f6"                // 资源版本标识
+
+// 条件请求
+GET /api/users/123
+If-None-Match: "a1b2c3d4e5f6"
+
+// 如果资源未变化
+</span><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">304</span> <span class="ne">Not Modified</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="redis缓存">Redis缓存</h2>
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td><td class="rouge-code"><pre><span class="err">// 缓存策略伪代码
+async function getUser(userId) {
+  // 1. 先检查缓存
+  const cached = await redis.get(`user:${userId}`);
+  if (cached) {
+    return JSON.parse(cached);
+  }
+  
+  // 2. 缓存未命中，查询数据库
+  const user = await database.findUser(userId);
+  
+  // 3. 将结果缓存
+  await redis.setex(`user:${userId}`, 3600, JSON.stringify(user));
+  
+  return user;
+}
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h1 id="微服务架构中的-api">微服务架构中的 API</h1>
+
+<p><strong>服务间通信</strong>
+服务间通信是指在分布式系统（特别是微服务架构）中，不同服务之间相互调用、交换数据的过程。当一个服务需要另一个服务提供的数据或功能时，就需要通过服务间通信来实现。</p>
+
+<p><img src="../imgs/RestFulAPI/Services_Communciation.png" alt="" /></p>
+
+<p><strong>API网关模式</strong>
+API网关模式是一种架构设计模式，它在客户端和后端服务之间引入一个统一的入口点，作为所有API请求的反向代理和流量管理中间层</p>
+
+<p>示例：
+API 网关路由配置:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+  </span><span class="nl">"routes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/users/*"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"service"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user-service"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://user-service:3001"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/orders/*"</span><span class="p">,</span><span class="w"> 
+      </span><span class="nl">"service"</span><span class="p">:</span><span class="w"> </span><span class="s2">"order-service"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://order-service:3002"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h1 id="graphql-vs-rest-vs-grpc">GraphQL vs REST vs gRPC</h1>
+
+<p>GraphQL 是一种 API查询语言 和 服务端运行时，由Facebook在2012年内部开发，2015年开源。它允许客户端精确指定需要什么数据，服务端只返回请求的数据，不多不少。 <br />
+gRPC 是一个高性能、开源的远程过程调用框架，由Google开发，于2015年开源。它基于 HTTP/2 协议，使用 Protocol Buffers（Protobuf） 作为接口定义语言和数据序列化格式，支持多种编程语言，实现跨语言的服务间通信。</p>
+
+<p><strong>REST API 的局限性</strong></p>
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="err">// REST: 需要多次请求获取相关数据
+GET /api/users/123        // 获取用户信息
+GET /api/users/123/posts  // 获取用户发布的文章
+GET /api/posts/456/comments // 获取文章评论
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><strong>问题</strong>：</p>
+<ul>
+  <li>过获取（Over-fetching）：返回了客户端不需要的字段</li>
+  <li>欠获取（Under-fetching）：如果需要关联数据，可能需要多次请求</li>
+</ul>
+
+<p><strong>GraphQL 的优势</strong></p>
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="rouge-code"><pre><span class="err">// GraphQL: 一次请求获取所需数据
+query {
+  user(id: 123) {
+    name
+    email
+    posts {
+      title
+      comments {
+        content
+        author
+      }
+    }
+  }
+}
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><strong>GraphQL 和 REST 和 gRPC 对比</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>维度</th>
+      <th>GraphQL</th>
+      <th>REST</th>
+      <th>gRPC</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>数据获取</td>
+      <td>客户端指定字段</td>
+      <td>服务端固定结构</td>
+      <td>服务端定义方法</td>
+    </tr>
+    <tr>
+      <td>传输协议</td>
+      <td>HTTP/HTTPS</td>
+      <td>HTTP/HTTPS</td>
+      <td>HTTP/2</td>
+    </tr>
+    <tr>
+      <td>数据格式</td>
+      <td>JSON</td>
+      <td>JSON/XML/…</td>
+      <td>Protobuf（二进制）</td>
+    </tr>
+    <tr>
+      <td>缓存</td>
+      <td>复杂</td>
+      <td>简单（URL）</td>
+      <td>复杂</td>
+    </tr>
+    <tr>
+      <td>性能</td>
+      <td>中（可能过度查询）</td>
+      <td>中</td>
+      <td>高</td>
+    </tr>
+    <tr>
+      <td>类型安全</td>
+      <td>强（Schema）</td>
+      <td>弱（无原生）</td>
+      <td>强（Protobuf）</td>
+    </tr>
+    <tr>
+      <td>适用场景</td>
+      <td>数据复杂、前端多样</td>
+      <td>简单API、公开API</td>
+      <td>高性能服务间通信</td>
+    </tr>
+    <tr>
+      <td>学习曲线</td>
+      <td>中等</td>
+      <td>低</td>
+      <td>中等</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>##</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+  
+
+  
+    
+
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 分类: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/blog/categories/#%E6%9E%B6%E6%9E%84" class="page__taxonomy-item p-category" rel="tag">架构</a>
+    
+    </span>
+  </p>
+
+
+  
+
+
+        
+
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 更新时间:</strong> <time class="dt-published" datetime="2026-03-18T00:00:00+00:00">March 18, 2026</time></p>
+
+
+      </footer>
+
+      
+
+      
+
+  <nav class="pagination" aria-label="文章翻页">
+    
+      <a href="/blog/Gradle-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="pagination--pager" title="Gradle构建工具(AI整理）">上一页</a>
+    
+    
+      <a href="/blog/%E8%BF%9B%E7%A8%8B%E5%8D%8F%E7%A8%8B%E7%BA%BF%E7%A8%8B/" class="pagination--pager" title="进程协程线程">下一页</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    
+
+<div class="page__related">
+  
+  <h2 class="page__related-title">猜您还喜欢</h2>
+  <div class="grid__wrapper">
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/DESIGN-md%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="permalink">DESIGN.md 文档学习（AI总结整理）
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-22T00:00:00+00:00">June 22, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">DESIGN.md 学习笔记，整理设计规范文档的作用、结构、写法、约束内容和 AI 协作方式。
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/Material3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="permalink">Material3学习(AI总结整理)
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-18T00:00:00+00:00">June 18, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">Material 3 学习笔记，整理设计原则、动态颜色、组件规范、状态层和 Android Compose 实践。
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/Mermaid%E7%AC%94%E8%AE%B0/" rel="permalink">Mermaid笔记(AI生成）
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-08T00:00:00+00:00">June 8, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">Mermaid 学习笔记，整理文本绘图语法、流程图、时序图、架构图、适用场景和常见示例。
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/%E5%88%A9%E7%94%A8AI%E5%AE%8C%E6%88%90UI%E8%AE%BE%E8%AE%A1/" rel="permalink">利用 AI 完成 UI 设计
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-05T00:00:00+00:00">June 5, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">AI UI 设计工具笔记，整理 Claude Design、Open Design、Google Stitch 的能力、费用和使用场景。
+</p>
+  </article>
+</div>
+
+    
+  </div>
+</div>
+
+  
+  
+</div>
+
+      
+    </div>
+
+    
+      <div class="search-content">
+        
+<div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';" role="search">
+    <label class="sr-only" for="search">
+      输入您要搜索的关键词...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="输入您要搜索的关键词..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        
+
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>关注:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://github.com/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://www.bilibili.com/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-bilibili" aria-hidden="true"></i> Bilibili</a></li>
+        
+      
+    
+
+    
+      <li><a href="/blog/feed.xml"><i class="fas fa-fw fa-square-rss" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+
+<div class="page__footer-copyright">&copy; 2025-2026 - 2026 <a href="https://NiuSX.github.io">一只捡星星的熊</a>. 技术来自于 <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/jekyll-themes/minimal-mistakes/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+
+  <script src="/blog/assets/js/main.min.js"></script>
+
+
+
+
+
+<script src="/blog/assets/js/lunr/lunr.min.js"></script>
+<script src="/blog/assets/js/lunr/lunr-store.js"></script>
+<script src="/blog/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  
+    <script src="/blog/assets/js/mermaid-init.js"></script>
+  
+
+
+  </body>
+</html>

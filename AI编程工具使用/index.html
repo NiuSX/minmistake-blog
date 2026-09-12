@@ -1,0 +1,999 @@
+
+
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.28.0 by Michael Rose
+  Copyright 2013-2026 Michael Rose - mademistakes.com | @mmistakes
+  Copyright 2024-2026 iBug - ibugone.com | @iBug
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+
+<html lang="zh-CN" class="no-js" dir="ltr">
+  <head>
+    
+<meta charset="utf-8">
+
+
+<!-- begin _includes/seo.html --><title>AI 编程工具使用 - 一只捡星星的熊</title>
+<meta name="description" content="AI 编程工具使用笔记，整理 Gemini、CLI、IDE 插件、配置流程和日常开发使用方式。">
+
+
+  <meta name="author" content="一只捡星星的熊">
+  
+  <meta property="article:author" content="一只捡星星的熊">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:site_name" content="一只捡星星的熊">
+<meta property="og:title" content="AI 编程工具使用">
+<meta property="og:url" content="https://niusx.github.io/blog/AI%E7%BC%96%E7%A8%8B%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">
+
+
+  <meta property="og:description" content="AI 编程工具使用笔记，整理 Gemini、CLI、IDE 插件、配置流程和日常开发使用方式。">
+
+
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2026-04-25T00:00:00+00:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://niusx.github.io/blog/AI%E7%BC%96%E7%A8%8B%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/blog/feed.xml" type="application/atom+xml" rel="alternate" title="一只捡星星的熊 Feed">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+  
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/blog/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    
+<nav class="skip-links" aria-label="Skip links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">转到主导航栏</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">转到内容</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">转到底部</a></li>
+  </ul>
+</nav>
+
+    
+
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav" aria-label="Primary navigation">
+        
+        <a class="site-title" href="/blog/">
+          一只捡星星的熊
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item"><a
+                  href="/blog/"
+                  
+                  
+                >首页</a></li><li class="masthead__menu-item"><a
+                  href="/blog/year-archive/"
+                  
+                  
+                >归档</a></li><li class="masthead__menu-item masthead__menu-item--has-children"><button class="masthead__menu-toggle" type="button" aria-haspopup="true">
+                  分类
+                </button>
+                <ul class="masthead__submenu">
+                  <li>
+                    <a href="/blog/categories/">全部笔记</a>
+                  </li><li>
+                        <a href="/blog/categories/#ai">AI</a>
+                      </li><li>
+                        <a href="/blog/categories/#ai-%E5%B7%A5%E5%85%B7">AI 工具</a>
+                      </li><li>
+                        <a href="/blog/categories/#agent">Agent</a>
+                      </li><li>
+                        <a href="/blog/categories/#android">Android</a>
+                      </li><li>
+                        <a href="/blog/categories/#git">Git</a>
+                      </li><li>
+                        <a href="/blog/categories/#kotlin">Kotlin</a>
+                      </li><li>
+                        <a href="/blog/categories/#nav2">Nav2</a>
+                      </li><li>
+                        <a href="/blog/categories/#ros2">ROS2</a>
+                      </li><li>
+                        <a href="/blog/categories/#sdd">SDD</a>
+                      </li><li>
+                        <a href="/blog/categories/#ui">UI</a>
+                      </li><li>
+                        <a href="/blog/categories/#ui%E8%AE%BE%E8%AE%A1">UI设计</a>
+                      </li><li>
+                        <a href="/blog/categories/#ollama">ollama</a>
+                      </li><li>
+                        <a href="/blog/categories/#python">python</a>
+                      </li><li>
+                        <a href="/blog/categories/#yaml">yaml</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%85%B6%E4%BB%96">其他</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%89%8D%E7%AB%AF">前端</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%91%BD%E4%BB%A4%E8%AF%AD%E8%A8%80">命令语言</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%AF%BC%E8%88%AA">导航</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%B7%A5%E5%85%B7">工具</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%9C%BA%E5%99%A8%E4%BA%BA">机器人</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7">构建工具</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%9E%B6%E6%9E%84">架构</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%A0%87%E8%AE%B0%E8%AF%AD%E8%A8%80">标记语言</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80">编程语言</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E8%AE%A1%E7%AE%97%E6%9C%BA">计算机</a>
+                      </li></ul></li><li class="masthead__menu-item"><a
+                  href="/blog/about/"
+                  
+                  
+                >关于</a></li></ul>
+
+        
+        <form class="masthead-search" action="/blog/search/" method="get" role="search">
+          <label class="visually-hidden" for="masthead-search-input">
+            切换搜索
+          </label>
+          <input
+            id="masthead-search-input"
+            class="masthead-search__input"
+            type="search"
+            name="q"
+            placeholder="输入您要搜索的关键词..."
+          >
+          <button class="masthead-search__button" type="submit">
+            <span class="visually-hidden">切换搜索</span>
+            <i class="fas fa-search" aria-hidden="true"></i>
+          </button>
+        </form>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">切换菜单</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+
+
+<div id="main" role="main">
+  
+
+  <div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="https://niusx.github.io/blog/">
+        <img src="/blog/assets/images/wukong-photo.jpg" alt="一只捡星星的熊" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="https://niusx.github.io/blog/" itemprop="url">一只捡星星的熊</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>什么也没写</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">关注</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-location-dot" aria-hidden="true"></i> <span itemprop="name" class="p-locality">中国</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://github.com/NiuSX/" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://space.bilibili.com/347549684/" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-bilibili" aria-hidden="true"></i><span class="label">Bilibili</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="AI 编程工具使用">
+    <meta itemprop="description" content="AI 编程工具使用笔记，整理 Gemini、CLI、IDE 插件、配置流程和日常开发使用方式。">
+    <meta itemprop="datePublished" content="2026-04-25T00:00:00+00:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="https://niusx.github.io/blog/AI%E7%BC%96%E7%A8%8B%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" itemprop="url">AI 编程工具使用
+</a>
+          </h1>
+          
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-04-25T00:00:00+00:00">April 25, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc" aria-label="文章目录">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> 文章目录</h4></header>
+              <ul class="toc__menu"><li><a href="#gemin-使用">Gemin 使用</a><ul><li><a href="#1-androidstudio-和-idea-使用最简单">1. AndroidStudio 和 IDEA 使用（最简单）</a></li><li><a href="#2-gemini-cli-使用">2. gemini CLI 使用</a></li></ul></li><li><a href="#codex-使用">codex 使用</a><ul><li><a href="#1-codex-cli-使用">1. codex CLI 使用</a></li><li><a href="#2-androidstudio-配置插件使用">2. Androidstudio 配置插件使用</a></li></ul></li><li><a href="#claude-使用">claude 使用</a><ul><li><a href="#1-claude-cli-使用">1. claude CLI 使用</a></li><li><a href="#2-android-studio里配置插件">2. Android Studio里配置插件</a></li></ul></li><li><a href="#skills">Skills</a><ul><li><a href="#karpathy-inspired-claude-code-guidelines">Karpathy-Inspired Claude Code Guidelines</a></li><li><a href="#superpowers">superpowers</a></li><li><a href="#skills-仓库资源">skills 仓库/资源</a></li></ul></li><li><a href="#模型供应商-provider">模型供应商 Provider</a><ul><li><a href="#codex-供应商配置">codex 供应商配置</a></li><li><a href="#claude-供应商配置">claude 供应商配置</a></li><li><a href="#推荐的第三方供应商">推荐的第三方供应商</a></li></ul></li></ul>
+            </nav>
+          </aside>
+        
+        <h1 id="gemin-使用">Gemin 使用</h1>
+
+<h2 id="1-androidstudio-和-idea-使用最简单">1. AndroidStudio 和 IDEA 使用（最简单）</h2>
+
+<p>AndroidStudio 和 IDEA 里集成了 Gemin 插件，可直接登录使用 ，深度集成。</p>
+<blockquote>
+  <p>注意：插件升级到最新版，旧版和 IDE有兼容问题，用起来会有各种问题，最新更新应该是修复了</p>
+</blockquote>
+
+<h2 id="2-gemini-cli-使用">2. gemini CLI 使用</h2>
+
+<ol>
+  <li>
+    <p>需要提前安装 Node.js 和 npm</p>
+  </li>
+  <li>
+    <p>安装 CLI ` npm install -g @google/gemini-cli`</p>
+  </li>
+  <li>
+    <p>安装完成后在命令行输入 <code class="language-plaintext highlighter-rouge">gemini</code> 按照指示选择配置风格及登录方式</p>
+  </li>
+  <li>
+    <p>设置代理</p>
+
+    <blockquote>
+      <p>注：gemini CLI 没有单独设置代理的配置文件
+需要在系统环境变量里设置全局代理。</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>配置完成后即可在命令行使用 命令 使用 gemini，<code class="language-plaintext highlighter-rouge">gemini--help</code> 查看命令</p>
+  </li>
+  <li>
+    <p>完成后就可以终端里使用命令行操作</p>
+  </li>
+</ol>
+
+<blockquote>
+  <p>注：有基础免费额度使用，限制每分钟 60次，每天1000次</p>
+</blockquote>
+
+<h1 id="codex-使用">codex 使用</h1>
+
+<p>codex 有 chatgpt 官方的 应用，可使用官方，此处介绍 cli 使用方式 以及 插件使用方式</p>
+
+<h2 id="1-codex-cli-使用">1. codex CLI 使用</h2>
+<ol>
+  <li>
+    <p>需要提前安装 Node.js 和 npm</p>
+  </li>
+  <li>
+    <p>安装 CLI <code class="language-plaintext highlighter-rouge">npm install -g @openai/codex</code></p>
+  </li>
+  <li>
+    <p>安装完成后在命令行输入 <code class="language-plaintext highlighter-rouge">codex</code> 按照指示选择配置风格及登录方式</p>
+
+    <blockquote>
+      <p>账户登录可以免费使用基础版</p>
+
+      <p>API 登录需要充值Token</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>设置代理,在 ·~/.codex/ 目录下找到 <code class="language-plaintext highlighter-rouge">.env</code> 文件，没有则新建一个，写入下面代理设置</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>HTTP_PROXY=http://127.0.0.1:你的 VPN 端口
+HTTPS_PROXY=http://127.0.0.1:你的 VPN 端口
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>
+    <p>配置完成后即可在命令行使用 命令 使用 codex，<code class="language-plaintext highlighter-rouge">claude --help</code> 查看命令</p>
+  </li>
+  <li>
+    <p>完成后就可以终端里使用命令行操作</p>
+
+    <blockquote>
+      <p>注：默认使用的模型是 GPT-5.5, 不支持免费的账户登录模式，切换为其他模型</p>
+    </blockquote>
+  </li>
+</ol>
+
+<h2 id="2-androidstudio-配置插件使用">2. Androidstudio 配置插件使用</h2>
+
+<blockquote>
+  <p>推荐插件： CC GUI<br />
+支持 claude 和 codex ，后续会支持 gemin 和 opencode  <br />
+支持 MCP，skills，prompt导入，自定义模型，自定义agent，等</p>
+</blockquote>
+
+<ol>
+  <li>插件市场安装插件</li>
+  <li>插件设置里 安装 codex sdk</li>
+  <li>插件设置里 配置 providers ，使用本地授权 <code class="language-plaintext highlighter-rouge">~/.codex/config.toml 和 auth.json</code></li>
+</ol>
+
+<blockquote>
+  <p>注：</p>
+
+  <ol>
+    <li>codex 有免费订阅，有额度限制</li>
+    <li>在账户处可以领取优惠， plus 版可以免费使用 1 个月（但需要海外支付卡绑定，可注册虚拟卡 ，但有开卡费用   ）</li>
+  </ol>
+</blockquote>
+
+<h1 id="claude-使用">claude 使用</h1>
+
+<h2 id="1-claude-cli-使用">1. claude CLI 使用</h2>
+<ol>
+  <li>需要提前安装 Node.js 和 npm</li>
+  <li>安装 CLI ` npm install -g @anthropic-ai/claude-code`</li>
+  <li>安装完成后在命令行输入 <code class="language-plaintext highlighter-rouge">claude</code> 按照指示选择配置风格及登录方式</li>
+  <li>设置代理
+    <ol>
+      <li>找到 <code class="language-plaintext highlighter-rouge">~/.claude/settings.json </code> 文件</li>
+      <li>设置环境变量（配置代理，CLAUDE_API_KEY等）</li>
+    </ol>
+  </li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre> "env": {
+        "HTTP_PROXY": "http://127.0.0.1:你的VPN端口",
+        "HTTPS_PROXY": "http://127.0.0.1:你的VPN端口",
+    },
+</pre></td></tr></tbody></table></code></pre></div></div>
+<ol>
+  <li>配置完成后即可在命令行使用 命令 使用 claude，<code class="language-plaintext highlighter-rouge">claude --help</code> 查看命令</li>
+  <li>完成后就可以终端里使用命令行操作</li>
+</ol>
+
+<h2 id="2-android-studio里配置插件">2. Android Studio里配置插件</h2>
+
+<p>同样使用 cc gui 插件</p>
+
+<ol>
+  <li>插件市场安装插件</li>
+  <li>插件设置 sdk 管理器里 安装 claucode sdk</li>
+  <li>插件设置供应商管理里 配置 providers ，使用本地<code class="language-plaintext highlighter-rouge">settings.json</code>授权 或 终端 CLI 登录授权</li>
+</ol>
+
+<blockquote>
+  <p>注：无基础免费额度，需付费使用
+claude 不支持中国 IP，即使使用代理也可能会封号。</p>
+</blockquote>
+
+<h1 id="skills">Skills</h1>
+
+<h2 id="karpathy-inspired-claude-code-guidelines">Karpathy-Inspired Claude Code Guidelines</h2>
+
+<p>仓库地址：<a href="https://github.com/forrestchang/andrej-karpathy-skills">github仓库</a></p>
+
+<p>claude 安装 此 skills : 
+按照官方仓库教程即可</p>
+
+<ol>
+  <li>启动 claude</li>
+  <li>添加市场 <code class="language-plaintext highlighter-rouge">/plugin marketplace add forrestchang/andrej-karpathy-skills</code></li>
+  <li>安装插件 <code class="language-plaintext highlighter-rouge">/plugin install andrej-karpathy-skills@karpathy-skills</code></li>
+  <li>重启 claude</li>
+  <li>运行指令查看结果 <code class="language-plaintext highlighter-rouge">/skills</code> 可以看到安装的可用的 skills</li>
+</ol>
+
+<p>codex 安装此 skills 方式：</p>
+<ol>
+  <li>启动 codex</li>
+  <li>使用命令 <code class="language-plaintext highlighter-rouge">$Skill Installer andrej-karpathy-skills@karpathy-skills</code> 安装</li>
+  <li>重启 codex</li>
+  <li>运行 <code class="language-plaintext highlighter-rouge">/skills</code> ，<code class="language-plaintext highlighter-rouge">List Skills</code> 查看安装的 skills</li>
+</ol>
+
+<blockquote>
+  <p>注：最简单安装方式：下载 <code class="language-plaintext highlighter-rouge">SKILL.md</code> 文档解压到对应sklills文件夹中</p>
+</blockquote>
+
+<h2 id="superpowers">superpowers</h2>
+
+<p>仓库地址: <a href="https://github.com/obra/superpowers">superpowers</a>
+一套完整的开发工作流Skills，包含：TDD、调试、代码审查、计划执行等，社区口碑最好的Skills库，设计理念先进</p>
+
+<h2 id="skills-仓库资源">skills 仓库/资源</h2>
+
+<ol>
+  <li><a href="https://skillsmp.com/zh">Agent Skills Marketplace</a></li>
+  <li><a href="https://clawhub.ai/skills?sort=downloads">ClawHub</a></li>
+  <li><a href="https://skillstore.io/zh-hans">skillstore</a></li>
+  <li><a href="https://skills.sh/">skills.sh</a></li>
+</ol>
+
+<h1 id="模型供应商-provider">模型供应商 Provider</h1>
+
+<p>以 codex 和 claude 为例，geimini等其他编程工具类似
+更改供应商或者更改模型等实际是更改用户目录下 <code class="language-plaintext highlighter-rouge">.codex</code> 或者 <code class="language-plaintext highlighter-rouge">.claude</code> 目录下的配置文件
+手动更改配置文件过于繁琐，每次更换都得更改。
+所以推荐一个 CLI AI切换工具：<a href="https://ccswitch.ai/zh/">cc switch</a>,支持主流的多款 C LI 的配置一键切换。</p>
+
+<p>前面推荐的 CC GUI 插件也提供了 codex 和 claude 的供应商自定义和切换。</p>
+
+<p>下面给出 codex 和 claude 的第三方供应商的配置，一般各自供应商官网都有配置教程，可去官网查看。</p>
+
+<h2 id="codex-供应商配置">codex 供应商配置</h2>
+<p>codex 更改的是 <code class="language-plaintext highlighter-rouge">~/.codex</code> 目录下的 <code class="language-plaintext highlighter-rouge">config.toml</code> 和 <code class="language-plaintext highlighter-rouge">auth.json</code> 文件</p>
+
+<ul>
+  <li>cc switch：在 CC switch 里添加新的供应商，将下面示例的配置写入</li>
+  <li>cc GUI插件：在插件供应商里添加新的供应商，将下面示例的配置写入</li>
+</ul>
+
+<p>示例： <br />
+<code class="language-plaintext highlighter-rouge">config.toml</code>里的配置：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td><td class="rouge-code"><pre>model_provider = "OpenAI"
+model = "gpt-5.4"
+review_model = "gpt-5.4"
+model_reasoning_effort = "xhigh"
+disable_response_storage = true
+network_access = "enabled"
+windows_wsl_setup_acknowledged = true
+model_context_window = 1000000
+model_auto_compact_token_limit = 900000
+
+[model_providers.OpenAI]
+name = "OpenAI"
+base_url = "供应商地址"
+wire_api = "responses"
+requires_openai_auth = true
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>其中base_url为供应商的模型中转地址，model为供应商提供的可用模型</p>
+
+<p><code class="language-plaintext highlighter-rouge">auth.json</code>里的配置：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>{
+  "OPENAI_API_KEY": "你在供应商处拿到的秘钥"
+}
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="claude-供应商配置">claude 供应商配置</h2>
+<p>和 codex 类似，只不过更改的是 <code class="language-plaintext highlighter-rouge">~/.claude</code> 目录下的 <code class="language-plaintext highlighter-rouge">setting.json</code> 文件
+cc switch 和 CC GUI 插件配置也和 codex 类似</p>
+<ul>
+  <li>cc switch：在 CC switch 里添加新的供应商，将下面示例的配置写入</li>
+  <li>cc GUI插件：在插件供应商里添加新的供应商，将下面示例的配置写入
+示例：
+<code class="language-plaintext highlighter-rouge">setting.json</code> 文件写入：
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre>{
+"env": {
+  "ANTHROPIC_BASE_URL": "供应商地址",
+  "ANTHROPIC_AUTH_TOKEN": "你从供应商处拿到的秘钥",
+  "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
+  "CLAUDE_CODE_ATTRIBUTION_HEADER": "0"
+}
+}
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+    <p>同样，base_url为供应商的地址</p>
+  </li>
+</ul>
+
+<h2 id="推荐的第三方供应商">推荐的第三方供应商</h2>
+<p>1.<a href="https://ojbkapi.com/home">OJBKAPI</a>: 新用户会赠送 $10 的额度
+2.<a href="https://fufei.mossx.ai/home">CC GUI</a>:CC GUI插件开源作者搭建的模型中转平台，新用户赠送 1 元体验额度，可以加入作者的 vibecoding 技术交流群，作者可提供发票。</p>
+<ol>
+  <li>CC switch 工具里也内置了几十家供应商，可以找到其中便宜好用的</li>
+</ol>
+
+<blockquote>
+  <p>注意：选择第三方供应商有风险，谨慎挑选</p>
+  <ol>
+    <li>供应商卷钱跑路</li>
+    <li>供应商模型注水</li>
+  </ol>
+</blockquote>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+  
+
+  
+    
+
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 分类: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/blog/categories/#ai-%E5%B7%A5%E5%85%B7" class="page__taxonomy-item p-category" rel="tag">AI 工具</a>
+    
+    </span>
+  </p>
+
+
+  
+
+
+        
+
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 更新时间:</strong> <time class="dt-published" datetime="2026-04-25T00:00:00+00:00">April 25, 2026</time></p>
+
+
+      </footer>
+
+      
+
+      
+
+  <nav class="pagination" aria-label="文章翻页">
+    
+      <a href="/blog/AI%E5%AD%A6%E4%B9%A05-Harness/" class="pagination--pager" title="AI学习(五）- HarnessEngineering(未完待续)">上一页</a>
+    
+    
+      <a href="/blog/AI%E7%BC%96%E7%A8%8B%E8%8C%83%E5%BC%8F%E4%BA%86%E8%A7%A3/" class="pagination--pager" title="AI编程范式浅了解">下一页</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    
+
+<div class="page__related">
+  
+  <h2 class="page__related-title">猜您还喜欢</h2>
+  <div class="grid__wrapper">
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/DESIGN-md%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="permalink">DESIGN.md 文档学习（AI总结整理）
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-22T00:00:00+00:00">June 22, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">DESIGN.md 学习笔记，整理设计规范文档的作用、结构、写法、约束内容和 AI 协作方式。
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/Material3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="permalink">Material3学习(AI总结整理)
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-18T00:00:00+00:00">June 18, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">Material 3 学习笔记，整理设计原则、动态颜色、组件规范、状态层和 Android Compose 实践。
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/Mermaid%E7%AC%94%E8%AE%B0/" rel="permalink">Mermaid笔记(AI生成）
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-08T00:00:00+00:00">June 8, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">Mermaid 学习笔记，整理文本绘图语法、流程图、时序图、架构图、适用场景和常见示例。
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/%E5%88%A9%E7%94%A8AI%E5%AE%8C%E6%88%90UI%E8%AE%BE%E8%AE%A1/" rel="permalink">利用 AI 完成 UI 设计
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-05T00:00:00+00:00">June 5, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">AI UI 设计工具笔记，整理 Claude Design、Open Design、Google Stitch 的能力、费用和使用场景。
+</p>
+  </article>
+</div>
+
+    
+  </div>
+</div>
+
+  
+  
+</div>
+
+      
+    </div>
+
+    
+      <div class="search-content">
+        
+<div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';" role="search">
+    <label class="sr-only" for="search">
+      输入您要搜索的关键词...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="输入您要搜索的关键词..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        
+
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>关注:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://github.com/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://www.bilibili.com/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-bilibili" aria-hidden="true"></i> Bilibili</a></li>
+        
+      
+    
+
+    
+      <li><a href="/blog/feed.xml"><i class="fas fa-fw fa-square-rss" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+
+<div class="page__footer-copyright">&copy; 2025-2026 - 2026 <a href="https://NiuSX.github.io">一只捡星星的熊</a>. 技术来自于 <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/jekyll-themes/minimal-mistakes/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+
+  <script src="/blog/assets/js/main.min.js"></script>
+
+
+
+
+
+<script src="/blog/assets/js/lunr/lunr.min.js"></script>
+<script src="/blog/assets/js/lunr/lunr-store.js"></script>
+<script src="/blog/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  
+    <script src="/blog/assets/js/mermaid-init.js"></script>
+  
+
+
+  </body>
+</html>

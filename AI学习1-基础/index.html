@@ -1,0 +1,1731 @@
+
+
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.28.0 by Michael Rose
+  Copyright 2013-2026 Michael Rose - mademistakes.com | @mmistakes
+  Copyright 2024-2026 iBug - ibugone.com | @iBug
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+
+<html lang="zh-CN" class="no-js" dir="ltr">
+  <head>
+    
+<meta charset="utf-8">
+
+
+<!-- begin _includes/seo.html --><title>AI学习(一）- 基础 - 一只捡星星的熊</title>
+<meta name="description" content="AI 基础学习笔记，整理智能体结构、任务拆解、工具调用、运行方式和核心概念。">
+
+
+  <meta name="author" content="一只捡星星的熊">
+  
+  <meta property="article:author" content="一只捡星星的熊">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:site_name" content="一只捡星星的熊">
+<meta property="og:title" content="AI学习(一）- 基础">
+<meta property="og:url" content="https://niusx.github.io/blog/AI%E5%AD%A6%E4%B9%A01-%E5%9F%BA%E7%A1%80/">
+
+
+  <meta property="og:description" content="AI 基础学习笔记，整理智能体结构、任务拆解、工具调用、运行方式和核心概念。">
+
+
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2026-03-01T00:00:00+00:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://niusx.github.io/blog/AI%E5%AD%A6%E4%B9%A01-%E5%9F%BA%E7%A1%80/">
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/blog/feed.xml" type="application/atom+xml" rel="alternate" title="一只捡星星的熊 Feed">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+  
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/blog/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    
+<nav class="skip-links" aria-label="Skip links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">转到主导航栏</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">转到内容</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">转到底部</a></li>
+  </ul>
+</nav>
+
+    
+
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav" aria-label="Primary navigation">
+        
+        <a class="site-title" href="/blog/">
+          一只捡星星的熊
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item"><a
+                  href="/blog/"
+                  
+                  
+                >首页</a></li><li class="masthead__menu-item"><a
+                  href="/blog/year-archive/"
+                  
+                  
+                >归档</a></li><li class="masthead__menu-item masthead__menu-item--has-children"><button class="masthead__menu-toggle" type="button" aria-haspopup="true">
+                  分类
+                </button>
+                <ul class="masthead__submenu">
+                  <li>
+                    <a href="/blog/categories/">全部笔记</a>
+                  </li><li>
+                        <a href="/blog/categories/#ai">AI</a>
+                      </li><li>
+                        <a href="/blog/categories/#ai-%E5%B7%A5%E5%85%B7">AI 工具</a>
+                      </li><li>
+                        <a href="/blog/categories/#agent">Agent</a>
+                      </li><li>
+                        <a href="/blog/categories/#android">Android</a>
+                      </li><li>
+                        <a href="/blog/categories/#git">Git</a>
+                      </li><li>
+                        <a href="/blog/categories/#kotlin">Kotlin</a>
+                      </li><li>
+                        <a href="/blog/categories/#nav2">Nav2</a>
+                      </li><li>
+                        <a href="/blog/categories/#ros2">ROS2</a>
+                      </li><li>
+                        <a href="/blog/categories/#sdd">SDD</a>
+                      </li><li>
+                        <a href="/blog/categories/#ui">UI</a>
+                      </li><li>
+                        <a href="/blog/categories/#ui%E8%AE%BE%E8%AE%A1">UI设计</a>
+                      </li><li>
+                        <a href="/blog/categories/#ollama">ollama</a>
+                      </li><li>
+                        <a href="/blog/categories/#python">python</a>
+                      </li><li>
+                        <a href="/blog/categories/#yaml">yaml</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%85%B6%E4%BB%96">其他</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%89%8D%E7%AB%AF">前端</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%91%BD%E4%BB%A4%E8%AF%AD%E8%A8%80">命令语言</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%AF%BC%E8%88%AA">导航</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%B7%A5%E5%85%B7">工具</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%9C%BA%E5%99%A8%E4%BA%BA">机器人</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7">构建工具</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%9E%B6%E6%9E%84">架构</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%A0%87%E8%AE%B0%E8%AF%AD%E8%A8%80">标记语言</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80">编程语言</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E8%AE%A1%E7%AE%97%E6%9C%BA">计算机</a>
+                      </li></ul></li><li class="masthead__menu-item"><a
+                  href="/blog/about/"
+                  
+                  
+                >关于</a></li></ul>
+
+        
+        <form class="masthead-search" action="/blog/search/" method="get" role="search">
+          <label class="visually-hidden" for="masthead-search-input">
+            切换搜索
+          </label>
+          <input
+            id="masthead-search-input"
+            class="masthead-search__input"
+            type="search"
+            name="q"
+            placeholder="输入您要搜索的关键词..."
+          >
+          <button class="masthead-search__button" type="submit">
+            <span class="visually-hidden">切换搜索</span>
+            <i class="fas fa-search" aria-hidden="true"></i>
+          </button>
+        </form>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">切换菜单</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+
+
+<div id="main" role="main">
+  
+
+  <div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="https://niusx.github.io/blog/">
+        <img src="/blog/assets/images/wukong-photo.jpg" alt="一只捡星星的熊" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="https://niusx.github.io/blog/" itemprop="url">一只捡星星的熊</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>什么也没写</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">关注</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-location-dot" aria-hidden="true"></i> <span itemprop="name" class="p-locality">中国</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://github.com/NiuSX/" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://space.bilibili.com/347549684/" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-bilibili" aria-hidden="true"></i><span class="label">Bilibili</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="AI学习(一）- 基础">
+    <meta itemprop="description" content="AI 基础学习笔记，整理智能体结构、任务拆解、工具调用、运行方式和核心概念。">
+    <meta itemprop="datePublished" content="2026-03-01T00:00:00+00:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="https://niusx.github.io/blog/AI%E5%AD%A6%E4%B9%A01-%E5%9F%BA%E7%A1%80/" itemprop="url">AI学习(一）- 基础
+</a>
+          </h1>
+          
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-03-01T00:00:00+00:00">March 1, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc" aria-label="文章目录">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> 文章目录</h4></header>
+              <ul class="toc__menu"><li><a href="#概要">概要</a><ul><li><a href="#结构组成">结构组成</a></li><li><a href="#运行方式">运行方式：</a></li></ul></li><li><a href="#简介">简介</a><ul><li><a href="#核心组件">核心组件</a></li><li><a href="#主流大语言模型">主流大语言模型</a></li><li><a href="#提示词工程">提示词工程</a></li></ul></li><li><a href="#大模型基础">大模型基础</a><ul><li><a href="#大模型术语">大模型术语</a><ul><li><a href="#大模型工作流程">大模型工作流程</a></li><li><a href="#模型参数类型">模型参数类型</a><ul><li><a href="#稠密模型dense-model">稠密模型（Dense Model）</a></li><li><a href="#稀疏模型sparse-model">稀疏模型（Sparse Model）</a></li><li><a href="#moe-模型mixture-of-experts">MoE 模型（Mixture of Experts）</a></li></ul></li><li><a href="#模型压缩加速">模型压缩加速</a><ul><li><a href="#蒸馏模型model-distillation">蒸馏模型（Model Distillation）</a></li><li><a href="#量化模型model-quantization">量化模型（Model Quantization）</a></li></ul></li><li><a href="#模型训练">模型训练</a><ul><li><a href="#大模型预训练">大模型预训练</a></li><li><a href="#大模型后训练">大模型后训练</a></li></ul></li><li><a href="#大模型微调">大模型微调</a><ul><li><a href="#全量微调">全量微调</a></li><li><a href="#参数高效微调">参数高效微调</a></li><li><a href="#强化学习微调">强化学习微调</a></li><li><a href="#提示调优">提示调优</a></li><li><a href="#深度提示调优">深度提示调优</a></li><li><a href="#动态低秩适应">动态低秩适应</a></li><li><a href="#自适应低秩适应">自适应低秩适应</a></li><li><a href="#量化低秩适应">量化低秩适应</a></li></ul></li><li><a href="#大模型推理">大模型推理</a></li><li><a href="#大模型部署">大模型部署</a><ul><li><a href="#单机-tp-模式">单机 TP 模式</a></li><li><a href="#单机-ep-模式">单机 EP 模式</a></li><li><a href="#多机-tp-模式">多机 TP 模式</a></li><li><a href="#多机-ep-模式">多机 EP 模式</a></li><li><a href="#pd-分离模式">PD 分离模式</a></li><li><a href="#多-pd-master-模式">多 PD Master 模式</a></li><li><a href="#总结对比">总结对比</a></li></ul></li><li><a href="#大模型精度">大模型精度</a></li><li><a href="#混合精度">混合精度</a></li></ul></li></ul></li></ul>
+            </nav>
+          </aside>
+        
+        <h1 id="概要">概要</h1>
+
+<h2 id="结构组成">结构组成</h2>
+
+<p>目标：明确任务意图</p>
+
+<p>逻辑：按规则拆成可执行步骤</p>
+
+<p>工具：通过代码或API让步骤落地</p>
+
+<h2 id="运行方式">运行方式：</h2>
+
+<ul>
+  <li>
+    <p>接收输入</p>
+  </li>
+  <li>
+    <p>判断当前任务</p>
+  </li>
+  <li>
+    <p>调用对应工具执行</p>
+  </li>
+  <li>
+    <p>返回结果</p>
+  </li>
+  <li>
+    <p>保留必要上下文</p>
+  </li>
+  <li>
+    <p>支持多轮连续操作</p>
+  </li>
+  <li>
+    <p>遇阻时调整执行步骤</p>
+  </li>
+</ul>
+
+<p>与普通大模型区别：普通大模型生成文本；Agent生成行动并执行行动，能完成实际工作</p>
+
+<p>Agent架构图：</p>
+
+<p><img src="../imgs/ai_basic/Agent_Architecture.png" /></p>
+
+<h1 id="简介">简介</h1>
+
+<h2 id="核心组件">核心组件</h2>
+
+<p>Agent=LLM(大脑)+Planning(规划)+Memory(记忆）+Tool use(工具使用)</p>
+
+<p>LPMT:</p>
+
+<ul>
+  <li>
+    <p>LLM：作为核心推理机，负责理解意图、生成文本和进行逻辑判断。</p>
+  </li>
+  <li>
+    <p>Planning: 能够将复杂的目标（如”帮我策划一场技术沙龙”）拆解成可执行的步骤。</p>
+  </li>
+  <li>
+    <p>Memory: 记录对话历史（短期）和存储专业知识库（长期）。</p>
+  </li>
+  <li>
+    <p>Tool use: 能够根据需求去查谷歌搜索、读数据库、甚至跑 Python 代码。</p>
+  </li>
+</ul>
+
+<p><img src="../imgs/ai_basic/Agent_architecture1.png" /></p>
+
+<p>Agent 与传统AI 模型区别：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">维度</th>
+      <th style="text-align: left">传统 AI 模型</th>
+      <th style="text-align: left">AI Agent</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>交互方式</strong></td>
+      <td style="text-align: left">单次输入输出</td>
+      <td style="text-align: left">多轮对话、持续交互</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>决策能力</strong></td>
+      <td style="text-align: left">基于输入直接推理</td>
+      <td style="text-align: left">规划、反思、迭代优化</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>工具使用</strong></td>
+      <td style="text-align: left">无法主动调用外部工具</td>
+      <td style="text-align: left">可调用搜索、计算器、API 等</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>记忆机制</strong></td>
+      <td style="text-align: left">仅限当前上下文</td>
+      <td style="text-align: left">短期+长期记忆</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>目标导向</strong></td>
+      <td style="text-align: left">完成单一预测任务</td>
+      <td style="text-align: left">完成复杂目标</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>错误处理</strong></td>
+      <td style="text-align: left">输出即结束</td>
+      <td style="text-align: left">可自我纠错、重试</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>核心模式</strong>：从 Prompt 到 Reasoning Loop</p>
+
+<p>普通的 LLM 只是 <strong>One-shot（一次性）</strong> 的响应，而 Agent 的核心在于 <strong>Iterative（迭代）</strong>。</p>
+
+<p><strong>ReAct 模式 (Reason + Act)</strong> 是目前最主流的 Agent 推理逻辑：</p>
+
+<ol>
+  <li><strong>Thought (思考)：</strong> 模型描述当前要做什么，为什么要这么做。</li>
+  <li><strong>Action (行动)：</strong> 模型选择一个工具（如：<code class="language-plaintext highlighter-rouge">Google Search</code>）。</li>
+  <li><strong>Observation (观察)：</strong> 模型读取工具返回的结果。</li>
+  <li><strong>Repeat (循环)：</strong> 重复上述步骤，直到得出最终答案。</li>
+</ol>
+
+<p>AI Agent 模块构成：</p>
+
+<p><img src="../imgs/ai_basic/Agent_module.png" height="500" /></p>
+
+<p>1、<strong>规划模块</strong>：任务的大脑与指挥官</p>
+
+<p>这是 Agent 的思考中枢。它负责将用户模糊的、高层的目标（如：分析公司上个季度的销售数据）分解成一系列清晰的、可执行的子任务步骤。</p>
+
+<ul>
+  <li><strong>任务分解</strong>：将大目标拆解为小步骤。例如：1. 连接数据库；2. 提取Q3销售数据；3. 按产品和地区分类；4. 计算环比增长率；5. 生成可视化图表。</li>
+  <li><strong>反思与调整</strong>：Agent 会评估每一步行动的结果。如果失败了（比如数据库连不上），它会反思原因，并调整计划（例如尝试另一种连接方式或请求用户提供密码）。</li>
+</ul>
+
+<ol>
+  <li><strong>记忆模块</strong>：经验的笔记本</li>
+</ol>
+
+<p>Agent 需要有记忆才能进行连贯的、基于上下文的对话和操作。</p>
+
+<ul>
+  <li><strong>短期记忆</strong>：记住当前对话的上下文，确保回答不跑题。</li>
+  <li><strong>长期记忆</strong>：将重要的交互信息、学到的知识存储到数据库或向量数据库中，供未来查询和使用，实现越用越聪明。</li>
+</ul>
+
+<ol>
+  <li><strong>工具调用模块</strong>：灵活的双手</li>
+</ol>
+
+<p>这是 Agent 从思考者变为行动者的关键。它可以通过应用程序接口（API）调用外部工具来扩展自身能力。</p>
+
+<p><strong>常见工具</strong>：</p>
+
+<ul>
+  <li><strong>搜索工具</strong>：联网获取最新信息。</li>
+  <li><strong>计算器/代码解释器</strong>：进行数学运算或运行代码处理数据。</li>
+  <li><strong>软件操作</strong>：通过 API 发送邮件、操作电子表格、控制智能家居。</li>
+  <li><strong>专业工具</strong>：调用专业软件进行图像生成、语音合成、数据分析等。</li>
+</ul>
+
+<p><strong>核心特征</strong>：自主性 反应性 主动性 社交能力 学习能力</p>
+
+<p>工作流程：React=Reasoning(推理)+Acting(行动)</p>
+
+<h2 id="主流大语言模型">主流大语言模型</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">模型名称</th>
+      <th style="text-align: left">所属公司/组织</th>
+      <th style="text-align: left">官网</th>
+      <th style="text-align: left">API文档地址</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>GPT系列 (GPT-5.2/GPT-4o)</strong></td>
+      <td style="text-align: left">OpenAI</td>
+      <td style="text-align: left">https://openai.com/</td>
+      <td style="text-align: left">https://platform.openai.com/docs/api-reference</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>Claude系列 (Opus 4.6/Sonnet 4.5)</strong></td>
+      <td style="text-align: left">Anthropic</td>
+      <td style="text-align: left">https://www.anthropic.com/</td>
+      <td style="text-align: left">https://docs.anthropic.com/claude/reference/getting-started-with-the-api</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>Gemini系列 (Gemini 3 Pro/Flash)</strong></td>
+      <td style="text-align: left">Google</td>
+      <td style="text-align: left">https://deepmind.google/technologies/gemini/</td>
+      <td style="text-align: left">https://docs.gemini.com/rest-api/</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>通义千问 (Qwen 3.0系列)</strong></td>
+      <td style="text-align: left">阿里巴巴</td>
+      <td style="text-align: left">https://www.qianwen.com/</td>
+      <td style="text-align: left">https://help.aliyun.com/zh/dashscope/developer-reference/api-details</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>文心一言 (ERNIE 5.0系列)</strong></td>
+      <td style="text-align: left">百度</td>
+      <td style="text-align: left">https://yiyan.baidu.com/</td>
+      <td style="text-align: left">https://qianfan.cloud.baidu.com/docs/</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>智谱清言 (GLM-4.7系列)</strong></td>
+      <td style="text-align: left">智谱AI</td>
+      <td style="text-align: left">https://chatglm.cn/</td>
+      <td style="text-align: left">https://open.bigmodel.cn/dev/api</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>Kimi (Moonshot K2.5系列)</strong></td>
+      <td style="text-align: left">月之暗面</td>
+      <td style="text-align: left">https://kimi.moonshot.cn/</td>
+      <td style="text-align: left">https://platform.moonshot.cn/docs/api/chat</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>讯飞星火大模型</strong></td>
+      <td style="text-align: left">科大讯飞</td>
+      <td style="text-align: left">https://xinghuo.xfyun.cn/</td>
+      <td style="text-align: left">https://www.xfyun.cn/doc/spark/Web.html</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>DeepSeek系列</strong></td>
+      <td style="text-align: left">DeepSeek</td>
+      <td style="text-align: left">https://www.deepseek.com/</td>
+      <td style="text-align: left">https://api-docs.deepseek.com/</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>Llama系列 (Llama 3.1/Llama 4)</strong></td>
+      <td style="text-align: left">Meta</td>
+      <td style="text-align: left">https://www.llama.com/</td>
+      <td style="text-align: left">https://www.llama.com/docs/overview/</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>Grok系列 (Grok 4.1)</strong></td>
+      <td style="text-align: left">xAI</td>
+      <td style="text-align: left">https://x.ai/</td>
+      <td style="text-align: left">https://docs.x.ai/overview</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>MiniMax (M2.1系列)</strong></td>
+      <td style="text-align: left">MiniMax</td>
+      <td style="text-align: left">https://www.minimaxi.com/</td>
+      <td style="text-align: left">https://api.minimax.chat/docs/api/</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>百川智能 (Baichuan 3系列)</strong></td>
+      <td style="text-align: left">百川智能</td>
+      <td style="text-align: left">https://www.baichuan-ai.com/</td>
+      <td style="text-align: left">https://platform.baichuan-ai.com/docs/api</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>Ollama (本地部署模型)</strong></td>
+      <td style="text-align: left">Ollama</td>
+      <td style="text-align: left">https://ollama.com/</td>
+      <td style="text-align: left">https://github.com/ollama/ollama/blob/main/docs/api.md</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>豆包大模型</strong></td>
+      <td style="text-align: left">字节跳动</td>
+      <td style="text-align: left">https://www.doubao.com/</td>
+      <td style="text-align: left">https://www.volcengine.com/docs/82379/1399008?lang=zh</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="提示词工程">提示词工程</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">要素</th>
+      <th style="text-align: left">英文</th>
+      <th style="text-align: left">说明</th>
+      <th style="text-align: left">示例</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>角色与背景</strong></td>
+      <td style="text-align: left">Capacity &amp; Role</td>
+      <td style="text-align: left">为 AI 设定一个身份或场景，引导其使用特定的知识体系和表达方式。</td>
+      <td style="text-align: left">你是一位经验丰富的 Python 编程导师。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>任务与指令</strong></td>
+      <td style="text-align: left">Insight &amp; Statement</td>
+      <td style="text-align: left">清晰、具体地说明你要 AI 完成什么任务。这是提示词的核心。</td>
+      <td style="text-align: left">请解释 <code class="language-plaintext highlighter-rouge">列表推导式</code> 的概念，并给出三个由易到难的例子。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>步骤与约束</strong></td>
+      <td style="text-align: left">Procedure &amp; Steps</td>
+      <td style="text-align: left">将复杂任务分解为步骤，或添加格式、长度、风格等限制条件。</td>
+      <td style="text-align: left">请按以下步骤回答：1. 一句话定义。2. 语法说明。3. 示例代码及注释。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>输出格式</strong></td>
+      <td style="text-align: left">Format &amp; Output</td>
+      <td style="text-align: left">明确指定你希望的回答格式，如 JSON、Markdown、表格、代码块等。</td>
+      <td style="text-align: left">请将对比结果以表格形式呈现，包含方法、优点、缺点三列。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>输入示例</strong></td>
+      <td style="text-align: left">Examples</td>
+      <td style="text-align: left">提供一两个输入-输出的例子，让 AI 更准确地模仿你想要的模式（少样本学习）。</td>
+      <td style="text-align: left">例如，如果我问苹果，你应该回答它是一种水果。那么，当我问香蕉时…</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>核心原则</strong>：</p>
+
+<ul>
+  <li>明确的角色定位 persona</li>
+  <li>清晰的任务指令 task/goal</li>
+  <li>提供足够的背景信息  context</li>
+  <li>限制条件和格式要求 constraints/format</li>
+</ul>
+
+<h1 id="大模型基础">大模型基础</h1>
+
+<h2 id="大模型术语">大模型术语</h2>
+
+<h3 id="大模型工作流程">大模型工作流程</h3>
+
+<p><img src="../imgs/ai_basic/LargeModels_workflow.jpg" /></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>环节</th>
+      <th>解释</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>提示词 Prompt</strong></td>
+      <td>用户给模型的“任务指令”，决定后续所有 token 的生成方向。</td>
+    </tr>
+    <tr>
+      <td><strong>分词 Tokenization</strong></td>
+      <td>把文本切成模型字典里<strong>有编号的最小片段</strong>（token），供向量层查表。</td>
+    </tr>
+    <tr>
+      <td><strong>嵌入 Embedding</strong></td>
+      <td>将每个 token 编号<strong>映射成高维向量</strong>，使语义相近的词在向量空间靠得更近。</td>
+    </tr>
+    <tr>
+      <td><strong>模型计算 Transformer Layers</strong></td>
+      <td>多层自注意力 + 前馈网络<strong>对整句向量做并行计算</strong>，输出每个位置的上下文语义向量。</td>
+    </tr>
+    <tr>
+      <td><strong>续写 token 串 Token Generation</strong></td>
+      <td>以上一步的向量为基础，<strong>逐个采样下一个 token</strong>，自回归拼成完整回答。</td>
+    </tr>
+    <tr>
+      <td><strong>RAG</strong></td>
+      <td>检索增强生成，结合外部知识库进行语义检索并增强生成质量。</td>
+    </tr>
+    <tr>
+      <td><strong>MCP</strong></td>
+      <td>模型上下文协议，允许模型调用外部工具或服务（如 API、数据库）扩展能力。</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="模型参数类型">模型参数类型</h3>
+
+<h4 id="稠密模型dense-model">稠密模型（Dense Model）</h4>
+
+<p><strong>定义</strong>：在推理或训练时，<strong>所有参数都会被参与计算</strong>。</p>
+
+<p><strong>特点</strong>：</p>
+
+<ul>
+  <li>每一层的参数都“稠密连接”在一起</li>
+  <li>每个输入都会激活所有权重（没有参数被“跳过”）</li>
+</ul>
+
+<p><strong>优点</strong>：</p>
+
+<ul>
+  <li>结构简单，训练和推理逻辑清晰</li>
+  <li>对小规模模型和常规任务效果稳定</li>
+</ul>
+
+<p><strong>缺点</strong>：</p>
+
+<ul>
+  <li>参数量大 → 推理计算和显存占用高</li>
+  <li>无法做到“部分参数参与计算”以节省资源</li>
+</ul>
+
+<h4 id="稀疏模型sparse-model">稀疏模型（Sparse Model）</h4>
+
+<p><strong>定义</strong>：在推理或训练时，<strong>只有部分参数被激活，其余参数不参与计算</strong>。</p>
+
+<p><strong>常见形式</strong>：</p>
+
+<ul>
+  <li><strong>权重稀疏化</strong>：把部分权重设为零（例如通过剪枝 pruning），减少计算量</li>
+  <li><strong>激活稀疏化</strong>：某些神经元只有在特定输入下才被激活</li>
+</ul>
+
+<p><strong>优点</strong>：</p>
+
+<ul>
+  <li>提升计算效率，降低显存和算力需求</li>
+  <li>仍能保持较高精度</li>
+</ul>
+
+<p><strong>缺点</strong>：</p>
+
+<ul>
+  <li>稀疏化的效果和方法依赖任务，可能影响模型表现</li>
+  <li>工程上需要专门的稀疏计算库支持</li>
+</ul>
+
+<h4 id="moe-模型mixture-of-experts">MoE 模型（Mixture of Experts）</h4>
+
+<p><strong>定义</strong>：又称混合专家模型，一种 <strong>稀疏化的特殊形式</strong>。模型内部包含多个“专家子网络”（Experts），每个输入 token 只会激活其中一部分专家（而非全部）。</p>
+
+<p><strong>核心机制</strong>：</p>
+
+<ul>
+  <li><strong>门控网络（Gating Network）</strong>：根据输入内容，选择最合适的专家来处理</li>
+  <li><strong>稀疏激活</strong>：例如有 100 个专家，只激活其中 2 个 → 节省计算成本</li>
+</ul>
+
+<p><strong>优点</strong>：</p>
+
+<ul>
+  <li>参数量可以非常大（比如上万亿），但实际计算开销比稠密模型低</li>
+  <li>不同专家可以专注于不同知识领域（比如数学专家、代码专家）</li>
+</ul>
+
+<p><strong>缺点</strong>：</p>
+
+<ul>
+  <li>训练难度大（负载均衡问题，容易出现部分专家过载）</li>
+  <li>工程复杂度高（需要专门的分布式训练策略）</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>维度</th>
+      <th>稠密模型</th>
+      <th>稀疏模型（广义）</th>
+      <th>MoE（稀疏的一种）</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>激活比例</strong></td>
+      <td>100%</td>
+      <td>《10%</td>
+      <td>通常 Top-1 或 Top-2 专家</td>
+    </tr>
+    <tr>
+      <td><strong>参数总量</strong></td>
+      <td>= 激活量</td>
+      <td>》》激活量</td>
+      <td>同左，易破百亿/千亿</td>
+    </tr>
+    <tr>
+      <td><strong>计算量 FLOPs</strong></td>
+      <td>高</td>
+      <td>低</td>
+      <td>低（与稀疏一致）</td>
+    </tr>
+    <tr>
+      <td><strong>显存占用</strong></td>
+      <td>中</td>
+      <td>高（存全套参数）</td>
+      <td>高（存全套专家）</td>
+    </tr>
+    <tr>
+      <td><strong>通信开销</strong></td>
+      <td>无</td>
+      <td>低</td>
+      <td>高（需跨设备传专家）</td>
+    </tr>
+    <tr>
+      <td><strong>训练难度</strong></td>
+      <td>低</td>
+      <td>中</td>
+      <td>高（负载均衡、门控学习）</td>
+    </tr>
+    <tr>
+      <td><strong>代表模型</strong></td>
+      <td>GPT-3/LLaMA</td>
+      <td>无普遍开源</td>
+      <td>Switch-Transformer、GLaM、PaLM-E、DeepSeek-MoE</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="模型压缩加速">模型压缩加速</h3>
+
+<h4 id="蒸馏模型model-distillation">蒸馏模型（Model Distillation）</h4>
+
+<p><strong>定义：*<em>模型蒸馏（Knowledge Distillation）是一种 **模型压缩技术**，就好比*</em>“老师教学生”</strong>——用大模型（Teacher）的输出当“软标签”，训练一个小模型（Student）<strong>模仿行为</strong>，参数变少，精度尽量保留。</p>
+
+<ul>
+  <li>用一个大而强的模型（<strong>教师模型 Teacher</strong>）指导一个小模型（<strong>学生模型 Student</strong>）的训练。</li>
+  <li>学生模型学习的不仅是训练数据的标签，还要模仿教师模型的 <strong>输出分布</strong>（soft targets）。</li>
+</ul>
+
+<p><strong>原理</strong></p>
+
+<ul>
+  <li>教师模型输出一个“软概率分布” (softmax + 温度参数)</li>
+  <li>学生模型通过最小化与教师分布的差异来学习知识</li>
+  <li>最终得到一个更小、更快，但性能接近的学生模型</li>
+</ul>
+
+<p><strong>优点</strong></p>
+
+<ul>
+  <li>大幅降低模型大小和推理延迟</li>
+  <li>在移动端、边缘设备部署更容易</li>
+  <li>保留大部分性能</li>
+</ul>
+
+<p><strong>缺点</strong></p>
+
+<ul>
+  <li>蒸馏效果依赖教师模型的质量</li>
+  <li>蒸馏过程需要额外训练，成本不低</li>
+</ul>
+
+<p><strong>典型应用</strong></p>
+
+<ul>
+  <li>BERT → DistilBERT（小一半参数，保留 ~95% 性能）</li>
+  <li>GPT 系列在移动端的轻量化版本</li>
+</ul>
+
+<h4 id="量化模型model-quantization">量化模型（Model Quantization）</h4>
+
+<p><strong>定义：*<em>模型量化是一种 **模型推理加速和压缩技术**，就好比*</em>“削精度减位数”</strong>——把权重/激活的<strong>浮点 32 位→16/8/4 位整数</strong>，存储↓、计算↓、显存↓，直接跑在端侧芯片。</p>
+
+<ul>
+  <li>将模型参数（权重、激活值）从高精度浮点数（如 FP32）压缩到低比特表示（FP16、INT8、INT4 甚至二值）。</li>
+</ul>
+
+<p><strong>常见方法</strong></p>
+
+<ul>
+  <li><strong>Post-Training Quantization (PTQ)</strong>：训练后直接量化，不需要重新训练</li>
+  <li><strong>Quantization-Aware Training (QAT)</strong>：训练过程中就引入量化，效果更好</li>
+  <li><strong>混合精度（Mixed Precision）</strong>：部分关键层保持高精度，其他层用低精度</li>
+</ul>
+
+<p><strong>优点</strong></p>
+
+<ul>
+  <li>显著减少显存占用（FP32 → INT8 可减 4 倍）</li>
+  <li>提升推理速度（尤其在支持低精度算子的硬件上，如 GPU Tensor Cores / TPU / NPU）</li>
+  <li>能与剪枝、蒸馏结合使用</li>
+</ul>
+
+<p><strong>缺点</strong></p>
+
+<ul>
+  <li>精度可能下降（尤其在极端低比特时，如 INT4）</li>
+  <li>对硬件依赖较强（要支持低比特计算）</li>
+</ul>
+
+<p><strong>典型应用</strong></p>
+
+<ul>
+  <li>INT8 BERT、GPTQ（量化 LLM）</li>
+  <li>LLaMA、Qwen 等开源大模型常见的 <code class="language-plaintext highlighter-rouge">4bit/8bit</code> 量化版本，用于个人显卡部署</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>维度</th>
+      <th>知识蒸馏</th>
+      <th>量化</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>目标</strong></td>
+      <td>模型<strong>结构变小</strong></td>
+      <td>权重<strong>位数变少</strong></td>
+    </tr>
+    <tr>
+      <td><strong>参数量</strong></td>
+      <td>减少（Student 网络更瘦）</td>
+      <td>不变（只是精度压缩）</td>
+    </tr>
+    <tr>
+      <td><strong>存储体积</strong></td>
+      <td>↓↓（结构剪完再量化可叠加）</td>
+      <td>↓↓（通常 4× 或 8×）</td>
+    </tr>
+    <tr>
+      <td><strong>计算加速</strong></td>
+      <td>依赖小模型结构</td>
+      <td>依赖整数单元/专用指令</td>
+    </tr>
+    <tr>
+      <td><strong>精度损失</strong></td>
+      <td>可控（跟 Teacher 差距）</td>
+      <td>可控（INT8 几乎无损，INT4 需精细调）</td>
+    </tr>
+    <tr>
+      <td><strong>是否需要原模型</strong></td>
+      <td>需要 Teacher 在线/离线推理</td>
+      <td>不需要，可后训练直接压</td>
+    </tr>
+    <tr>
+      <td><strong>代表方案</strong></td>
+      <td>MiniLLaMA、DistilBERT、TinyGPT</td>
+      <td>LLM.int8()、GPTQ、AWQ、KV-cache 量化</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="模型训练">模型训练</h3>
+
+<h4 id="大模型预训练">大模型预训练</h4>
+
+<p>大模型预训练（Pre-training）：模型在大规模通用数据上首先进行无监督或自监督训练，学习通用知识、语义和基本能力。</p>
+
+<p>例如DeepSeek-V3-Base、DeepSeek-V2、DeepSeek-Coder V1未经过任何微调，是预训练大模型。</p>
+
+<h4 id="大模型后训练">大模型后训练</h4>
+
+<p>大模型后训练 （Post-training）：是在预训练模型基础上，通过人类反馈（SFT/RL）优化行为，使其符合特定需求如人类偏好。</p>
+
+<p>例如DeepSeek-V3、DeepSeek-R1系列、DeepSeek-Coder V2、DeepSeek-VL2都是后训练大模型。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>维度</th>
+      <th>预训练模型</th>
+      <th>后训练模型</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>目标</td>
+      <td>学习语言通用规律</td>
+      <td>对齐人类偏好，专精任务</td>
+    </tr>
+    <tr>
+      <td>数据</td>
+      <td>无标注文本（万亿级）</td>
+      <td>带标注指令/偏好数据（百万级）</td>
+    </tr>
+    <tr>
+      <td>典型技术</td>
+      <td>MoE架构、FP8混合精度</td>
+      <td>GRPO强化学习、思维链蒸馏</td>
+    </tr>
+    <tr>
+      <td>输出特点</td>
+      <td>通用文本生成</td>
+      <td>结构化答案、分步推理</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="大模型微调">大模型微调</h3>
+
+<p>微调其实也是模型后训练的一种方法。 只是后训练通常由模型提供商负责，会在出厂前进行预训练和后训练，以便把模型打造成可交付的状态，而微调这种后训练，一般由模型使用者（甲方自己的技术团队或技术厂商）进行，以便实现领域垂直大模型。</p>
+
+<p>例如通用模型已掌握医学基础知识（如解剖学名词），但要做心脏手术还需专项训练</p>
+
+<p>定向输入：给模型海量心脏病例和手术记录（特定领域数据）</p>
+
+<p>专家经验（示范）：展示优秀医生的诊断思路（带答案的例题，即问答对）</p>
+
+<p>模拟考核：让模型诊断病例并评分，重点纠正误诊（模型评价）</p>
+
+<p>微调本质：在预训练模型上，用少量专业数据（如1%原数据量）调整部分参数。就像让全科医生专攻心血管科——保留基础能力（如问诊技巧），强化专科知识（如心电图解读）。</p>
+
+<p>微调后的模型能像资深医生一样，根据症状精准判断病因 。</p>
+
+<p>微调的方法有很多种，常用方法有：</p>
+
+<h4 id="全量微调">全量微调</h4>
+
+<p>全量微调是在预训练模型的基础上，对所有参数进行微调。在参数修改方面，所有参数都会被更新。其优点显著，能够充分利用预训练模型的通用知识，同时针对特定任务进行优化，通常可以获得较好的性能。</p>
+
+<p>然而，该方法也存在明显不足，计算资源需求较高，尤其是对于参数量非常大的模型来说，这一问题更为突出；训练时间较长，而且在数据量较少的情况下，可能会导致模型过拟合。</p>
+
+<h4 id="参数高效微调">参数高效微调</h4>
+
+<p>参数高效微调的核心是只对模型的一部分参数进行微调，保持大部分参数不变，这使得它在资源利用上更加高效。</p>
+
+<p>以下是几种常见的参数高效微调方法：</p>
+
+<p><strong>LoRA（Low-Rank Adaptation）</strong></p>
+
+<p>LoRA 通过低秩分解来调整模型的权重矩阵，只训练少量的新增参数。这种方法的优点是计算资源需求低，训练时间短，并且保留了预训练模型的大部分知识。不过，其缺点是可能达不到全量微调的性能。</p>
+
+<p><strong>Prefix-Tuning</strong></p>
+
+<p>Prefix-Tuning 在模型的输入端添加可训练的前缀，这些前缀参数在微调过程中被更新。它适用于自然语言生成任务，具有计算资源需求低、训练时间短的优点，但可能需要更多的调参经验。</p>
+
+<p><strong>Adapter</strong></p>
+
+<p>Adapter 在模型的每一层或某些层之间插入可训练的适配器模块，这些适配器参数在微调过程中被更新。该方法计算资源需求低、训练时间短，还可以针对多个任务进行微调，不过同样可能需要更多的调参经验。</p>
+
+<p><strong>BitFit</strong></p>
+
+<p>BitFit 只微调模型的偏置项（bias terms），而不改变权重。其最大优势是计算资源需求极低，训练时间非常短，但性能提升可能有限。</p>
+
+<h4 id="强化学习微调">强化学习微调</h4>
+
+<p>强化学习微调使用强化学习方法，通过人类反馈或其他奖励信号来优化模型，模型参数会根据奖励信号进行更新。它的优点在于可以优化模型的交互行为，特别是在对话系统等交互式任务中，还能更灵活地调整模型的行为以满足特定的业务需求。但该方法实现复杂，需要设计合适的奖励机制，且训练过程可能不稳定，需要更多的调试和监控。</p>
+
+<h4 id="提示调优">提示调优</h4>
+
+<p>提示调优通过冻结整个预训练模型，只允许每个下游任务在输入文本前面添加可调的标记（Token）来优化模型参数，仅更新提示部分的参数。它具有计算资源需求低、训练时间短的优点，适用于少样本学习任务。不过，其可能达到的性能可能略低于全量微调，且需要精心设计提示。</p>
+
+<h4 id="深度提示调优">深度提示调优</h4>
+
+<p>深度提示调优在预训练模型的每一层应用连续提示，而不仅仅是输入层，同样只更新提示部分的参数。这种方法可以在更深层次上优化模型，提高性能，适用于复杂任务，但实现复杂，需要更多的调参经验。</p>
+
+<h4 id="动态低秩适应">动态低秩适应</h4>
+
+<p>DyLoRA 在 LoRA 的基础上，动态调整低秩矩阵的大小，动态调整低秩矩阵的大小，只更新部分参数。它计算资源需求低，训练时间短，可以在更广泛的秩范围内优化模型性能，但实现复杂，需要更多的调参经验。</p>
+
+<h4 id="自适应低秩适应">自适应低秩适应</h4>
+
+<p>AdaLoRA 根据权重矩阵的重要性得分，自适应地分配参数规模，根据重要性动态调整参数规模，只更新部分参数。该方法计算资源需求低，训练时间短，可以更高效地利用参数，提高模型性能，但同样存在实现复杂、需要更多调参经验的问题。</p>
+
+<h4 id="量化低秩适应">量化低秩适应</h4>
+
+<p>QLoRA 结合 LoRA 方法与深度量化技术，减少模型存储需求，同时保持模型精度，只更新部分参数，同时进行量化。它计算资源需求低，训练时间短，适用于资源有限的环境，但实现复杂，需要更多的调参经验。</p>
+
+<h3 id="大模型推理">大模型推理</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>阶段</th>
+      <th>目标</th>
+      <th>数据量</th>
+      <th>学习方式</th>
+      <th>成果表现</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>训练</td>
+      <td>建立基础知识体系</td>
+      <td>百万亿级</td>
+      <td>无监督学习</td>
+      <td>通晓语言和常识</td>
+    </tr>
+    <tr>
+      <td>微调</td>
+      <td>培养专业能力</td>
+      <td>千万级</td>
+      <td>有监督+强化学习</td>
+      <td>专科医生水平</td>
+    </tr>
+    <tr>
+      <td>推理</td>
+      <td>解决具体问题</td>
+      <td>实时输入</td>
+      <td>概率计算</td>
+      <td>生成定制化解决方案</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="大模型部署">大模型部署</h3>
+
+<h4 id="单机-tp-模式">单机 TP 模式</h4>
+
+<p><strong>定义</strong>：Tensor Parallel, 张量并行。在单台机器上，利用多张 GPU 对一个层内部的矩阵乘法等计算进行 <strong>张量级拆分</strong>。</p>
+
+<p><strong>特点</strong>：</p>
+
+<ul>
+  <li>单层参数被切分到不同 GPU 上执行，比如把权重矩阵横向或纵向分块。</li>
+  <li>各 GPU 并行完成部分计算，再通过通信聚合结果。</li>
+</ul>
+
+<p><strong>适用场景</strong>：单机多卡，模型权重大，单卡显存放不下时。</p>
+
+<p><strong>代价</strong>：通信量较大（AllReduce/AllGather）。</p>
+
+<h4 id="单机-ep-模式">单机 EP 模式</h4>
+
+<p><strong>定义</strong>：Expert Parallel, 专家并行。在单机多卡下，部署 <strong>Mixture-of-Experts (MoE)</strong> 模型时，每张 GPU 只存储部分专家网络（Experts）。</p>
+
+<p><strong>特点</strong>：</p>
+
+<ul>
+  <li>输入 token 会根据路由器 (Router) 分配到相应的专家所在的 GPU。</li>
+  <li>可以显著减少单卡显存占用，提升模型容量。</li>
+</ul>
+
+<p><strong>适用场景</strong>：MoE 模型（比如 DeepSeekMoE），需要单机就能容纳上百亿以上参数。</p>
+
+<p><strong>代价</strong>：需要高效的路由与负载均衡，否则会造成卡间负载不均。</p>
+
+<h4 id="多机-tp-模式">多机 TP 模式</h4>
+
+<p><strong>定义</strong>：将 <strong>张量并行</strong> 扩展到多机多卡，跨机器切分权重矩阵。</p>
+
+<p><strong>特点</strong>：</p>
+
+<ul>
+  <li>每层的参数和计算进一步拆分，涉及跨节点通信（一般走高速网络如 InfiniBand）。</li>
+  <li>常和 <strong>流水线并行 (PP)</strong>、<strong>数据并行 (DP)</strong> 结合使用。</li>
+</ul>
+
+<p><strong>适用场景</strong>：模型超大（百亿 ~ 千亿参数），单机算力不够。</p>
+
+<p><strong>代价</strong>：网络通信成为瓶颈，带宽和延迟要求高。</p>
+
+<h4 id="多机-ep-模式">多机 EP 模式</h4>
+
+<p><strong>定义</strong>：将 <strong>专家并行</strong> 扩展到多机，每台机器的 GPU 保存不同子集的专家。</p>
+
+<p><strong>特点</strong>：</p>
+
+<ul>
+  <li>Router 需要跨机调度 token → 对应专家 → 返回结果。</li>
+  <li>单机放不下所有专家时的必选方案。</li>
+</ul>
+
+<p><strong>适用场景</strong>：千亿级 MoE 模型，比如 DeepSeek-R1、GPT-MoE 系列。</p>
+
+<p><strong>代价</strong>：跨机通信开销更大，对路由调度系统要求更高。</p>
+
+<h4 id="pd-分离模式">PD 分离模式</h4>
+
+<p><strong>定义</strong>：Prefill-Decoding Separation，将推理过程中的 <strong>预填充 (Prefill)</strong> 和 <strong>解码 (Decoding)</strong> 阶段拆分到不同的计算节点。</p>
+
+<p><strong>特点</strong>：</p>
+
+<ul>
+  <li><strong>预填充</strong>：对输入 prompt 进行一次性计算，耗时长但并行度高。</li>
+  <li><strong>解码</strong>：生成阶段，每步依赖上一步结果，序列化强，吞吐低。</li>
+  <li>分离后可按需分配资源，提升整体吞吐。</li>
+</ul>
+
+<p><strong>适用场景</strong>：在线服务，既要处理长 prompt，又要保证生成的低延迟。</p>
+
+<h4 id="多-pd-master-模式">多 PD Master 模式</h4>
+
+<p><strong>定义</strong>：多个 <strong>Prefill-Decoding Master 节点</strong> 共同调度推理请求，避免单点瓶颈。</p>
+
+<p><strong>特点</strong>：</p>
+
+<ul>
+  <li>支持多 Master 协同负载均衡。</li>
+  <li>每个 Master 可独立分配请求到 Prefill / Decode 工作节点。</li>
+  <li>提高可扩展性和容错性。</li>
+</ul>
+
+<p><strong>适用场景</strong>：大规模推理服务，海量并发请求，要求高可用。</p>
+
+<h4 id="总结对比">总结对比</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>模式</th>
+      <th>粒度</th>
+      <th>主要目标</th>
+      <th>典型场景</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>单机 TP</td>
+      <td>层内张量切分</td>
+      <td>显存放不下单层</td>
+      <td>单机多卡部署大模型</td>
+    </tr>
+    <tr>
+      <td>单机 EP</td>
+      <td>专家分布在单机</td>
+      <td>MoE 显存节省</td>
+      <td>小规模 MoE</td>
+    </tr>
+    <tr>
+      <td>多机 TP</td>
+      <td>跨机张量并行</td>
+      <td>超大模型训练/推理</td>
+      <td>千亿模型</td>
+    </tr>
+    <tr>
+      <td>多机 EP</td>
+      <td>专家跨机分布</td>
+      <td>MoE 扩展</td>
+      <td>千亿 MoE 模型</td>
+    </tr>
+    <tr>
+      <td>PD 分离</td>
+      <td>阶段拆分</td>
+      <td>吞吐优化</td>
+      <td>在线推理</td>
+    </tr>
+    <tr>
+      <td>多 PD Master</td>
+      <td>调度层冗余</td>
+      <td>高可用 + 扩展</td>
+      <td>大规模服务</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="大模型精度">大模型精度</h3>
+
+<p>在深度学习中，“精度”指的是模型在计算中表示数值的<strong>位数和范围</strong>，通常用浮点数格式表示（FP = Floating Point）。
+主要几种常见精度如下（以 IEEE 754 格式为例）：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>精度类型</th>
+      <th>位数</th>
+      <th>说明</th>
+      <th>优点</th>
+      <th>缺点</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>FP64 (double)</strong></td>
+      <td>64 位</td>
+      <td>1 位符号 + 11 位指数 + 52 位尾数</td>
+      <td>精度最高，科学计算用</td>
+      <td>速度慢、显存占用大</td>
+    </tr>
+    <tr>
+      <td><strong>FP32 (single)</strong></td>
+      <td>32 位</td>
+      <td>1 位符号 + 8 位指数 + 23 位尾数</td>
+      <td>精度较高，常用于训练</td>
+      <td>占显存大，计算慢于低精度</td>
+    </tr>
+    <tr>
+      <td><strong>FP16 (half)</strong></td>
+      <td>16 位</td>
+      <td>1 位符号 + 5 位指数 + 10 位尾数</td>
+      <td>显存占用小，速度快</td>
+      <td>精度损失，易出现溢出/下溢</td>
+    </tr>
+    <tr>
+      <td><strong>BF16 (bfloat16)</strong></td>
+      <td>16 位</td>
+      <td>1 位符号 + 8 位指数 + 7 位尾数</td>
+      <td>与 FP32 相同指数范围，精度低</td>
+      <td>速度快，易训练大模型</td>
+    </tr>
+    <tr>
+      <td><strong>FP8</strong></td>
+      <td>8 位</td>
+      <td>两种常见格式（E5M2 / E4M3）</td>
+      <td>极小显存占用，速度极快</td>
+      <td>精度损失明显，需配合量化和算法优化</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>关键点：</strong></p>
+
+<ul>
+  <li>精度越高，表示范围和数值精确度越好，但计算更慢、显存占用更多。</li>
+  <li>低精度计算（如 FP16、BF16、FP8）可以加快训练速度、降低显存压力，但需要一定的数值稳定性优化。</li>
+</ul>
+
+<h3 id="混合精度">混合精度</h3>
+
+<p>混合精度训练指在同一模型的训练过程中同时使用多种数值精度（通常是 FP16/BF16 和 FP32）来计算。
+其核心目标是在不影响模型最终精度的情况下，提升训练速度并减少显存占用。</p>
+
+<p>典型的混合精度训练做法：</p>
+
+<ul>
+  <li>权重存储</li>
+</ul>
+
+<p>主权重（master weights）用 FP32 保存，以避免精度损失。</p>
+
+<ul>
+  <li>前向传播和反向传播计算</li>
+</ul>
+
+<p>大部分矩阵乘法、卷积运算用 FP16 / BF16 计算，以加快速度并节省显存。</p>
+
+<ul>
+  <li>梯度缩放（Gradient Scaling）</li>
+</ul>
+
+<p>由于 FP16 数值范围较小，为防止梯度下溢（underflow），会在反向传播前先乘一个缩放因子，再在更新前还原。</p>
+
+<ul>
+  <li>损失函数计算</li>
+</ul>
+
+<p>一般用 FP32 计算，保持数值稳定性。</p>
+
+<p><strong>混合精度的好处</strong></p>
+
+<ul>
+  <li>更快：FP16/BF16 运算在 GPU 张量核心（Tensor Core）上速度更快（尤其是 NVIDIA Volta、Ampere、Hopper 架构）。</li>
+  <li>更省显存：同样显存下，可以训练更大的 batch size 或更大的模型。</li>
+  <li>几乎无精度损失：合理使用梯度缩放等技术，最终模型精度和全 FP32 基本一致。</li>
+</ul>
+
+<p><strong>使用场景</strong></p>
+
+<ul>
+  <li>大模型训练（LLM、Transformer）：常用 BF16/FP16 混合精度。</li>
+  <li>推理：甚至可以用 FP8 / INT8 混合精度（量化推理）。</li>
+  <li>分布式训练：混合精度能减少通信带宽压力。</li>
+</ul>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+  
+
+  
+    
+
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 分类: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/blog/categories/#ai" class="page__taxonomy-item p-category" rel="tag">AI</a>
+    
+    </span>
+  </p>
+
+
+  
+
+
+        
+
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 更新时间:</strong> <time class="dt-published" datetime="2026-03-01T00:00:00+00:00">March 1, 2026</time></p>
+
+
+      </footer>
+
+      
+
+      
+
+  <nav class="pagination" aria-label="文章翻页">
+    
+      <a href="/blog/PPDL%E8%A7%84%E5%88%92%E8%AF%AD%E8%A8%80/" class="pagination--pager" title="PDDL规划语言">上一页</a>
+    
+    
+      <a href="/blog/AI%E5%AD%A6%E4%B9%A02-MCP/" class="pagination--pager" title="AI学习(二）- MCP">下一页</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    
+
+<div class="page__related">
+  
+  <h2 class="page__related-title">猜您还喜欢</h2>
+  <div class="grid__wrapper">
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/DESIGN-md%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="permalink">DESIGN.md 文档学习（AI总结整理）
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-22T00:00:00+00:00">June 22, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">DESIGN.md 学习笔记，整理设计规范文档的作用、结构、写法、约束内容和 AI 协作方式。
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/Material3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="permalink">Material3学习(AI总结整理)
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-18T00:00:00+00:00">June 18, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">Material 3 学习笔记，整理设计原则、动态颜色、组件规范、状态层和 Android Compose 实践。
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/Mermaid%E7%AC%94%E8%AE%B0/" rel="permalink">Mermaid笔记(AI生成）
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-08T00:00:00+00:00">June 8, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">Mermaid 学习笔记，整理文本绘图语法、流程图、时序图、架构图、适用场景和常见示例。
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/%E5%88%A9%E7%94%A8AI%E5%AE%8C%E6%88%90UI%E8%AE%BE%E8%AE%A1/" rel="permalink">利用 AI 完成 UI 设计
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-05T00:00:00+00:00">June 5, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">AI UI 设计工具笔记，整理 Claude Design、Open Design、Google Stitch 的能力、费用和使用场景。
+</p>
+  </article>
+</div>
+
+    
+  </div>
+</div>
+
+  
+  
+</div>
+
+      
+    </div>
+
+    
+      <div class="search-content">
+        
+<div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';" role="search">
+    <label class="sr-only" for="search">
+      输入您要搜索的关键词...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="输入您要搜索的关键词..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        
+
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>关注:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://github.com/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://www.bilibili.com/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-bilibili" aria-hidden="true"></i> Bilibili</a></li>
+        
+      
+    
+
+    
+      <li><a href="/blog/feed.xml"><i class="fas fa-fw fa-square-rss" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+
+<div class="page__footer-copyright">&copy; 2025-2026 - 2026 <a href="https://NiuSX.github.io">一只捡星星的熊</a>. 技术来自于 <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/jekyll-themes/minimal-mistakes/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+
+  <script src="/blog/assets/js/main.min.js"></script>
+
+
+
+
+
+<script src="/blog/assets/js/lunr/lunr.min.js"></script>
+<script src="/blog/assets/js/lunr/lunr-store.js"></script>
+<script src="/blog/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  
+    <script src="/blog/assets/js/mermaid-init.js"></script>
+  
+
+
+  </body>
+</html>

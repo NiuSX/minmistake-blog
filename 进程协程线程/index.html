@@ -1,0 +1,940 @@
+
+
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.28.0 by Michael Rose
+  Copyright 2013-2026 Michael Rose - mademistakes.com | @mmistakes
+  Copyright 2024-2026 iBug - ibugone.com | @iBug
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+
+<html lang="zh-CN" class="no-js" dir="ltr">
+  <head>
+    
+<meta charset="utf-8">
+
+
+<!-- begin _includes/seo.html --><title>进程协程线程 - 一只捡星星的熊</title>
+<meta name="description" content="进程、线程与协程学习笔记，整理并发模型、调度方式、资源隔离和实际使用差异。">
+
+
+  <meta name="author" content="一只捡星星的熊">
+  
+  <meta property="article:author" content="一只捡星星的熊">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:site_name" content="一只捡星星的熊">
+<meta property="og:title" content="进程协程线程">
+<meta property="og:url" content="https://niusx.github.io/blog/%E8%BF%9B%E7%A8%8B%E5%8D%8F%E7%A8%8B%E7%BA%BF%E7%A8%8B/">
+
+
+  <meta property="og:description" content="进程、线程与协程学习笔记，整理并发模型、调度方式、资源隔离和实际使用差异。">
+
+
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2026-03-25T00:00:00+00:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://niusx.github.io/blog/%E8%BF%9B%E7%A8%8B%E5%8D%8F%E7%A8%8B%E7%BA%BF%E7%A8%8B/">
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/blog/feed.xml" type="application/atom+xml" rel="alternate" title="一只捡星星的熊 Feed">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+  
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/blog/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    
+<nav class="skip-links" aria-label="Skip links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">转到主导航栏</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">转到内容</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">转到底部</a></li>
+  </ul>
+</nav>
+
+    
+
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav" aria-label="Primary navigation">
+        
+        <a class="site-title" href="/blog/">
+          一只捡星星的熊
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item"><a
+                  href="/blog/"
+                  
+                  
+                >首页</a></li><li class="masthead__menu-item"><a
+                  href="/blog/year-archive/"
+                  
+                  
+                >归档</a></li><li class="masthead__menu-item masthead__menu-item--has-children"><button class="masthead__menu-toggle" type="button" aria-haspopup="true">
+                  分类
+                </button>
+                <ul class="masthead__submenu">
+                  <li>
+                    <a href="/blog/categories/">全部笔记</a>
+                  </li><li>
+                        <a href="/blog/categories/#ai">AI</a>
+                      </li><li>
+                        <a href="/blog/categories/#ai-%E5%B7%A5%E5%85%B7">AI 工具</a>
+                      </li><li>
+                        <a href="/blog/categories/#agent">Agent</a>
+                      </li><li>
+                        <a href="/blog/categories/#android">Android</a>
+                      </li><li>
+                        <a href="/blog/categories/#git">Git</a>
+                      </li><li>
+                        <a href="/blog/categories/#kotlin">Kotlin</a>
+                      </li><li>
+                        <a href="/blog/categories/#nav2">Nav2</a>
+                      </li><li>
+                        <a href="/blog/categories/#ros2">ROS2</a>
+                      </li><li>
+                        <a href="/blog/categories/#sdd">SDD</a>
+                      </li><li>
+                        <a href="/blog/categories/#ui">UI</a>
+                      </li><li>
+                        <a href="/blog/categories/#ui%E8%AE%BE%E8%AE%A1">UI设计</a>
+                      </li><li>
+                        <a href="/blog/categories/#ollama">ollama</a>
+                      </li><li>
+                        <a href="/blog/categories/#python">python</a>
+                      </li><li>
+                        <a href="/blog/categories/#yaml">yaml</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%85%B6%E4%BB%96">其他</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%89%8D%E7%AB%AF">前端</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%91%BD%E4%BB%A4%E8%AF%AD%E8%A8%80">命令语言</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%AF%BC%E8%88%AA">导航</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%B7%A5%E5%85%B7">工具</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%9C%BA%E5%99%A8%E4%BA%BA">机器人</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7">构建工具</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%9E%B6%E6%9E%84">架构</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%A0%87%E8%AE%B0%E8%AF%AD%E8%A8%80">标记语言</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80">编程语言</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E8%AE%A1%E7%AE%97%E6%9C%BA">计算机</a>
+                      </li></ul></li><li class="masthead__menu-item"><a
+                  href="/blog/about/"
+                  
+                  
+                >关于</a></li></ul>
+
+        
+        <form class="masthead-search" action="/blog/search/" method="get" role="search">
+          <label class="visually-hidden" for="masthead-search-input">
+            切换搜索
+          </label>
+          <input
+            id="masthead-search-input"
+            class="masthead-search__input"
+            type="search"
+            name="q"
+            placeholder="输入您要搜索的关键词..."
+          >
+          <button class="masthead-search__button" type="submit">
+            <span class="visually-hidden">切换搜索</span>
+            <i class="fas fa-search" aria-hidden="true"></i>
+          </button>
+        </form>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">切换菜单</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+
+
+<div id="main" role="main">
+  
+
+  <div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="https://niusx.github.io/blog/">
+        <img src="/blog/assets/images/wukong-photo.jpg" alt="一只捡星星的熊" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="https://niusx.github.io/blog/" itemprop="url">一只捡星星的熊</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>什么也没写</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">关注</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-location-dot" aria-hidden="true"></i> <span itemprop="name" class="p-locality">中国</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://github.com/NiuSX/" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://space.bilibili.com/347549684/" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-bilibili" aria-hidden="true"></i><span class="label">Bilibili</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="进程协程线程">
+    <meta itemprop="description" content="进程、线程与协程学习笔记，整理并发模型、调度方式、资源隔离和实际使用差异。">
+    <meta itemprop="datePublished" content="2026-03-25T00:00:00+00:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="https://niusx.github.io/blog/%E8%BF%9B%E7%A8%8B%E5%8D%8F%E7%A8%8B%E7%BA%BF%E7%A8%8B/" itemprop="url">进程协程线程
+</a>
+          </h1>
+          
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-03-25T00:00:00+00:00">March 25, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc" aria-label="文章目录">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> 文章目录</h4></header>
+              <ul class="toc__menu"><li><a href="#进程">进程</a><ul><li><a href="#进程的组成">进程的组成</a></li><li><a href="#进程的特点">进程的特点</a></li><li><a href="#进程的优点和代价">进程的优点和代价</a></li></ul></li><li><a href="#线程">线程</a><ul><li><a href="#线程和进程的关系">线程和进程的关系</a></li><li><a href="#多线程的好处">多线程的好处</a></li><li><a href="#多线程的问题">多线程的问题</a></li></ul></li><li><a href="#协程">协程</a><ul><li><a href="#协程的特点">协程的特点</a></li><li><a href="#协程要注意的点">协程要注意的点</a></li></ul></li><li><a href="#任务调度">任务调度</a></li><li><a href="#并发和并行">并发和并行</a></li><li><a href="#总结">总结</a></li></ul>
+            </nav>
+          </aside>
+        
+        <p>计算机的核心是 CPU，它负责执行计算任务；操作系统像一个“总管”，负责管理硬件资源、分配内存、调度任务；应用程序则是运行在操作系统之上的具体功能程序。</p>
+
+<blockquote>
+  <p>一句话总结进程线程协程：
+进程是资源分配的基本单位，线程是 CPU 调度的基本单位，协程是用户态中更轻量的任务切换方式。</p>
+</blockquote>
+
+<p>如果用一个通俗类比来理解：</p>
+
+<ul>
+  <li>进程像一家公司：有自己的办公楼、资产、员工档案和规章制度。</li>
+  <li>线程像公司里的员工：多个员工可以在同一家公司里共同使用会议室、电脑、文件等资源。</li>
+  <li>协程像员工手里的待办事项：员工遇到“等回复、等文件、等网络请求”时，可以先放下当前事项，转去处理另一个事项，等条件满足后再回来继续。</li>
+</ul>
+
+<h1 id="进程">进程</h1>
+
+<p>进程是程序的一次运行过程。程序本身只是静态的代码文件，只有当它被操作系统加载并开始执行时，才会形成进程。</p>
+
+<p>比如，磁盘上的微信、浏览器、IDE 都是程序；当我们双击打开浏览器后，操作系统会为它分配内存、文件句柄、网络连接等资源，这个正在运行的浏览器就是一个进程。</p>
+
+<h2 id="进程的组成">进程的组成</h2>
+
+<p>进程通常由三部分组成：</p>
+
+<ul>
+  <li>程序：要执行的指令集合，也就是“做什么”。</li>
+  <li>数据集合：程序运行时需要的数据和工作区。</li>
+  <li>进程控制块 PCB：操作系统用来描述和管理进程的数据结构，记录进程 ID、状态、优先级、寄存器信息、内存信息、打开的文件等。</li>
+</ul>
+
+<p>可以把 PCB 理解为进程在操作系统里的“身份证 + 档案袋”。操作系统不是直接凭感觉管理进程，而是通过 PCB 来知道每个进程是谁、在哪里、运行到哪一步、接下来该不该继续运行。</p>
+
+<h2 id="进程的特点">进程的特点</h2>
+
+<ul>
+  <li>动态性：进程是程序的一次执行过程，有创建、运行、等待、结束等生命周期。</li>
+  <li>并发性：多个进程可以在同一段时间内交替执行，看起来像同时运行。</li>
+  <li>独立性：不同进程通常拥有相互隔离的内存空间，一个进程不能随便访问另一个进程的内存。</li>
+  <li>结构性：进程由程序、数据和 PCB 等内容组成，不只是代码本身。</li>
+</ul>
+
+<h2 id="进程的优点和代价">进程的优点和代价</h2>
+
+<p>进程之间相互隔离，所以稳定性比较好。一个浏览器标签页或一个独立程序崩溃时，通常不会直接破坏另一个进程的数据。</p>
+
+<p>但隔离也意味着代价更高：创建进程、销毁进程、进程之间切换都比较耗费资源；进程之间如果要通信，也不能像访问普通变量那样简单，往往需要管道、消息队列、Socket、共享内存等进程间通信方式。</p>
+
+<h1 id="线程">线程</h1>
+
+<p>线程是进程中的一个执行流，是 CPU 调度和分派的基本单位。一个进程至少有一个线程，也可以有多个线程。</p>
+
+<p>如果把进程看作一家公司，那么线程就是公司里的员工。公司提供办公楼、资料库、打印机等公共资源；员工负责具体干活。多个员工共享公司资源，但每个员工也有自己的工作进度、手头任务和记忆。</p>
+
+<h2 id="线程和进程的关系">线程和进程的关系</h2>
+
+<p>一个进程可以包含多个线程，同一个进程中的线程共享该进程的大部分资源，例如：</p>
+
+<ul>
+  <li>代码段</li>
+  <li>堆内存</li>
+  <li>全局变量</li>
+  <li>打开的文件</li>
+  <li>网络连接</li>
+</ul>
+
+<p>但每个线程也有自己独立的内容，例如：</p>
+
+<ul>
+  <li>线程 ID</li>
+  <li>程序计数器 PC</li>
+  <li>寄存器</li>
+  <li>栈空间</li>
+</ul>
+
+<p>简单来说：</p>
+
+<blockquote>
+  <p>进程提供资源容器，线程负责真正执行代码。</p>
+</blockquote>
+
+<h2 id="多线程的好处">多线程的好处</h2>
+
+<p>多线程可以让一个程序同时处理多个任务。例如：</p>
+
+<ul>
+  <li>浏览器一边渲染页面，一边下载资源，一边响应用户点击。</li>
+  <li>聊天软件一边接收消息，一边发送文件，一边更新界面。</li>
+  <li>后端服务一边处理请求 A，一边处理请求 B。</li>
+</ul>
+
+<p>多线程尤其适合把任务拆开处理，使程序响应更快、吞吐量更高。</p>
+
+<h2 id="多线程的问题">多线程的问题</h2>
+
+<p>线程之间共享同一个进程的内存空间，因此通信比进程更方便，但也更容易出问题。</p>
+
+<p>比如两个线程同时修改同一个变量：</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>线程 A：读取 count = 0，准备加 1
+线程 B：读取 count = 0，准备加 1
+线程 A：写回 count = 1
+线程 B：写回 count = 1
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>两个线程都执行了加 1，但最后结果却是 1，而不是 2。这就是典型的并发安全问题。</p>
+
+<p>所以多线程编程经常需要使用锁、信号量、原子变量、线程安全队列等机制，避免多个线程同时修改共享数据造成错误。</p>
+
+<h1 id="协程">协程</h1>
+
+<p>协程可以理解为比线程更轻量的“用户态任务”。它不是由操作系统内核直接调度，而是由程序自身或语言运行时进行调度。</p>
+
+<p>线程的切换通常由操作系统决定，属于抢占式调度；协程的切换通常发生在代码主动让出执行权的时候，比如遇到 <code class="language-plaintext highlighter-rouge">await</code>、<code class="language-plaintext highlighter-rouge">yield</code>、挂起函数、异步 IO 等。</p>
+
+<p>如果说线程是“操作系统安排员工轮流使用 CPU”，那么协程更像是“员工自己安排手里的多个待办事项”：</p>
+
+<ul>
+  <li>当前事项需要等待网络返回，就先挂起。</li>
+  <li>趁等待期间去处理另一个事项。</li>
+  <li>等网络返回后，再从刚才挂起的位置继续执行。</li>
+</ul>
+
+<h2 id="协程的特点">协程的特点</h2>
+
+<ul>
+  <li>轻量：创建和切换成本通常低于线程。</li>
+  <li>用户态调度：很多情况下不需要进入操作系统内核完成切换。</li>
+  <li>适合 IO 密集型任务：比如网络请求、文件读写、数据库访问等大量等待场景。</li>
+  <li>写法接近同步代码：相比传统回调，协程能让异步逻辑更直观。</li>
+</ul>
+
+<h2 id="协程要注意的点">协程要注意的点</h2>
+
+<p>协程并不等于多核并行。多个协程可能只运行在一个线程上，它们是在等待和恢复之间切换，看起来可以同时处理很多任务，但同一时刻真正执行代码的仍然可能只有一个。</p>
+
+<p>如果任务是大量计算，例如图片压缩、视频编码、复杂算法计算，只使用单线程协程并不能让 CPU 多核一起工作。这类 CPU 密集型任务通常需要多线程、多进程或专门的并行计算方案。</p>
+
+<h1 id="任务调度">任务调度</h1>
+
+<p>大部分现代操作系统，比如 Windows、Linux，都会使用抢占式调度。CPU 会把执行时间切成很短的时间片，操作系统内核根据调度策略决定哪个线程获得下一个时间片。</p>
+
+<p>一个线程运行一小段时间后，可能会发生以下情况：</p>
+
+<ul>
+  <li>时间片用完，被操作系统暂停。</li>
+  <li>主动等待 IO，例如读文件、请求网络。</li>
+  <li>被更高优先级的线程抢占。</li>
+  <li>执行完成并退出。</li>
+</ul>
+
+<p>当操作系统暂停一个线程时，需要保存它当前的执行现场，例如寄存器、程序计数器、栈信息等；之后恢复它时，再把这些信息加载回来，让线程从之前停止的地方继续执行。这个过程叫做上下文切换。</p>
+
+<p>上下文切换让多个任务可以交替执行，但它本身也有成本。因此线程不是越多越好，线程过多会让 CPU 花大量时间在切换上，反而降低性能。</p>
+
+<h1 id="并发和并行">并发和并行</h1>
+
+<p>并发和并行经常一起出现，但含义不同。</p>
+
+<p>并发强调“同一段时间内处理多个任务”。这些任务可能是交替执行的，不一定真的在同一瞬间运行。</p>
+
+<p>并行强调“同一时刻真的有多个任务在运行”。这通常需要多核 CPU 支持。</p>
+
+<p>通俗类比：</p>
+
+<ul>
+  <li>并发：一个人同时煮饭和烧水。实际动作是切换进行的，比如先淘米，再开水壶，再回来洗菜。</li>
+  <li>并行：两个人一起干活。一个人煮饭，另一个人烧水，两个任务真的同时推进。</li>
+</ul>
+
+<p>单核 CPU 也可以并发，因为它可以在多个任务之间高速切换；多核 CPU 才能真正并行，因为多个核心可以在同一时刻执行不同任务。</p>
+
+<h1 id="总结">总结</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>对比项</th>
+      <th>进程</th>
+      <th>线程</th>
+      <th>协程</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>所属层级</td>
+      <td>操作系统层面</td>
+      <td>操作系统层面</td>
+      <td>用户态或语言运行时层面</td>
+    </tr>
+    <tr>
+      <td>核心作用</td>
+      <td>资源分配的基本单位</td>
+      <td>CPU 调度的基本单位</td>
+      <td>更轻量的任务切换方式</td>
+    </tr>
+    <tr>
+      <td>资源拥有</td>
+      <td>拥有独立内存和系统资源</td>
+      <td>共享所属进程的资源</td>
+      <td>通常共享所属线程的资源</td>
+    </tr>
+    <tr>
+      <td>切换成本</td>
+      <td>高</td>
+      <td>中</td>
+      <td>低</td>
+    </tr>
+    <tr>
+      <td>通信方式</td>
+      <td>需要进程间通信机制</td>
+      <td>可通过共享内存通信</td>
+      <td>通常通过异步结果、Channel、队列等方式协作</td>
+    </tr>
+    <tr>
+      <td>稳定性</td>
+      <td>隔离性强，一个进程崩溃不容易影响其他进程</td>
+      <td>一个线程崩溃可能影响整个进程</td>
+      <td>依赖所在进程和线程</td>
+    </tr>
+    <tr>
+      <td>适合场景</td>
+      <td>稳定隔离、独立服务、多进程架构</td>
+      <td>需要 CPU 调度的并发任务</td>
+      <td>大量 IO 等待、异步任务编排</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p>简单来说：进程管资源，线程管执行，协程管等待时的高效切换。</p>
+  <ul>
+    <li>进程是“资源容器”：操作系统给程序分配资源后，程序的一次运行就是进程。</li>
+    <li>线程是“执行工人”：线程在进程里真正执行代码，是 CPU 调度的基本单位。</li>
+    <li>协程是“轻量待办”：协程在用户态主动挂起和恢复，适合把大量等待型任务组织得更清楚。</li>
+  </ul>
+</blockquote>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+  
+
+  
+    
+
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 分类: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/blog/categories/#%E8%AE%A1%E7%AE%97%E6%9C%BA" class="page__taxonomy-item p-category" rel="tag">计算机</a>
+    
+    </span>
+  </p>
+
+
+  
+
+
+        
+
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 更新时间:</strong> <time class="dt-published" datetime="2026-03-25T00:00:00+00:00">March 25, 2026</time></p>
+
+
+      </footer>
+
+      
+
+      
+
+  <nav class="pagination" aria-label="文章翻页">
+    
+      <a href="/blog/RestFulAPI/" class="pagination--pager" title="RestFulAPI">上一页</a>
+    
+    
+      <a href="/blog/Shell/" class="pagination--pager" title="Shell语言">下一页</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    
+
+<div class="page__related">
+  
+  <h2 class="page__related-title">猜您还喜欢</h2>
+  <div class="grid__wrapper">
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/DESIGN-md%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="permalink">DESIGN.md 文档学习（AI总结整理）
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-22T00:00:00+00:00">June 22, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">DESIGN.md 学习笔记，整理设计规范文档的作用、结构、写法、约束内容和 AI 协作方式。
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/Material3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="permalink">Material3学习(AI总结整理)
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-18T00:00:00+00:00">June 18, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">Material 3 学习笔记，整理设计原则、动态颜色、组件规范、状态层和 Android Compose 实践。
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/Mermaid%E7%AC%94%E8%AE%B0/" rel="permalink">Mermaid笔记(AI生成）
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-08T00:00:00+00:00">June 8, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">Mermaid 学习笔记，整理文本绘图语法、流程图、时序图、架构图、适用场景和常见示例。
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/%E5%88%A9%E7%94%A8AI%E5%AE%8C%E6%88%90UI%E8%AE%BE%E8%AE%A1/" rel="permalink">利用 AI 完成 UI 设计
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-05T00:00:00+00:00">June 5, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">AI UI 设计工具笔记，整理 Claude Design、Open Design、Google Stitch 的能力、费用和使用场景。
+</p>
+  </article>
+</div>
+
+    
+  </div>
+</div>
+
+  
+  
+</div>
+
+      
+    </div>
+
+    
+      <div class="search-content">
+        
+<div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';" role="search">
+    <label class="sr-only" for="search">
+      输入您要搜索的关键词...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="输入您要搜索的关键词..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        
+
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>关注:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://github.com/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://www.bilibili.com/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-bilibili" aria-hidden="true"></i> Bilibili</a></li>
+        
+      
+    
+
+    
+      <li><a href="/blog/feed.xml"><i class="fas fa-fw fa-square-rss" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+
+<div class="page__footer-copyright">&copy; 2025-2026 - 2026 <a href="https://NiuSX.github.io">一只捡星星的熊</a>. 技术来自于 <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/jekyll-themes/minimal-mistakes/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+
+  <script src="/blog/assets/js/main.min.js"></script>
+
+
+
+
+
+<script src="/blog/assets/js/lunr/lunr.min.js"></script>
+<script src="/blog/assets/js/lunr/lunr-store.js"></script>
+<script src="/blog/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  
+    <script src="/blog/assets/js/mermaid-init.js"></script>
+  
+
+
+  </body>
+</html>

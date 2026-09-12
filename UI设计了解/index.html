@@ -1,0 +1,2835 @@
+
+
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.28.0 by Michael Rose
+  Copyright 2013-2026 Michael Rose - mademistakes.com | @mmistakes
+  Copyright 2024-2026 iBug - ibugone.com | @iBug
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+
+<html lang="zh-CN" class="no-js" dir="ltr">
+  <head>
+    
+<meta charset="utf-8">
+
+
+<!-- begin _includes/seo.html --><title>UI设计了解(AI生成) - 一只捡星星的熊</title>
+<meta name="description" content="UI 设计入门笔记，整理界面概念、常见场景、设计目标、可用性和基础工作流程。">
+
+
+  <meta name="author" content="一只捡星星的熊">
+  
+  <meta property="article:author" content="一只捡星星的熊">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:site_name" content="一只捡星星的熊">
+<meta property="og:title" content="UI设计了解(AI生成)">
+<meta property="og:url" content="https://niusx.github.io/blog/UI%E8%AE%BE%E8%AE%A1%E4%BA%86%E8%A7%A3/">
+
+
+  <meta property="og:description" content="UI 设计入门笔记，整理界面概念、常见场景、设计目标、可用性和基础工作流程。">
+
+
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2026-06-04T00:00:00+00:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://niusx.github.io/blog/UI%E8%AE%BE%E8%AE%A1%E4%BA%86%E8%A7%A3/">
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/blog/feed.xml" type="application/atom+xml" rel="alternate" title="一只捡星星的熊 Feed">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+  
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/blog/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    
+<nav class="skip-links" aria-label="Skip links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">转到主导航栏</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">转到内容</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">转到底部</a></li>
+  </ul>
+</nav>
+
+    
+
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav" aria-label="Primary navigation">
+        
+        <a class="site-title" href="/blog/">
+          一只捡星星的熊
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item"><a
+                  href="/blog/"
+                  
+                  
+                >首页</a></li><li class="masthead__menu-item"><a
+                  href="/blog/year-archive/"
+                  
+                  
+                >归档</a></li><li class="masthead__menu-item masthead__menu-item--has-children"><button class="masthead__menu-toggle" type="button" aria-haspopup="true">
+                  分类
+                </button>
+                <ul class="masthead__submenu">
+                  <li>
+                    <a href="/blog/categories/">全部笔记</a>
+                  </li><li>
+                        <a href="/blog/categories/#ai">AI</a>
+                      </li><li>
+                        <a href="/blog/categories/#ai-%E5%B7%A5%E5%85%B7">AI 工具</a>
+                      </li><li>
+                        <a href="/blog/categories/#agent">Agent</a>
+                      </li><li>
+                        <a href="/blog/categories/#android">Android</a>
+                      </li><li>
+                        <a href="/blog/categories/#git">Git</a>
+                      </li><li>
+                        <a href="/blog/categories/#kotlin">Kotlin</a>
+                      </li><li>
+                        <a href="/blog/categories/#nav2">Nav2</a>
+                      </li><li>
+                        <a href="/blog/categories/#ros2">ROS2</a>
+                      </li><li>
+                        <a href="/blog/categories/#sdd">SDD</a>
+                      </li><li>
+                        <a href="/blog/categories/#ui">UI</a>
+                      </li><li>
+                        <a href="/blog/categories/#ui%E8%AE%BE%E8%AE%A1">UI设计</a>
+                      </li><li>
+                        <a href="/blog/categories/#ollama">ollama</a>
+                      </li><li>
+                        <a href="/blog/categories/#python">python</a>
+                      </li><li>
+                        <a href="/blog/categories/#yaml">yaml</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%85%B6%E4%BB%96">其他</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%89%8D%E7%AB%AF">前端</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%91%BD%E4%BB%A4%E8%AF%AD%E8%A8%80">命令语言</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%AF%BC%E8%88%AA">导航</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E5%B7%A5%E5%85%B7">工具</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%9C%BA%E5%99%A8%E4%BA%BA">机器人</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7">构建工具</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%9E%B6%E6%9E%84">架构</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E6%A0%87%E8%AE%B0%E8%AF%AD%E8%A8%80">标记语言</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80">编程语言</a>
+                      </li><li>
+                        <a href="/blog/categories/#%E8%AE%A1%E7%AE%97%E6%9C%BA">计算机</a>
+                      </li></ul></li><li class="masthead__menu-item"><a
+                  href="/blog/about/"
+                  
+                  
+                >关于</a></li></ul>
+
+        
+        <form class="masthead-search" action="/blog/search/" method="get" role="search">
+          <label class="visually-hidden" for="masthead-search-input">
+            切换搜索
+          </label>
+          <input
+            id="masthead-search-input"
+            class="masthead-search__input"
+            type="search"
+            name="q"
+            placeholder="输入您要搜索的关键词..."
+          >
+          <button class="masthead-search__button" type="submit">
+            <span class="visually-hidden">切换搜索</span>
+            <i class="fas fa-search" aria-hidden="true"></i>
+          </button>
+        </form>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">切换菜单</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+
+
+<div id="main" role="main">
+  
+
+  <div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="https://niusx.github.io/blog/">
+        <img src="/blog/assets/images/wukong-photo.jpg" alt="一只捡星星的熊" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="https://niusx.github.io/blog/" itemprop="url">一只捡星星的熊</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>什么也没写</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">关注</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-location-dot" aria-hidden="true"></i> <span itemprop="name" class="p-locality">中国</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://github.com/NiuSX/" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://space.bilibili.com/347549684/" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-bilibili" aria-hidden="true"></i><span class="label">Bilibili</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="UI设计了解(AI生成)">
+    <meta itemprop="description" content="UI 设计入门笔记，整理界面概念、常见场景、设计目标、可用性和基础工作流程。">
+    <meta itemprop="datePublished" content="2026-06-04T00:00:00+00:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="https://niusx.github.io/blog/UI%E8%AE%BE%E8%AE%A1%E4%BA%86%E8%A7%A3/" itemprop="url">UI设计了解(AI生成)
+</a>
+          </h1>
+          
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-04T00:00:00+00:00">June 4, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc" aria-label="文章目录">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> 文章目录</h4></header>
+              <ul class="toc__menu"><li><a href="#1-ui-设计是什么">1. UI 设计是什么</a></li><li><a href="#2-ui-设计和网页设计的关系">2. UI 设计和网页设计的关系</a></li><li><a href="#3-网页设计和网页开发的区别">3. 网页设计和网页开发的区别</a><ul><li><a href="#一个登录页面的例子">一个登录页面的例子</a></li></ul></li><li><a href="#4-uiux交互设计视觉设计的区别">4. UI、UX、交互设计、视觉设计的区别</a><ul><li><a href="#用外卖-app-下单理解区别">用“外卖 App 下单”理解区别</a></li></ul></li><li><a href="#5-ui-设计师需要关注什么">5. UI 设计师需要关注什么</a><ul><li><a href="#信息是否清楚">信息是否清楚</a></li><li><a href="#层级是否明确">层级是否明确</a></li><li><a href="#操作是否容易">操作是否容易</a></li><li><a href="#状态是否完整">状态是否完整</a></li><li><a href="#是否方便开发实现">是否方便开发实现</a></li></ul></li><li><a href="#6-网页设计常见方法">6. 网页设计常见方法</a><ul><li><a href="#61-用户中心设计-ucd">6.1 用户中心设计 UCD</a></li><li><a href="#62-响应式设计-responsive-design">6.2 响应式设计 Responsive Design</a></li><li><a href="#63-移动优先设计-mobile-first">6.3 移动优先设计 Mobile First</a></li><li><a href="#64-极简主义设计-minimalist-design">6.4 极简主义设计 Minimalist Design</a></li><li><a href="#65-material-design">6.5 Material Design</a></li><li><a href="#66-apple-human-interface-guidelines">6.6 Apple Human Interface Guidelines</a></li><li><a href="#67-原子设计-atomic-design">6.7 原子设计 Atomic Design</a></li><li><a href="#68-内容优先设计-content-first">6.8 内容优先设计 Content-First</a></li><li><a href="#69-无障碍设计-accessibility--a11y">6.9 无障碍设计 Accessibility / A11y</a></li></ul></li><li><a href="#7-网页开发常见方法">7. 网页开发常见方法</a><ul><li><a href="#71-多页应用-mpa">7.1 多页应用 MPA</a></li><li><a href="#72-单页应用-spa">7.2 单页应用 SPA</a></li><li><a href="#73-服务端渲染-ssr">7.3 服务端渲染 SSR</a></li><li><a href="#74-静态站点生成-ssg">7.4 静态站点生成 SSG</a></li><li><a href="#75-渐进增强-progressive-enhancement">7.5 渐进增强 Progressive Enhancement</a></li><li><a href="#76-优雅降级-graceful-degradation">7.6 优雅降级 Graceful Degradation</a></li><li><a href="#77-微前端">7.7 微前端</a></li><li><a href="#78-岛屿架构-islands-architecture">7.8 岛屿架构 Islands Architecture</a></li></ul></li><li><a href="#8-设计与开发协作方法">8. 设计与开发协作方法</a><ul><li><a href="#81-设计系统">8.1 设计系统</a></li><li><a href="#82-组件库">8.2 组件库</a></li><li><a href="#83-设计令牌-design-tokens">8.3 设计令牌 Design Tokens</a></li><li><a href="#84-设计稿交付">8.4 设计稿交付</a></li><li><a href="#85-storybook">8.5 Storybook</a></li><li><a href="#86-ab-测试">8.6 A/B 测试</a></li></ul></li><li><a href="#9-字体基础">9. 字体基础</a><ul><li><a href="#91-字体选择">9.1 字体选择</a></li><li><a href="#92-字号层级">9.2 字号层级</a></li><li><a href="#93-字重">9.3 字重</a></li><li><a href="#94-行高">9.4 行高</a></li></ul></li><li><a href="#10-间距对齐和栅格">10. 间距、对齐和栅格</a><ul><li><a href="#101-间距">10.1 间距</a></li><li><a href="#102-对齐">10.2 对齐</a></li><li><a href="#103-栅格">10.3 栅格</a></li></ul></li><li><a href="#11-布局基础">11. 布局基础</a><ul><li><a href="#111-单列布局">11.1 单列布局</a></li><li><a href="#112-双列布局">11.2 双列布局</a></li><li><a href="#113-三列布局">11.3 三列布局</a></li><li><a href="#114-卡片网格布局">11.4 卡片网格布局</a></li></ul></li><li><a href="#12-组件基础">12. 组件基础</a><ul><li><a href="#121-为什么需要组件">12.1 为什么需要组件</a></li><li><a href="#122-常见组件">12.2 常见组件</a></li><li><a href="#123-组件状态">12.3 组件状态</a></li></ul></li><li><a href="#13-导航基础">13. 导航基础</a><ul><li><a href="#131-顶部导航">13.1 顶部导航</a></li><li><a href="#132-侧边导航">13.2 侧边导航</a></li><li><a href="#133-底部标签栏">13.3 底部标签栏</a></li><li><a href="#134-面包屑">13.4 面包屑</a></li></ul></li><li><a href="#14-表单基础">14. 表单基础</a><ul><li><a href="#141-表单组成">14.1 表单组成</a></li><li><a href="#142-标签">14.2 标签</a></li><li><a href="#143-占位符">14.3 占位符</a></li><li><a href="#144-错误提示">14.4 错误提示</a></li><li><a href="#145-表单设计原则">14.5 表单设计原则</a></li></ul></li><li><a href="#15-按钮基础">15. 按钮基础</a><ul><li><a href="#151-按钮层级">15.1 按钮层级</a></li><li><a href="#152-按钮尺寸">15.2 按钮尺寸</a></li><li><a href="#153-按钮文案">15.3 按钮文案</a></li></ul></li><li><a href="#16-状态和反馈">16. 状态和反馈</a><ul><li><a href="#161-常见页面状态">16.1 常见页面状态</a></li><li><a href="#162-加载状态">16.2 加载状态</a></li><li><a href="#163-空状态">16.3 空状态</a></li><li><a href="#164-错误状态">16.4 错误状态</a></li></ul></li><li><a href="#17-响应式设计基础">17. 响应式设计基础</a><ul><li><a href="#171-常见断点">17.1 常见断点</a></li><li><a href="#172-响应式变化方式">17.2 响应式变化方式</a></li><li><a href="#173-响应式设计原则">17.3 响应式设计原则</a></li></ul></li><li><a href="#18-移动端设计基础">18. 移动端设计基础</a><ul><li><a href="#181-移动端特点">18.1 移动端特点</a></li><li><a href="#182-移动端设计原则">18.2 移动端设计原则</a></li><li><a href="#183-安全区">18.3 安全区</a></li></ul></li><li><a href="#19-web-页面常见类型">19. Web 页面常见类型</a><ul><li><a href="#191-首页">19.1 首页</a></li><li><a href="#192-列表页">19.2 列表页</a></li><li><a href="#193-详情页">19.3 详情页</a></li><li><a href="#194-表单页">19.4 表单页</a></li><li><a href="#195-仪表盘">19.5 仪表盘</a></li></ul></li><li><a href="#20-常用工具">20. 常用工具</a><ul><li><a href="#201-figma">20.1 Figma</a></li><li><a href="#202-sketch">20.2 Sketch</a></li><li><a href="#203-photoshop">20.3 Photoshop</a></li><li><a href="#204-illustrator">20.4 Illustrator</a></li><li><a href="#205-国内协作工具">20.5 国内协作工具</a></li></ul></li></ul>
+            </nav>
+          </aside>
+        
+        <h2 id="1-ui-设计是什么">1. UI 设计是什么</h2>
+
+<p>UI 是 User Interface 的缩写，意思是“用户界面”。只要用户需要通过一个界面和产品发生交互，这个界面就属于 UI 的范畴。</p>
+
+<p>常见 UI 包括：</p>
+
+<ul>
+  <li>手机 App 页面</li>
+  <li>网站页面</li>
+  <li>小程序页面</li>
+  <li>后台管理系统页面</li>
+  <li>桌面软件界面</li>
+  <li>智能手表界面</li>
+  <li>车机屏幕界面</li>
+  <li>游戏菜单界面</li>
+  <li>自助取票机、点餐机、ATM 等设备界面</li>
+</ul>
+
+<p>UI 设计不是单纯“画一个漂亮页面”。它要解决的是：用户能不能看懂、能不能找到、能不能操作、操作之后能不能得到明确反馈。</p>
+
+<p>一个 UI 页面通常包含：</p>
+
+<ul>
+  <li>内容：标题、正文、图片、数据、说明</li>
+  <li>控件：按钮、输入框、开关、下拉菜单、标签</li>
+  <li>导航：顶部栏、底部栏、侧边栏、面包屑</li>
+  <li>状态：加载、成功、失败、空数据、禁用</li>
+  <li>反馈：提示、弹窗、动效、错误信息</li>
+  <li>视觉：颜色、字体、图标、间距、圆角、阴影</li>
+</ul>
+
+<p>UI 设计的核心目标：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">目标</th>
+      <th style="text-align: left">说明</th>
+      <th style="text-align: left">例子</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">清晰</td>
+      <td style="text-align: left">用户能快速理解页面内容</td>
+      <td style="text-align: left">登录页一眼能看到账号、密码、登录按钮</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">高效</td>
+      <td style="text-align: left">用户能用较少步骤完成任务</td>
+      <td style="text-align: left">搜索框明显，筛选条件易用</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">一致</td>
+      <td style="text-align: left">同类元素表现一致</td>
+      <td style="text-align: left">所有主按钮颜色、圆角、高度统一</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">美观</td>
+      <td style="text-align: left">视觉观感舒服，符合产品气质</td>
+      <td style="text-align: left">金融产品稳重，儿童产品活泼</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">可用</td>
+      <td style="text-align: left">在真实场景下能顺利使用</td>
+      <td style="text-align: left">网络慢时有加载状态，出错时有提示</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">可访问</td>
+      <td style="text-align: left">更多用户都能使用</td>
+      <td style="text-align: left">字体足够大，颜色对比足够强</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="2-ui-设计和网页设计的关系">2. UI 设计和网页设计的关系</h2>
+
+<p>网页设计是 UI 设计的一种具体场景。</p>
+
+<p>UI 设计的范围更大，网页设计只关注通过浏览器访问的网站或 Web 应用。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">类型</th>
+      <th style="text-align: left">是否属于 UI 设计</th>
+      <th style="text-align: left">说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">手机 App 首页</td>
+      <td style="text-align: left">是</td>
+      <td style="text-align: left">移动端 UI</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">企业官网</td>
+      <td style="text-align: left">是</td>
+      <td style="text-align: left">Web UI / 网页设计</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">后台管理系统</td>
+      <td style="text-align: left">是</td>
+      <td style="text-align: left">Web 应用 UI</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">微信小程序</td>
+      <td style="text-align: left">是</td>
+      <td style="text-align: left">小程序 UI</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Figma 软件界面</td>
+      <td style="text-align: left">是</td>
+      <td style="text-align: left">桌面 / Web 工具 UI</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">海报</td>
+      <td style="text-align: left">不完全是</td>
+      <td style="text-align: left">偏平面视觉，不一定有交互</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">宣传单</td>
+      <td style="text-align: left">不完全是</td>
+      <td style="text-align: left">偏平面设计，不是用户界面</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>网页设计除了 UI 本身，还要额外考虑：</p>
+
+<ul>
+  <li>浏览器兼容</li>
+  <li>屏幕宽度变化</li>
+  <li>鼠标悬停状态</li>
+  <li>键盘操作</li>
+  <li>SEO</li>
+  <li>页面加载速度</li>
+  <li>链接跳转</li>
+  <li>滚动体验</li>
+  <li>响应式布局</li>
+</ul>
+
+<p>所以学习 UI 设计时，可以先从网页设计入门，因为网页能同时接触视觉、布局、交互和开发基础。</p>
+
+<h2 id="3-网页设计和网页开发的区别">3. 网页设计和网页开发的区别</h2>
+
+<p>网页设计更关注“页面应该是什么样、用户怎么用”；网页开发更关注“如何用代码把页面做出来，并让它稳定运行”。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">维度</th>
+      <th style="text-align: left">网页设计</th>
+      <th style="text-align: left">网页开发</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">核心任务</td>
+      <td style="text-align: left">视觉呈现、用户体验、交互流程</td>
+      <td style="text-align: left">代码实现、功能逻辑、数据交互</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">主要问题</td>
+      <td style="text-align: left">好不好看、好不好用、信息是否清晰</td>
+      <td style="text-align: left">能不能运行、性能如何、数据是否正确</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">产出物</td>
+      <td style="text-align: left">设计稿、原型图、UI 规范、交互说明</td>
+      <td style="text-align: left">网页、应用、接口、组件代码</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">关注点</td>
+      <td style="text-align: left">布局、颜色、字体、图标、流程、状态</td>
+      <td style="text-align: left">HTML、CSS、JavaScript、框架、接口</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">常用工具</td>
+      <td style="text-align: left">Figma、Sketch、Photoshop、Illustrator</td>
+      <td style="text-align: left">VS Code、WebStorm、Git、Chrome DevTools</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">关键角色</td>
+      <td style="text-align: left">UI 设计师、UX 设计师、交互设计师</td>
+      <td style="text-align: left">前端工程师、后端工程师、全栈工程师</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">判断标准</td>
+      <td style="text-align: left">用户是否理解并顺利完成任务</td>
+      <td style="text-align: left">功能是否正确、稳定、快速、安全</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="一个登录页面的例子">一个登录页面的例子</h3>
+
+<p>设计师要考虑：</p>
+
+<ul>
+  <li>页面是否有品牌识别</li>
+  <li>输入框是否清楚</li>
+  <li>登录按钮是否明显</li>
+  <li>错误提示如何展示</li>
+  <li>忘记密码入口放在哪里</li>
+  <li>手机端布局是否好点</li>
+  <li>加载状态怎么呈现</li>
+</ul>
+
+<p>开发者要考虑：</p>
+
+<ul>
+  <li>输入框如何写 HTML</li>
+  <li>密码是否需要隐藏显示切换</li>
+  <li>表单如何校验</li>
+  <li>登录接口如何调用</li>
+  <li>登录失败如何处理</li>
+  <li>Token 如何保存</li>
+  <li>页面如何适配移动端</li>
+</ul>
+
+<p>设计和开发不是互相替代，而是协作关系。设计越清晰，开发越容易准确实现；开发反馈越及时，设计越容易落地。</p>
+
+<h2 id="4-uiux交互设计视觉设计的区别">4. UI、UX、交互设计、视觉设计的区别</h2>
+
+<p>这些概念经常一起出现，但关注点不同。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">名称</th>
+      <th style="text-align: left">英文</th>
+      <th style="text-align: left">关注重点</th>
+      <th style="text-align: left">举例</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">UI 设计</td>
+      <td style="text-align: left">User Interface Design</td>
+      <td style="text-align: left">界面长什么样，控件如何呈现</td>
+      <td style="text-align: left">按钮、输入框、颜色、页面布局</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">UX 设计</td>
+      <td style="text-align: left">User Experience Design</td>
+      <td style="text-align: left">用户完成任务的整体体验</td>
+      <td style="text-align: left">注册流程是否太长，购买流程是否顺畅</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">交互设计</td>
+      <td style="text-align: left">Interaction Design</td>
+      <td style="text-align: left">用户如何操作，系统如何响应</td>
+      <td style="text-align: left">点击、滑动、拖拽、弹窗、跳转</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">视觉设计</td>
+      <td style="text-align: left">Visual Design</td>
+      <td style="text-align: left">视觉风格和表现力</td>
+      <td style="text-align: left">品牌色、图形、插画、海报感</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">产品设计</td>
+      <td style="text-align: left">Product Design</td>
+      <td style="text-align: left">功能、需求、业务和用户目标</td>
+      <td style="text-align: left">是否需要收藏功能，会员权益怎么设计</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="用外卖-app-下单理解区别">用“外卖 App 下单”理解区别</h3>
+
+<p>UX 关注：</p>
+
+<ul>
+  <li>用户从打开 App 到下单完成是否顺畅</li>
+  <li>地址、店铺、商品、优惠、支付流程是否合理</li>
+  <li>用户遇到问题时能不能解决</li>
+</ul>
+
+<p>交互设计关注：</p>
+
+<ul>
+  <li>点击商品后如何加入购物车</li>
+  <li>规格弹窗如何出现</li>
+  <li>提交订单后如何显示加载</li>
+  <li>支付失败后如何返回</li>
+</ul>
+
+<p>UI 设计关注：</p>
+
+<ul>
+  <li>商品卡片长什么样</li>
+  <li>按钮颜色和位置</li>
+  <li>价格、优惠、配送信息如何排版</li>
+  <li>底部购物车栏如何展示</li>
+</ul>
+
+<p>视觉设计关注：</p>
+
+<ul>
+  <li>整体风格是否年轻、有食欲</li>
+  <li>图片比例是否统一</li>
+  <li>品牌颜色是否有识别度</li>
+</ul>
+
+<h2 id="5-ui-设计师需要关注什么">5. UI 设计师需要关注什么</h2>
+
+<p>UI 设计师不是只负责“美化”，还要考虑大量基础问题。</p>
+
+<h3 id="信息是否清楚">信息是否清楚</h3>
+
+<p>用户进入页面后，应该能快速知道：</p>
+
+<ul>
+  <li>这是什么页面</li>
+  <li>这里有什么内容</li>
+  <li>我能做什么</li>
+  <li>下一步该点哪里</li>
+</ul>
+
+<h3 id="层级是否明确">层级是否明确</h3>
+
+<p>页面中的信息有主次：</p>
+
+<ul>
+  <li>最重要的信息应该最明显</li>
+  <li>次要信息不能抢主信息</li>
+  <li>辅助说明不能干扰主要操作</li>
+</ul>
+
+<p>常见层级手段：</p>
+
+<ul>
+  <li>字号大小</li>
+  <li>字重粗细</li>
+  <li>颜色深浅</li>
+  <li>间距大小</li>
+  <li>位置先后</li>
+  <li>背景对比</li>
+</ul>
+
+<h3 id="操作是否容易">操作是否容易</h3>
+
+<p>好的 UI 应该让用户容易点击、容易输入、容易判断。</p>
+
+<p>例如：</p>
+
+<ul>
+  <li>按钮不能太小</li>
+  <li>输入框要有清楚标签</li>
+  <li>删除操作要有确认</li>
+  <li>表单错误要告诉用户怎么改</li>
+</ul>
+
+<h3 id="状态是否完整">状态是否完整</h3>
+
+<p>真实产品不会永远处于正常状态。设计时要考虑：</p>
+
+<ul>
+  <li>加载中</li>
+  <li>空数据</li>
+  <li>成功</li>
+  <li>失败</li>
+  <li>禁用</li>
+  <li>选中</li>
+  <li>悬停</li>
+  <li>聚焦</li>
+  <li>网络错误</li>
+  <li>权限不足</li>
+</ul>
+
+<h3 id="是否方便开发实现">是否方便开发实现</h3>
+
+<p>设计稿不能只在图片里好看，还要考虑实际开发：</p>
+
+<ul>
+  <li>文本变长会不会撑破</li>
+  <li>数据为空怎么办</li>
+  <li>小屏幕如何适配</li>
+  <li>组件能不能复用</li>
+  <li>样式有没有统一规则</li>
+</ul>
+
+<h2 id="6-网页设计常见方法">6. 网页设计常见方法</h2>
+
+<p>网页设计方法可以理解为“设计时采用的思路”。不同方法解决不同问题。</p>
+
+<h3 id="61-用户中心设计-ucd">6.1 用户中心设计 UCD</h3>
+
+<p>UCD 是 User-Centered Design，中文叫“用户中心设计”。</p>
+
+<p>核心理念：从用户需求出发，而不是从设计师个人喜好出发。</p>
+
+<p>基本流程：</p>
+
+<ol>
+  <li>调研用户</li>
+  <li>定义问题</li>
+  <li>梳理需求</li>
+  <li>设计原型</li>
+  <li>用户测试</li>
+  <li>迭代优化</li>
+</ol>
+
+<p>适用场景：</p>
+
+<ul>
+  <li>电商网站</li>
+  <li>社交产品</li>
+  <li>工具类产品</li>
+  <li>教育平台</li>
+  <li>几乎所有现代互联网产品</li>
+</ul>
+
+<p>例子：</p>
+
+<p>如果你设计一个课程学习网站，不能只问“页面怎么好看”，还要问：</p>
+
+<ul>
+  <li>用户是学生、上班族还是老师？</li>
+  <li>用户最常找课程、看进度，还是做题？</li>
+  <li>用户在手机上学还是电脑上学？</li>
+  <li>用户会不会中途退出？</li>
+  <li>用户如何知道自己学到了哪里？</li>
+</ul>
+
+<h3 id="62-响应式设计-responsive-design">6.2 响应式设计 Responsive Design</h3>
+
+<p>响应式设计指同一个网站可以适配手机、平板、电脑等不同屏幕。</p>
+
+<p>核心技术：</p>
+
+<ul>
+  <li>流式布局</li>
+  <li>弹性图片</li>
+  <li>CSS 媒体查询</li>
+  <li>弹性网格</li>
+  <li>相对单位</li>
+</ul>
+
+<p>设计重点：</p>
+
+<ul>
+  <li>桌面端多列布局，手机端可能变单列</li>
+  <li>导航在小屏幕上可能变成菜单按钮</li>
+  <li>图片需要按比例缩放</li>
+  <li>表格在手机端需要横向滚动或重组</li>
+  <li>字号和间距需要适配小屏幕</li>
+</ul>
+
+<p>例子：</p>
+
+<p>桌面端商品列表可以一行 4 个商品，平板一行 2 个，手机一行 1 个或 2 个。</p>
+
+<h3 id="63-移动优先设计-mobile-first">6.3 移动优先设计 Mobile First</h3>
+
+<p>移动优先指先设计手机端，再逐步扩展到平板和桌面。</p>
+
+<p>为什么要移动优先：</p>
+
+<ul>
+  <li>手机屏幕最小，限制最多</li>
+  <li>手机上用户更容易分心</li>
+  <li>移动端流量通常很高</li>
+  <li>先做好小屏，扩展到大屏更容易</li>
+</ul>
+
+<p>适用场景：</p>
+
+<ul>
+  <li>电商</li>
+  <li>外卖</li>
+  <li>社交</li>
+  <li>新闻资讯</li>
+  <li>内容平台</li>
+  <li>小程序</li>
+</ul>
+
+<p>设计原则：</p>
+
+<ul>
+  <li>优先保留核心功能</li>
+  <li>减少输入</li>
+  <li>按钮点击区域足够大</li>
+  <li>重要操作靠近拇指容易触达区域</li>
+  <li>页面层级不要过深</li>
+</ul>
+
+<h3 id="64-极简主义设计-minimalist-design">6.4 极简主义设计 Minimalist Design</h3>
+
+<p>极简主义不是“什么都没有”，而是去掉不必要的干扰，让核心内容更突出。</p>
+
+<p>特征：</p>
+
+<ul>
+  <li>大量留白</li>
+  <li>有限配色</li>
+  <li>简洁字体</li>
+  <li>清楚层级</li>
+  <li>少量装饰</li>
+  <li>强调内容本身</li>
+</ul>
+
+<p>适用场景：</p>
+
+<ul>
+  <li>品牌官网</li>
+  <li>作品集</li>
+  <li>文档站</li>
+  <li>高端产品展示</li>
+  <li>工具型产品</li>
+</ul>
+
+<p>注意：</p>
+
+<p>极简不等于信息不足。如果用户找不到功能，只是把页面做得很空，那不是极简，是缺少可用性。</p>
+
+<h3 id="65-material-design">6.5 Material Design</h3>
+
+<p>Material Design 是 Google 推出的设计系统。</p>
+
+<p>核心理念：模拟现实中的纸张、层级和运动，用视觉深度帮助用户理解界面关系。</p>
+
+<p>常见特征：</p>
+
+<ul>
+  <li>卡片</li>
+  <li>阴影</li>
+  <li>浮动按钮</li>
+  <li>明确的颜色系统</li>
+  <li>统一的组件规范</li>
+  <li>有意义的动效</li>
+</ul>
+
+<p>适用场景：</p>
+
+<ul>
+  <li>Android 应用</li>
+  <li>Google 风格产品</li>
+  <li>需要成熟组件规范的产品</li>
+</ul>
+
+<p>学习价值：</p>
+
+<p>Material Design 有完整的设计原则、组件规则和可访问性说明，非常适合新手理解“规范化 UI”。</p>
+
+<h3 id="66-apple-human-interface-guidelines">6.6 Apple Human Interface Guidelines</h3>
+
+<p>HIG 是 Apple 的人机界面指南。</p>
+
+<p>核心理念：</p>
+
+<ul>
+  <li>清晰</li>
+  <li>遵从平台习惯</li>
+  <li>内容优先</li>
+  <li>直接操作</li>
+  <li>精致反馈</li>
+</ul>
+
+<p>常见特征：</p>
+
+<ul>
+  <li>大标题</li>
+  <li>底部 Tab</li>
+  <li>边缘滑动返回</li>
+  <li>半透明和模糊效果</li>
+  <li>强调手势和自然交互</li>
+</ul>
+
+<p>适用场景：</p>
+
+<ul>
+  <li>iOS 应用</li>
+  <li>macOS 应用</li>
+  <li>想学习 Apple 产品体验的人</li>
+</ul>
+
+<h3 id="67-原子设计-atomic-design">6.7 原子设计 Atomic Design</h3>
+
+<p>原子设计把界面拆成不同层级，就像化学里的原子组成分子，分子组成更大的结构。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">层级</th>
+      <th style="text-align: left">含义</th>
+      <th style="text-align: left">例子</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">原子</td>
+      <td style="text-align: left">最小 UI 单元</td>
+      <td style="text-align: left">按钮、输入框、标签、图标</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">分子</td>
+      <td style="text-align: left">多个原子组合</td>
+      <td style="text-align: left">搜索框 + 搜索按钮</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">有机体</td>
+      <td style="text-align: left">较完整的功能区域</td>
+      <td style="text-align: left">顶部导航、商品卡片列表</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">模板</td>
+      <td style="text-align: left">页面结构</td>
+      <td style="text-align: left">商品详情页模板</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">页面</td>
+      <td style="text-align: left">填充真实内容的最终页面</td>
+      <td style="text-align: left">某个具体商品详情页</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>适用场景：</p>
+
+<ul>
+  <li>大型网站</li>
+  <li>后台管理系统</li>
+  <li>组件库</li>
+  <li>多人协作项目</li>
+</ul>
+
+<p>学习价值：</p>
+
+<p>原子设计能帮助新手理解：页面不是一张图，而是由可复用组件组合出来的系统。</p>
+
+<h3 id="68-内容优先设计-content-first">6.8 内容优先设计 Content-First</h3>
+
+<p>内容优先设计指先确定内容，再设计页面，而不是先画一个漂亮框架再硬塞内容。</p>
+
+<p>适用场景：</p>
+
+<ul>
+  <li>博客</li>
+  <li>新闻网站</li>
+  <li>文档站</li>
+  <li>在线课程</li>
+  <li>知识库</li>
+  <li>产品介绍页</li>
+</ul>
+
+<p>设计步骤：</p>
+
+<ol>
+  <li>明确页面要表达什么</li>
+  <li>列出所有内容</li>
+  <li>给内容排序</li>
+  <li>确定信息层级</li>
+  <li>再设计视觉布局</li>
+</ol>
+
+<p>例子：</p>
+
+<p>设计一篇博客文章页面时，先考虑标题、作者、日期、目录、正文、代码块、图片、上一篇下一篇，再考虑颜色、字体和背景。</p>
+
+<h3 id="69-无障碍设计-accessibility--a11y">6.9 无障碍设计 Accessibility / A11y</h3>
+
+<p>A11y 是 Accessibility 的缩写。因为 Accessibility 中间有 11 个字母，所以写作 A11y。</p>
+
+<p>核心理念：让更多人都能使用产品，包括视障、听障、行动障碍、老年用户、临时受伤用户等。</p>
+
+<p>基础要求：</p>
+
+<ul>
+  <li>文本对比度足够</li>
+  <li>字体不能太小</li>
+  <li>点击区域不能太小</li>
+  <li>表单要有标签</li>
+  <li>图片要有替代文本</li>
+  <li>键盘可以操作</li>
+  <li>不只依赖颜色表达状态</li>
+</ul>
+
+<p>例子：</p>
+
+<p>错误输入框不能只变红，还要显示“手机号格式不正确”这样的文字。</p>
+
+<h2 id="7-网页开发常见方法">7. 网页开发常见方法</h2>
+
+<p>UI 设计师不一定要成为程序员，但理解网页开发方法能帮助你更好地和开发协作。</p>
+
+<h3 id="71-多页应用-mpa">7.1 多页应用 MPA</h3>
+
+<p>MPA 是 Multi-Page Application，多页应用。</p>
+
+<p>特点：</p>
+
+<ul>
+  <li>每个页面通常对应一个 HTML 页面</li>
+  <li>页面跳转时浏览器会重新加载</li>
+  <li>结构清楚</li>
+  <li>SEO 友好</li>
+</ul>
+
+<p>适用场景：</p>
+
+<ul>
+  <li>博客</li>
+  <li>企业官网</li>
+  <li>新闻站</li>
+  <li>文档站</li>
+  <li>传统网站</li>
+</ul>
+
+<p>优点：</p>
+
+<ul>
+  <li>首屏容易优化</li>
+  <li>搜索引擎友好</li>
+  <li>页面之间相对独立</li>
+</ul>
+
+<p>缺点：</p>
+
+<ul>
+  <li>页面切换可能有刷新感</li>
+  <li>复杂交互体验不如 SPA 流畅</li>
+</ul>
+
+<h3 id="72-单页应用-spa">7.2 单页应用 SPA</h3>
+
+<p>SPA 是 Single Page Application，单页应用。</p>
+
+<p>特点：</p>
+
+<ul>
+  <li>初次加载一个主页面</li>
+  <li>后续通过 JavaScript 局部更新内容</li>
+  <li>前端控制路由</li>
+  <li>体验接近桌面软件</li>
+</ul>
+
+<p>代表技术：</p>
+
+<ul>
+  <li>React</li>
+  <li>Vue</li>
+  <li>Angular</li>
+  <li>Svelte</li>
+</ul>
+
+<p>适用场景：</p>
+
+<ul>
+  <li>后台系统</li>
+  <li>在线工具</li>
+  <li>邮箱</li>
+  <li>音乐 Web App</li>
+  <li>Figma 这类复杂 Web 应用</li>
+</ul>
+
+<p>优点：</p>
+
+<ul>
+  <li>页面切换流畅</li>
+  <li>交互能力强</li>
+  <li>适合复杂应用</li>
+</ul>
+
+<p>缺点：</p>
+
+<ul>
+  <li>首次加载可能较慢</li>
+  <li>SEO 需要额外处理</li>
+  <li>前端复杂度更高</li>
+</ul>
+
+<h3 id="73-服务端渲染-ssr">7.3 服务端渲染 SSR</h3>
+
+<p>SSR 是 Server-Side Rendering，服务端渲染。</p>
+
+<p>特点：</p>
+
+<ul>
+  <li>服务器先生成 HTML</li>
+  <li>浏览器拿到页面后再增强交互</li>
+  <li>兼顾 SEO 和动态能力</li>
+</ul>
+
+<p>代表技术：</p>
+
+<ul>
+  <li>Next.js</li>
+  <li>Nuxt</li>
+  <li>Remix</li>
+</ul>
+
+<p>适用场景：</p>
+
+<ul>
+  <li>电商</li>
+  <li>内容平台</li>
+  <li>需要 SEO 的应用</li>
+  <li>登录前公开页面较多的网站</li>
+</ul>
+
+<h3 id="74-静态站点生成-ssg">7.4 静态站点生成 SSG</h3>
+
+<p>SSG 是 Static Site Generation，静态站点生成。</p>
+
+<p>特点：</p>
+
+<ul>
+  <li>构建时生成静态 HTML</li>
+  <li>部署到 CDN</li>
+  <li>访问速度快</li>
+  <li>安全性较好</li>
+</ul>
+
+<p>代表技术：</p>
+
+<ul>
+  <li>Jekyll</li>
+  <li>Hugo</li>
+  <li>Hexo</li>
+  <li>Astro</li>
+  <li>Next.js 静态导出</li>
+</ul>
+
+<p>适用场景：</p>
+
+<ul>
+  <li>博客</li>
+  <li>文档站</li>
+  <li>作品集</li>
+  <li>产品介绍页</li>
+</ul>
+
+<p>你的这个博客项目就属于 Jekyll 这类静态站点方向。</p>
+
+<h3 id="75-渐进增强-progressive-enhancement">7.5 渐进增强 Progressive Enhancement</h3>
+
+<p>渐进增强的思路是：先保证最基础内容和功能可用，再给支持现代能力的浏览器添加更好的体验。</p>
+
+<p>例子：</p>
+
+<ul>
+  <li>HTML 内容先能正常阅读</li>
+  <li>CSS 加载后页面更美观</li>
+  <li>JavaScript 加载后增加交互</li>
+</ul>
+
+<p>适用场景：</p>
+
+<ul>
+  <li>政府网站</li>
+  <li>公共服务</li>
+  <li>银行网站</li>
+  <li>对兼容性要求高的网站</li>
+</ul>
+
+<h3 id="76-优雅降级-graceful-degradation">7.6 优雅降级 Graceful Degradation</h3>
+
+<p>优雅降级的思路是：先为现代浏览器做完整体验，再让旧浏览器获得简化体验。</p>
+
+<p>和渐进增强的区别：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">方法</th>
+      <th style="text-align: left">出发点</th>
+      <th style="text-align: left">特点</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">渐进增强</td>
+      <td style="text-align: left">从基础功能开始</td>
+      <td style="text-align: left">基础体验最稳</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">优雅降级</td>
+      <td style="text-align: left">从完整体验开始</td>
+      <td style="text-align: left">新浏览器体验更好</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>现在更推荐渐进增强，因为它更符合可访问性和稳定性原则。</p>
+
+<h3 id="77-微前端">7.7 微前端</h3>
+
+<p>微前端是把一个大型前端应用拆成多个独立子应用，再组合成一个整体。</p>
+
+<p>适用场景：</p>
+
+<ul>
+  <li>大型企业后台</li>
+  <li>多团队协作</li>
+  <li>不同模块使用不同技术栈</li>
+</ul>
+
+<p>UI 设计师需要知道：</p>
+
+<ul>
+  <li>不同团队做的页面必须遵守统一设计系统</li>
+  <li>导航、组件、颜色、字体要统一</li>
+  <li>否则产品会像多个系统拼在一起</li>
+</ul>
+
+<h3 id="78-岛屿架构-islands-architecture">7.8 岛屿架构 Islands Architecture</h3>
+
+<p>岛屿架构的思路是：页面大部分内容是静态 HTML，只有少量需要交互的区域加载 JavaScript。</p>
+
+<p>适用场景：</p>
+
+<ul>
+  <li>内容型网站</li>
+  <li>博客</li>
+  <li>文档站</li>
+  <li>营销页</li>
+</ul>
+
+<p>代表技术：</p>
+
+<ul>
+  <li>Astro</li>
+  <li>Qwik</li>
+</ul>
+
+<p>设计影响：</p>
+
+<ul>
+  <li>页面主体内容要先清晰可读</li>
+  <li>交互组件只在必要位置出现</li>
+  <li>内容优先，性能友好</li>
+</ul>
+
+<h2 id="8-设计与开发协作方法">8. 设计与开发协作方法</h2>
+
+<p>设计最终要落地成产品，所以协作非常重要。</p>
+
+<h3 id="81-设计系统">8.1 设计系统</h3>
+
+<p>设计系统是一套统一的设计语言和组件规则。</p>
+
+<p>它通常包含：</p>
+
+<ul>
+  <li>颜色规范</li>
+  <li>字体规范</li>
+  <li>间距规范</li>
+  <li>圆角规范</li>
+  <li>阴影规范</li>
+  <li>图标规范</li>
+  <li>组件规范</li>
+  <li>页面模板</li>
+  <li>交互规则</li>
+  <li>文案规范</li>
+</ul>
+
+<p>常见设计系统：</p>
+
+<ul>
+  <li>Material Design</li>
+  <li>Apple Human Interface Guidelines</li>
+  <li>Ant Design</li>
+  <li>Arco Design</li>
+  <li>Fluent Design</li>
+  <li>Carbon Design System</li>
+</ul>
+
+<p>设计系统的好处：</p>
+
+<ul>
+  <li>保证视觉统一</li>
+  <li>提高设计效率</li>
+  <li>提高开发复用</li>
+  <li>降低沟通成本</li>
+  <li>方便多人协作</li>
+</ul>
+
+<h3 id="82-组件库">8.2 组件库</h3>
+
+<p>组件库是可复用 UI 组件的集合。</p>
+
+<p>常见组件：</p>
+
+<ul>
+  <li>Button</li>
+  <li>Input</li>
+  <li>Select</li>
+  <li>Checkbox</li>
+  <li>Radio</li>
+  <li>Switch</li>
+  <li>Modal</li>
+  <li>Drawer</li>
+  <li>Tabs</li>
+  <li>Table</li>
+  <li>Pagination</li>
+  <li>Card</li>
+  <li>Tooltip</li>
+</ul>
+
+<p>设计师在 Figma 中做设计组件，开发者在代码中做开发组件。两边最好保持一致。</p>
+
+<h3 id="83-设计令牌-design-tokens">8.3 设计令牌 Design Tokens</h3>
+
+<p>Design Tokens 是把设计变量转成可以被代码使用的数据。</p>
+
+<p>常见令牌：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">类型</th>
+      <th style="text-align: left">示例</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">颜色</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">color.primary = #1677ff</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">字号</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">font.size.body = 14px</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">间距</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">space.4 = 16px</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">圆角</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">radius.md = 6px</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">阴影</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">shadow.card</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>好处：</p>
+
+<ul>
+  <li>设计和代码使用同一套变量</li>
+  <li>修改主题更方便</li>
+  <li>深色模式更容易实现</li>
+  <li>多端一致性更好</li>
+</ul>
+
+<h3 id="84-设计稿交付">8.4 设计稿交付</h3>
+
+<p>设计稿交付不是简单把图片发给开发。</p>
+
+<p>交付内容应该包括：</p>
+
+<ul>
+  <li>页面设计稿</li>
+  <li>页面状态</li>
+  <li>组件状态</li>
+  <li>间距和尺寸</li>
+  <li>字体和颜色</li>
+  <li>交互说明</li>
+  <li>跳转关系</li>
+  <li>异常情况</li>
+  <li>空状态</li>
+  <li>加载状态</li>
+  <li>响应式规则</li>
+</ul>
+
+<p>常见工具：</p>
+
+<ul>
+  <li>Figma Dev Mode</li>
+  <li>Zeplin</li>
+  <li>蓝湖</li>
+  <li>Pixso</li>
+  <li>MasterGo</li>
+</ul>
+
+<h3 id="85-storybook">8.5 Storybook</h3>
+
+<p>Storybook 是开发组件库常用工具，可以独立展示和测试组件。</p>
+
+<p>它的作用：</p>
+
+<ul>
+  <li>展示组件所有状态</li>
+  <li>方便设计师和开发查看</li>
+  <li>便于测试</li>
+  <li>形成组件文档</li>
+</ul>
+
+<p>例如一个按钮组件可以在 Storybook 中展示：</p>
+
+<ul>
+  <li>主按钮</li>
+  <li>次按钮</li>
+  <li>危险按钮</li>
+  <li>禁用状态</li>
+  <li>加载状态</li>
+  <li>大中小尺寸</li>
+</ul>
+
+<h3 id="86-ab-测试">8.6 A/B 测试</h3>
+
+<p>A/B 测试是同时上线两个或多个版本，用数据判断哪个更好。</p>
+
+<p>例子：</p>
+
+<ul>
+  <li>A 版本按钮文案是“免费试用”</li>
+  <li>B 版本按钮文案是“立即开始”</li>
+  <li>通过点击率和转化率判断哪个更有效</li>
+</ul>
+
+<p>注意：</p>
+
+<p>A/B 测试不是只看喜好，而是看数据。适合流量较大的产品。</p>
+
+<h2 id="9-字体基础">9. 字体基础</h2>
+
+<p>文字是 UI 中最重要的信息载体。</p>
+
+<h3 id="91-字体选择">9.1 字体选择</h3>
+
+<p>中文 UI 常见字体：</p>
+
+<ul>
+  <li>系统默认字体</li>
+  <li>苹方</li>
+  <li>微软雅黑</li>
+  <li>思源黑体</li>
+  <li>HarmonyOS Sans</li>
+</ul>
+
+<p>英文 UI 常见字体：</p>
+
+<ul>
+  <li>San Francisco</li>
+  <li>Roboto</li>
+  <li>Inter</li>
+  <li>Arial</li>
+  <li>Helvetica</li>
+</ul>
+
+<p>新手建议先使用系统字体，不要频繁换字体。字体选择越复杂，越容易造成风格不统一。</p>
+
+<h3 id="92-字号层级">9.2 字号层级</h3>
+
+<p>常见字号：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">字号</th>
+      <th style="text-align: left">用途</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">12px</td>
+      <td style="text-align: left">辅助说明、标签、表格辅助信息</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">14px</td>
+      <td style="text-align: left">Web 正文、后台系统常用字号</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">16px</td>
+      <td style="text-align: left">移动端正文、重要文本</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">18px</td>
+      <td style="text-align: left">小标题</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">20px</td>
+      <td style="text-align: left">模块标题</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">24px</td>
+      <td style="text-align: left">页面标题</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">32px+</td>
+      <td style="text-align: left">营销页大标题、视觉标题</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>一个普通页面不需要太多字号。新手可以先用：</p>
+
+<ul>
+  <li>24px 页面标题</li>
+  <li>18px 模块标题</li>
+  <li>16px 主要正文</li>
+  <li>14px 辅助正文</li>
+  <li>12px 弱提示</li>
+</ul>
+
+<h3 id="93-字重">9.3 字重</h3>
+
+<p>常见字重：</p>
+
+<ul>
+  <li>Regular：普通正文</li>
+  <li>Medium：强调文本</li>
+  <li>Semibold：标题、重要按钮</li>
+  <li>Bold：强标题</li>
+</ul>
+
+<p>不要整页全是粗体。粗体用多了，页面反而没有重点。</p>
+
+<h3 id="94-行高">9.4 行高</h3>
+
+<p>行高影响阅读舒适度。</p>
+
+<p>建议：</p>
+
+<ul>
+  <li>标题行高：字号的 1.2 到 1.4 倍</li>
+  <li>正文行高：字号的 1.4 到 1.7 倍</li>
+  <li>按钮单行文字：与按钮高度垂直居中</li>
+</ul>
+
+<p>例子：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">字号</th>
+      <th style="text-align: left">推荐行高</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">14px</td>
+      <td style="text-align: left">20px</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">16px</td>
+      <td style="text-align: left">24px</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">18px</td>
+      <td style="text-align: left">26px</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">20px</td>
+      <td style="text-align: left">28px</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="10-间距对齐和栅格">10. 间距、对齐和栅格</h2>
+
+<h3 id="101-间距">10.1 间距</h3>
+
+<p>间距决定页面是否清楚、是否有秩序。</p>
+
+<p>常见 8px 间距系统：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">间距</th>
+      <th style="text-align: left">使用场景</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">4px</td>
+      <td style="text-align: left">图标和文字之间、紧密元素</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">8px</td>
+      <td style="text-align: left">小元素之间</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">12px</td>
+      <td style="text-align: left">紧凑组件内部</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">16px</td>
+      <td style="text-align: left">常规内边距</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">24px</td>
+      <td style="text-align: left">模块之间</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">32px</td>
+      <td style="text-align: left">大模块之间</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">48px</td>
+      <td style="text-align: left">页面区块之间</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">64px</td>
+      <td style="text-align: left">大型页面分区</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>核心原则：</p>
+
+<ul>
+  <li>关系近的内容距离更近</li>
+  <li>关系远的内容距离更远</li>
+  <li>同类元素间距保持一致</li>
+</ul>
+
+<h3 id="102-对齐">10.2 对齐</h3>
+
+<p>对齐让页面有秩序。</p>
+
+<p>常见对齐：</p>
+
+<ul>
+  <li>左对齐：正文、表单、列表</li>
+  <li>居中对齐：空状态、结果页、少量标题</li>
+  <li>右对齐：金额、数字、表格操作</li>
+  <li>顶部对齐：卡片、列表项</li>
+</ul>
+
+<p>新手常见错误：</p>
+
+<ul>
+  <li>大段文字居中</li>
+  <li>元素左右边缘不齐</li>
+  <li>图标和文字垂直不齐</li>
+  <li>卡片内部内容起点不一致</li>
+</ul>
+
+<h3 id="103-栅格">10.3 栅格</h3>
+
+<p>栅格是页面的布局参考系统。</p>
+
+<p>Web 常见 12 栏栅格：</p>
+
+<ul>
+  <li>适合响应式</li>
+  <li>方便控制宽度</li>
+  <li>方便多列布局</li>
+  <li>多页面统一</li>
+</ul>
+
+<p>移动端常见：</p>
+
+<ul>
+  <li>左右边距 16px 或 20px</li>
+  <li>4 栏栅格</li>
+  <li>单列内容流</li>
+</ul>
+
+<h2 id="11-布局基础">11. 布局基础</h2>
+
+<p>布局是页面结构。</p>
+
+<h3 id="111-单列布局">11.1 单列布局</h3>
+
+<p>适合：</p>
+
+<ul>
+  <li>手机页面</li>
+  <li>文章页面</li>
+  <li>设置页</li>
+  <li>表单页</li>
+</ul>
+
+<p>优点：</p>
+
+<ul>
+  <li>阅读路径清楚</li>
+  <li>适配简单</li>
+  <li>用户不容易迷路</li>
+</ul>
+
+<h3 id="112-双列布局">11.2 双列布局</h3>
+
+<p>适合：</p>
+
+<ul>
+  <li>后台系统</li>
+  <li>编辑器</li>
+  <li>列表 + 详情</li>
+  <li>左导航 + 右内容</li>
+</ul>
+
+<p>例子：</p>
+
+<ul>
+  <li>左侧是文章目录，右侧是正文</li>
+  <li>左侧是消息列表，右侧是聊天内容</li>
+  <li>左侧是菜单，右侧是工作区</li>
+</ul>
+
+<h3 id="113-三列布局">11.3 三列布局</h3>
+
+<p>适合复杂工具：</p>
+
+<ul>
+  <li>左侧导航</li>
+  <li>中间内容</li>
+  <li>右侧属性面板</li>
+</ul>
+
+<p>例子：</p>
+
+<ul>
+  <li>Figma</li>
+  <li>Notion 某些页面</li>
+  <li>后台配置工具</li>
+  <li>内容编辑器</li>
+</ul>
+
+<h3 id="114-卡片网格布局">11.4 卡片网格布局</h3>
+
+<p>适合：</p>
+
+<ul>
+  <li>商品</li>
+  <li>课程</li>
+  <li>图片</li>
+  <li>模板</li>
+  <li>文章推荐</li>
+</ul>
+
+<p>注意：</p>
+
+<ul>
+  <li>卡片尺寸尽量统一</li>
+  <li>图片比例保持一致</li>
+  <li>标题过长要处理</li>
+  <li>操作按钮位置一致</li>
+</ul>
+
+<h2 id="12-组件基础">12. 组件基础</h2>
+
+<p>组件是可复用的 UI 单元。</p>
+
+<h3 id="121-为什么需要组件">12.1 为什么需要组件</h3>
+
+<p>组件的好处：</p>
+
+<ul>
+  <li>保持一致</li>
+  <li>提高设计效率</li>
+  <li>提高开发效率</li>
+  <li>降低维护成本</li>
+  <li>方便多人协作</li>
+</ul>
+
+<h3 id="122-常见组件">12.2 常见组件</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">组件</th>
+      <th style="text-align: left">作用</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Button</td>
+      <td style="text-align: left">执行动作</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Input</td>
+      <td style="text-align: left">输入文本</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Select</td>
+      <td style="text-align: left">从选项中选择</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Checkbox</td>
+      <td style="text-align: left">多选</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Radio</td>
+      <td style="text-align: left">单选</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Switch</td>
+      <td style="text-align: left">开关状态</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Tabs</td>
+      <td style="text-align: left">切换内容</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Modal</td>
+      <td style="text-align: left">弹窗</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Drawer</td>
+      <td style="text-align: left">抽屉面板</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Card</td>
+      <td style="text-align: left">内容分组</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Table</td>
+      <td style="text-align: left">展示结构化数据</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Pagination</td>
+      <td style="text-align: left">分页</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Tooltip</td>
+      <td style="text-align: left">补充提示</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Toast</td>
+      <td style="text-align: left">轻量反馈</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="123-组件状态">12.3 组件状态</h3>
+
+<p>设计组件不能只画默认状态。</p>
+
+<p>常见状态：</p>
+
+<ul>
+  <li>默认</li>
+  <li>悬停</li>
+  <li>按下</li>
+  <li>聚焦</li>
+  <li>禁用</li>
+  <li>加载</li>
+  <li>成功</li>
+  <li>错误</li>
+  <li>选中</li>
+  <li>未选中</li>
+</ul>
+
+<h2 id="13-导航基础">13. 导航基础</h2>
+
+<p>导航让用户知道自己在哪里，还能去哪里。</p>
+
+<h3 id="131-顶部导航">13.1 顶部导航</h3>
+
+<p>适合：</p>
+
+<ul>
+  <li>官网</li>
+  <li>内容站</li>
+  <li>SaaS 网站</li>
+  <li>一级栏目较少的产品</li>
+</ul>
+
+<p>特点：</p>
+
+<ul>
+  <li>位置稳定</li>
+  <li>横向展示</li>
+  <li>适合品牌和主要入口</li>
+</ul>
+
+<h3 id="132-侧边导航">13.2 侧边导航</h3>
+
+<p>适合：</p>
+
+<ul>
+  <li>后台系统</li>
+  <li>工具平台</li>
+  <li>功能多的 Web 应用</li>
+</ul>
+
+<p>特点：</p>
+
+<ul>
+  <li>可容纳更多菜单</li>
+  <li>支持分组</li>
+  <li>当前选中状态要明显</li>
+</ul>
+
+<h3 id="133-底部标签栏">13.3 底部标签栏</h3>
+
+<p>适合：</p>
+
+<ul>
+  <li>移动 App</li>
+  <li>小程序</li>
+</ul>
+
+<p>原则：</p>
+
+<ul>
+  <li>通常 3 到 5 个入口</li>
+  <li>放最高频一级功能</li>
+  <li>图标加文字更清楚</li>
+  <li>当前状态要明显</li>
+</ul>
+
+<h3 id="134-面包屑">13.4 面包屑</h3>
+
+<p>适合层级较深的 Web 页面。</p>
+
+<p>例子：</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>首页 / 商品管理 / 商品详情
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>作用：</p>
+
+<ul>
+  <li>告诉用户当前位置</li>
+  <li>帮助用户返回上级</li>
+  <li>降低复杂系统中的迷路感</li>
+</ul>
+
+<h2 id="14-表单基础">14. 表单基础</h2>
+
+<p>表单用于收集用户输入。</p>
+
+<h3 id="141-表单组成">14.1 表单组成</h3>
+
+<p>一个完整表单通常包含：</p>
+
+<ul>
+  <li>字段标签</li>
+  <li>输入框</li>
+  <li>占位提示</li>
+  <li>帮助说明</li>
+  <li>必填标记</li>
+  <li>错误提示</li>
+  <li>提交按钮</li>
+</ul>
+
+<h3 id="142-标签">14.2 标签</h3>
+
+<p>标签要清楚说明字段含义。</p>
+
+<p>推荐：</p>
+
+<ul>
+  <li>手机号</li>
+  <li>邮箱</li>
+  <li>收货地址</li>
+  <li>项目名称</li>
+</ul>
+
+<p>不推荐：</p>
+
+<ul>
+  <li>信息</li>
+  <li>内容</li>
+  <li>输入</li>
+</ul>
+
+<h3 id="143-占位符">14.3 占位符</h3>
+
+<p>占位符适合给示例，不适合代替标签。</p>
+
+<p>正确做法：</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>标签：手机号
+占位符：请输入 11 位手机号
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="144-错误提示">14.4 错误提示</h3>
+
+<p>错误提示要具体。</p>
+
+<p>不推荐：</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>输入错误
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>推荐：</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>手机号格式不正确，请输入 11 位手机号。
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="145-表单设计原则">14.5 表单设计原则</h3>
+
+<ul>
+  <li>字段顺序符合用户理解</li>
+  <li>相关字段分组</li>
+  <li>必填项清楚</li>
+  <li>错误提示靠近对应字段</li>
+  <li>减少不必要输入</li>
+  <li>长表单可以分步骤</li>
+  <li>提交后有明确反馈</li>
+</ul>
+
+<h2 id="15-按钮基础">15. 按钮基础</h2>
+
+<p>按钮代表用户可以执行的动作。</p>
+
+<h3 id="151-按钮层级">15.1 按钮层级</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">类型</th>
+      <th style="text-align: left">作用</th>
+      <th style="text-align: left">例子</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">主按钮</td>
+      <td style="text-align: left">页面最重要动作</td>
+      <td style="text-align: left">提交、保存、立即购买</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">次按钮</td>
+      <td style="text-align: left">辅助动作</td>
+      <td style="text-align: left">取消、返回、稍后再说</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">文本按钮</td>
+      <td style="text-align: left">低强调动作</td>
+      <td style="text-align: left">查看详情、编辑</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">危险按钮</td>
+      <td style="text-align: left">高风险动作</td>
+      <td style="text-align: left">删除、清空、撤销发布</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>一个页面不要有太多主按钮。主按钮越多，页面重点越弱。</p>
+
+<h3 id="152-按钮尺寸">15.2 按钮尺寸</h3>
+
+<p>常见高度：</p>
+
+<ul>
+  <li>28px：小型按钮</li>
+  <li>32px：后台小按钮</li>
+  <li>36px：桌面常规按钮</li>
+  <li>40px：通用按钮</li>
+  <li>44px 以上：移动端按钮</li>
+</ul>
+
+<p>移动端按钮实际点击区域应该足够大，即使图标只有 24px，点击区域也应该更大。</p>
+
+<h3 id="153-按钮文案">15.3 按钮文案</h3>
+
+<p>按钮文案要表达动作。</p>
+
+<p>推荐：</p>
+
+<ul>
+  <li>保存</li>
+  <li>发布</li>
+  <li>下载</li>
+  <li>创建项目</li>
+  <li>发送验证码</li>
+</ul>
+
+<p>不推荐：</p>
+
+<ul>
+  <li>确定一下</li>
+  <li>点这里</li>
+  <li>好的</li>
+</ul>
+
+<h2 id="16-状态和反馈">16. 状态和反馈</h2>
+
+<p>状态和反馈决定用户是否知道系统正在发生什么。</p>
+
+<h3 id="161-常见页面状态">16.1 常见页面状态</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">状态</th>
+      <th style="text-align: left">说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">加载中</td>
+      <td style="text-align: left">数据还没回来</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">空状态</td>
+      <td style="text-align: left">没有内容</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">错误状态</td>
+      <td style="text-align: left">请求失败或操作失败</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">成功状态</td>
+      <td style="text-align: left">操作完成</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">权限不足</td>
+      <td style="text-align: left">用户不能访问</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">网络异常</td>
+      <td style="text-align: left">网络不可用或超时</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="162-加载状态">16.2 加载状态</h3>
+
+<p>常见形式：</p>
+
+<ul>
+  <li>Spinner</li>
+  <li>骨架屏</li>
+  <li>进度条</li>
+  <li>按钮 loading</li>
+  <li>占位块</li>
+</ul>
+
+<p>使用建议：</p>
+
+<ul>
+  <li>短加载可以用 Spinner</li>
+  <li>内容列表可以用骨架屏</li>
+  <li>上传下载适合进度条</li>
+  <li>提交按钮要防止重复点击</li>
+</ul>
+
+<h3 id="163-空状态">16.3 空状态</h3>
+
+<p>空状态要告诉用户下一步。</p>
+
+<p>不推荐：</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>暂无数据
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>更好：</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>还没有项目，创建第一个项目开始管理任务。
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>并提供“创建项目”按钮。</p>
+
+<h3 id="164-错误状态">16.4 错误状态</h3>
+
+<p>错误提示要说明：</p>
+
+<ul>
+  <li>发生了什么</li>
+  <li>为什么发生</li>
+  <li>用户能怎么做</li>
+</ul>
+
+<p>例子：</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>文件上传失败，单个文件不能超过 20MB。
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>比“上传失败”更有用。</p>
+
+<h2 id="17-响应式设计基础">17. 响应式设计基础</h2>
+
+<p>响应式设计的目标是让页面在不同屏幕上都可用。</p>
+
+<h3 id="171-常见断点">17.1 常见断点</h3>
+
+<p>断点是布局发生变化的屏幕宽度。</p>
+
+<p>常见参考：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">设备</th>
+      <th style="text-align: left">宽度范围</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">手机</td>
+      <td style="text-align: left">320px - 480px</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">大手机</td>
+      <td style="text-align: left">480px - 767px</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">平板</td>
+      <td style="text-align: left">768px - 1023px</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">小桌面</td>
+      <td style="text-align: left">1024px - 1279px</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">桌面</td>
+      <td style="text-align: left">1280px - 1439px</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">大桌面</td>
+      <td style="text-align: left">1440px 以上</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>具体断点要根据产品内容和目标设备决定，不是固定死的。</p>
+
+<h3 id="172-响应式变化方式">17.2 响应式变化方式</h3>
+
+<p>常见变化：</p>
+
+<ul>
+  <li>多列变单列</li>
+  <li>横向导航变菜单</li>
+  <li>卡片数量变化</li>
+  <li>图片比例调整</li>
+  <li>表格横向滚动</li>
+  <li>次要内容折叠</li>
+  <li>边距变小</li>
+</ul>
+
+<h3 id="173-响应式设计原则">17.3 响应式设计原则</h3>
+
+<ul>
+  <li>内容优先，不是简单缩放</li>
+  <li>保证主要操作可见</li>
+  <li>避免文字过小</li>
+  <li>避免按钮太小</li>
+  <li>避免横向溢出</li>
+  <li>图片保持比例</li>
+</ul>
+
+<h2 id="18-移动端设计基础">18. 移动端设计基础</h2>
+
+<p>移动端和桌面端最大的区别是：屏幕小、手指操作、场景更碎片。</p>
+
+<h3 id="181-移动端特点">18.1 移动端特点</h3>
+
+<ul>
+  <li>屏幕空间有限</li>
+  <li>用户注意力更分散</li>
+  <li>输入成本更高</li>
+  <li>网络可能不稳定</li>
+  <li>手指点击不如鼠标精准</li>
+  <li>常常单手操作</li>
+</ul>
+
+<h3 id="182-移动端设计原则">18.2 移动端设计原则</h3>
+
+<ul>
+  <li>核心内容优先</li>
+  <li>减少输入</li>
+  <li>点击区域足够大</li>
+  <li>重要操作靠近底部</li>
+  <li>页面层级不要太深</li>
+  <li>反馈及时</li>
+  <li>加载和错误状态清楚</li>
+</ul>
+
+<h3 id="183-安全区">18.3 安全区</h3>
+
+<p>现代手机有刘海、圆角、底部手势条，需要考虑安全区。</p>
+
+<p>常见影响：</p>
+
+<ul>
+  <li>顶部内容不能被刘海遮挡</li>
+  <li>底部按钮不能贴住手势条</li>
+  <li>弹窗和底部操作栏需要留出安全距离</li>
+</ul>
+
+<h2 id="19-web-页面常见类型">19. Web 页面常见类型</h2>
+
+<h3 id="191-首页">19.1 首页</h3>
+
+<p>首页负责建立第一印象和主要入口。</p>
+
+<p>常见内容：</p>
+
+<ul>
+  <li>品牌或产品名称</li>
+  <li>核心价值</li>
+  <li>主要行动按钮</li>
+  <li>功能入口</li>
+  <li>推荐内容</li>
+  <li>导航</li>
+</ul>
+
+<h3 id="192-列表页">19.2 列表页</h3>
+
+<p>列表页用于展示一组同类内容。</p>
+
+<p>常见内容：</p>
+
+<ul>
+  <li>搜索</li>
+  <li>筛选</li>
+  <li>排序</li>
+  <li>列表项</li>
+  <li>分页</li>
+  <li>批量操作</li>
+</ul>
+
+<h3 id="193-详情页">19.3 详情页</h3>
+
+<p>详情页用于展示单个对象的完整信息。</p>
+
+<p>例子：</p>
+
+<ul>
+  <li>商品详情</li>
+  <li>文章详情</li>
+  <li>订单详情</li>
+  <li>用户详情</li>
+</ul>
+
+<p>设计重点：</p>
+
+<ul>
+  <li>关键信息靠前</li>
+  <li>操作按钮明显</li>
+  <li>内容分组清楚</li>
+  <li>次要信息不要干扰主任务</li>
+</ul>
+
+<h3 id="194-表单页">19.4 表单页</h3>
+
+<p>用于创建或编辑信息。</p>
+
+<p>设计重点：</p>
+
+<ul>
+  <li>字段清楚</li>
+  <li>顺序合理</li>
+  <li>错误提示明确</li>
+  <li>提交按钮明显</li>
+  <li>长表单分组或分步</li>
+</ul>
+
+<h3 id="195-仪表盘">19.5 仪表盘</h3>
+
+<p>仪表盘用于展示关键数据。</p>
+
+<p>常见内容：</p>
+
+<ul>
+  <li>核心指标卡</li>
+  <li>趋势图</li>
+  <li>排行榜</li>
+  <li>最近动态</li>
+  <li>快捷操作</li>
+</ul>
+
+<p>设计重点：</p>
+
+<ul>
+  <li>数据层级清楚</li>
+  <li>不要过度装饰</li>
+  <li>图表要可读</li>
+  <li>单位和时间范围要明确</li>
+</ul>
+
+<h2 id="20-常用工具">20. 常用工具</h2>
+
+<h3 id="201-figma">20.1 Figma</h3>
+
+<p>Figma 是目前非常主流的 UI 设计工具。</p>
+
+<p>需要学习：</p>
+
+<ul>
+  <li>Frame</li>
+  <li>Auto Layout</li>
+  <li>Components</li>
+  <li>Variants</li>
+  <li>Styles</li>
+  <li>Constraints</li>
+  <li>Prototype</li>
+  <li>Dev Mode</li>
+</ul>
+
+<h3 id="202-sketch">20.2 Sketch</h3>
+
+<p>Mac 上传统 UI 设计工具，仍有团队使用。</p>
+
+<h3 id="203-photoshop">20.3 Photoshop</h3>
+
+<p>主要用于图片处理，不是现代 UI 设计的首选界面设计工具。</p>
+
+<p>适合：</p>
+
+<ul>
+  <li>图片修图</li>
+  <li>合成图</li>
+  <li>运营视觉</li>
+  <li>位图处理</li>
+</ul>
+
+<h3 id="204-illustrator">20.4 Illustrator</h3>
+
+<p>适合矢量图形。</p>
+
+<p>适合：</p>
+
+<ul>
+  <li>图标</li>
+  <li>插画</li>
+  <li>Logo</li>
+  <li>矢量素材</li>
+</ul>
+
+<h3 id="205-国内协作工具">20.5 国内协作工具</h3>
+
+<p>常见：</p>
+
+<ul>
+  <li>即时设计</li>
+  <li>MasterGo</li>
+  <li>Pixso</li>
+  <li>蓝湖</li>
+</ul>
+
+<p>这些工具适合中文团队协作和设计交付。</p>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+  
+
+  
+    
+
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 分类: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/blog/categories/#ui%E8%AE%BE%E8%AE%A1" class="page__taxonomy-item p-category" rel="tag">UI设计</a>
+    
+    </span>
+  </p>
+
+
+  
+
+
+        
+
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 更新时间:</strong> <time class="dt-published" datetime="2026-06-04T00:00:00+00:00">June 4, 2026</time></p>
+
+
+      </footer>
+
+      
+
+      
+
+  <nav class="pagination" aria-label="文章翻页">
+    
+      <a href="/blog/UI%E8%AE%BE%E8%AE%A1%E6%9C%AF%E8%AF%AD%E6%80%BB%E7%BB%93/" class="pagination--pager" title="UI设计术语总结(AI生成)">上一页</a>
+    
+    
+      <a href="/blog/Figma%E5%AD%A6%E4%B9%A0/" class="pagination--pager" title="Figma简单学习(AI生成)">下一页</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    
+
+<div class="page__related">
+  
+  <h2 class="page__related-title">猜您还喜欢</h2>
+  <div class="grid__wrapper">
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/DESIGN-md%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="permalink">DESIGN.md 文档学习（AI总结整理）
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-22T00:00:00+00:00">June 22, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">DESIGN.md 学习笔记，整理设计规范文档的作用、结构、写法、约束内容和 AI 协作方式。
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/Material3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="permalink">Material3学习(AI总结整理)
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-18T00:00:00+00:00">June 18, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">Material 3 学习笔记，整理设计原则、动态颜色、组件规范、状态层和 Android Compose 实践。
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/Mermaid%E7%AC%94%E8%AE%B0/" rel="permalink">Mermaid笔记(AI生成）
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-08T00:00:00+00:00">June 8, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">Mermaid 学习笔记，整理文本绘图语法、流程图、时序图、架构图、适用场景和常见示例。
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+      
+        <a class="u-url" href="/blog/%E5%88%A9%E7%94%A8AI%E5%AE%8C%E6%88%90UI%E8%AE%BE%E8%AE%A1/" rel="permalink">利用 AI 完成 UI 设计
+</a>
+      
+    </h2>
+    
+
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2026-06-05T00:00:00+00:00">June 5, 2026</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt p-summary" itemprop="description">AI UI 设计工具笔记，整理 Claude Design、Open Design、Google Stitch 的能力、费用和使用场景。
+</p>
+  </article>
+</div>
+
+    
+  </div>
+</div>
+
+  
+  
+</div>
+
+      
+    </div>
+
+    
+      <div class="search-content">
+        
+<div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';" role="search">
+    <label class="sr-only" for="search">
+      输入您要搜索的关键词...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="输入您要搜索的关键词..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        
+
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>关注:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://github.com/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://www.bilibili.com/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-bilibili" aria-hidden="true"></i> Bilibili</a></li>
+        
+      
+    
+
+    
+      <li><a href="/blog/feed.xml"><i class="fas fa-fw fa-square-rss" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+
+<div class="page__footer-copyright">&copy; 2025-2026 - 2026 <a href="https://NiuSX.github.io">一只捡星星的熊</a>. 技术来自于 <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/jekyll-themes/minimal-mistakes/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+
+  <script src="/blog/assets/js/main.min.js"></script>
+
+
+
+
+
+<script src="/blog/assets/js/lunr/lunr.min.js"></script>
+<script src="/blog/assets/js/lunr/lunr-store.js"></script>
+<script src="/blog/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  
+    <script src="/blog/assets/js/mermaid-init.js"></script>
+  
+
+
+  </body>
+</html>
